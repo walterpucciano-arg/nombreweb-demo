@@ -72,6 +72,14 @@ input,select,textarea{width:100%;padding:13px;border-radius:16px;border:1px soli
 .cameraSlotActive{border-color:rgba(255,45,143,.45)!important;box-shadow:0 0 0 1px rgba(255,45,143,.18),0 18px 50px rgba(255,45,143,.10)}
 .webcamStatus{position:absolute;top:12px;left:12px;border-radius:999px;padding:6px 10px;background:#ef4444;color:white;font-size:11px;font-weight:900;z-index:3}
 
+
+.messagesPageHeader{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px}.messagesPageHeader h2{margin:0}.messagesPageHeader p{margin:4px 0 0;color:rgba(255,255,255,.58)}
+.messagesPage{display:grid;grid-template-columns:330px 1fr;min-height:640px;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:rgba(255,255,255,.045);box-shadow:0 20px 70px rgba(0,0,0,.25)}
+.messagesList{background:#11131b;border-right:1px solid var(--line);overflow:auto}.messagesChat{min-width:0;display:flex;flex-direction:column;background:#0f1119}.messagesChatTop{height:72px;padding:0 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.messagesChatTop b{display:block;font-size:18px}.messagesChatTop small{display:block;color:rgba(255,255,255,.55);margin-top:3px}.messagesChatTop button:disabled,.messagesComposer button:disabled{opacity:.45;cursor:not-allowed}
+.messagesPageBox{flex:1;overflow:auto;padding:18px;background:#ece9df;display:flex;flex-direction:column;gap:10px}.messagesComposer{padding:12px;background:#f7f5ef;border-top:1px solid rgba(0,0,0,.08);display:flex;gap:8px}.messagesComposer input{flex:1;border:1px solid #ccc;border-radius:12px;padding:12px;color:#111;background:white}.messagesComposer button{border-radius:12px;padding:0 14px}.messagesEmpty{padding:18px;color:rgba(255,255,255,.58);font-size:14px;line-height:1.4}.messagesListItem{width:100%;display:flex;gap:11px;align-items:center;text-align:left;padding:13px;border:0;border-bottom:1px solid rgba(255,255,255,.06);background:transparent;color:white;cursor:pointer}.messagesListItem:hover,.messagesListItem.active{background:rgba(217,46,168,.18)}.messagesAvatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--violet));display:grid;place-items:center;overflow:hidden;font-weight:800;flex:0 0 auto}.messagesAvatar img{width:100%;height:100%;object-fit:cover}.messagesListText{min-width:0;flex:1}.messagesListText b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.messagesListText small{display:block;color:rgba(255,255,255,.58);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}.messagesDate{font-size:11px;color:rgba(255,255,255,.45)}
+.messagesMsg{max-width:72%;padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.35;color:#222;background:white;align-self:flex-start}.messagesMsg.me{align-self:flex-end;background:#d92ea8;color:white}.messagesMsg img{max-width:260px;max-height:260px;border-radius:14px;display:block}
+@media(max-width:860px){.messagesPage{grid-template-columns:1fr;min-height:calc(100vh - 180px)}.messagesList{max-height:250px;border-right:0;border-bottom:1px solid var(--line)}.messagesMsg{max-width:86%}}
+
 </style>
 </head>
 <body>
@@ -86,11 +94,11 @@ input,select,textarea{width:100%;padding:13px;border-radius:16px;border:1px soli
 </div>
 <div class="app">
   <aside class="left"><div class="brand"><div class="mark" style="width:48px;height:48px;border-radius:17px">◆</div>Velvet</div><div class="userBox"><div class="avatar" id="sideAvatar">V</div><div><b id="sideAlias">Usuario</b><p style="margin:0;font-size:13px">Online</p></div></div>
-    <div class="nav"><button class="active" onclick="showScreen('dashboard',this)">📊 Inicio</button><button onclick="showScreen('chat',this)">💬 Chat general</button><button onclick="showScreen('search',this)">🔎 Buscar</button><button onclick="showScreen('favorites',this)">❤️ Favoritos</button><button onclick="showScreen('matches',this)">💕 Matches</button><button onclick="showScreen('stories',this)">⭕ Stories</button><button onclick="showScreen('publicProfile',this)">🪪 Vista pública</button><button onclick="showScreen('profile',this)">👤 Perfil</button><button onclick="showScreen('feed',this)">🔥 Feed</button><button onclick="showScreen('videoCall',this)">📹 Cámaras</button><button onclick="showScreen('premium',this)">⭐ Premium</button><button onclick="showScreen('verify',this)">✅ Verificación</button><button onclick="showScreen('legal',this)">🔐 Privacidad</button><button onclick="showScreen('admin',this)">⚙️ Admin</button><button onclick="showScreen('moderation',this)">🛡️ Moderación</button></div>
+    <div class="nav"><button class="active" onclick="showScreen('chat',this)">💬 Chat general</button><button onclick="showScreen('messages',this)">✉️ Mensajes</button><button onclick="showScreen('search',this)">🔎 Buscar</button><button onclick="showScreen('favorites',this)">❤️ Favoritos</button><button onclick="showScreen('stories',this)">⭕ Stories</button><button onclick="showScreen('publicProfile',this)">🪪 Vista pública</button><button onclick="showScreen('profile',this)">👤 Perfil</button><button onclick="showScreen('premium',this)">⭐ Premium</button><button onclick="showScreen('verify',this)">✅ Verificación</button><button onclick="showScreen('legal',this)">🔐 Privacidad</button><button onclick="showScreen('admin',this)">⚙️ Admin</button><button onclick="showScreen('moderation',this)">🛡️ Moderación</button></div>
     <div class="sectionTitle">Privados</div><div class="chatList" id="conversationList"><div class="chatItem">Sin privados todavía</div></div><div class="result ok">Gratis: <span id="startedChats">0</span>/5 privados</div><button class="danger" onclick="logoutUser()">Cerrar sesión</button>
   </aside>
   <main class="main">
-    <div id="dashboardScreen" class="screen show"><div class="wrap"><div class="onboardingCard"><h2>Bienvenido a Velvet Beta 5</h2><p>Antes de probar con usuarios reales, completá estos pasos para que la experiencia se vea profesional.</p><div class="onboardingSteps"><div class="step"><b>1. Perfil</b><span>Foto, bio y filtros completos.</span></div><div class="step"><b>2. Chat</b><span>Probá sala general y privados.</span></div><div class="step"><b>3. Seguridad</b><span>Revisá privacidad y reglas.</span></div><div class="step"><b>4. Moderación</b><span>Probá reportes, premium y verificación.</span></div></div></div>
+    <div id="dashboardScreen" class="screen"><div class="wrap"><div class="onboardingCard"><h2>Bienvenido a Velvet Beta 5</h2><p>Antes de probar con usuarios reales, completá estos pasos para que la experiencia se vea profesional.</p><div class="onboardingSteps"><div class="step"><b>1. Perfil</b><span>Foto, bio y filtros completos.</span></div><div class="step"><b>2. Chat</b><span>Probá sala general y privados.</span></div><div class="step"><b>3. Seguridad</b><span>Revisá privacidad y reglas.</span></div><div class="step"><b>4. Moderación</b><span>Probá reportes, premium y verificación.</span></div></div></div>
 <div class="beta4Hero">
   <div class="heroCard"><h2>Velvet Beta 4</h2><p>Base estable + experiencia social avanzada. Probá chat, perfiles, matches, stories, premium y cámara base.</p><div class="toolRow"><button class="primary" onclick="showScreen('search')">Explorar perfiles</button><button class="gold" onclick="showScreen('videoCall')">Probar cámaras</button></div></div>
   <div class="livePanel"><h3>Estado del sistema</h3><div id="systemHealth" class="result ok">Sistema operativo.</div><p>Chat estable, storage activo, perfiles disponibles.</p></div>
@@ -102,7 +110,8 @@ input,select,textarea{width:100%;padding:13px;border-radius:16px;border:1px soli
   <button onclick="showScreen('legal')">🔐 Seguridad</button>
 </div>
 <div class="card" style="margin-top:16px"><h3>Recomendados</h3><div id="recommendedList"></div></div></div></div>
-    <div id="chatScreen" class="screen"><div class="top"><div><h2 id="chatTitle" style="margin:0">Sala general</h2><p id="chatSub" style="margin:4px 0 0;color:rgba(255,255,255,.55)">Chat estable</p></div><div class="toolRow"><button class="primary" onclick="startCamera()">📹 Activar cámara</button><button onclick="stopCamera()">Apagar</button></div></div><div class="cams"><div class="cam" id="localCamBox"><div class="slot">📹 Cámara apagada</div></div><div class="cam"><div class="slot">👀 Video remoto futuro</div></div><div class="cam"><div class="slot">📹 Espacio disponible</div></div></div><div class="chatArea" id="chatbox"><div class="msg">Cargando sala...</div></div><div class="inputBar"><input id="messageInput" placeholder="Escribí un mensaje..." onkeydown="if(event.key==='Enter')sendMessage()"><button class="primary send" onclick="sendMessage()">Enviar</button></div></div>
+    <div id="chatScreen" class="screen show"><div class="top"><div><h2 id="chatTitle" style="margin:0">Sala general</h2><p id="chatSub" style="margin:4px 0 0;color:rgba(255,255,255,.55)">Chat estable</p></div><div class="toolRow"><button class="primary" onclick="startCamera()">📹 Activar cámara</button><button onclick="stopCamera()">Apagar</button></div></div><div class="cams"><div class="cam" id="localCamBox"><div class="slot">📹 Cámara apagada</div></div><div class="cam"><div class="slot">👀 Video remoto futuro</div></div><div class="cam"><div class="slot">📹 Espacio disponible</div></div></div><div class="chatArea" id="chatbox"><div class="msg">Cargando sala...</div></div><div class="inputBar"><input id="messageInput" placeholder="Escribí un mensaje..." onkeydown="if(event.key==='Enter')sendMessage()"><button class="primary send" onclick="sendMessage()">Enviar</button></div></div>
+    <div id="messagesScreen" class="screen"><div class="wrap"><div class="messagesPageHeader"><div><h2>Mensajes</h2><p>Todos tus chats privados en un solo lugar.</p></div><button class="primary" onclick="loadMessagesPage()">Actualizar</button></div><div class="messagesPage"><aside class="messagesList" id="messagesPageList"><div class="messagesEmpty">Cargando conversaciones...</div></aside><section class="messagesChat"><div class="messagesChatTop"><div><b id="messagesPageTitle">Elegí una conversación</b><small id="messagesPageSub">Seleccioná un chat para seguir hablando</small></div><button id="messagesPageCamBtn" onclick="requestMessagesPageWebcam()" disabled>📹 Webcam</button></div><div id="messagesPageBox" class="messagesPageBox"><div class="messagesEmpty">Todavía no seleccionaste ningún chat.</div></div><div class="messagesComposer"><button id="messagesPhotoBtn" onclick="document.getElementById('messagesPhotoInput').click()" disabled>📎 Foto</button><input id="messagesPhotoInput" type="file" accept="image/*" style="display:none" onchange="sendMessagesPagePhoto(event)"><input id="messagesPageInput" placeholder="Escribí un mensaje privado..." onkeydown="if(event.key==='Enter')sendMessagesPageMessage()" disabled><button class="primary" id="messagesPageSend" onclick="sendMessagesPageMessage()" disabled>Enviar</button></div></section></div></div></div>
     <div id="searchScreen" class="screen"><div class="wrap"><h2>Buscar perfiles</h2><div class="filters"><input id="searchText" placeholder="Alias o ciudad" oninput="renderSearchResults()"><select id="filterOnline" onchange="renderSearchResults()"><option value="">Online y offline</option><option value="online">Solo online</option><option value="offline">Solo offline</option></select><select id="filterCamera" onchange="renderSearchResults()"><option value="">Cámara</option><option value="cam">Solo con cámara</option></select><select id="filterProfileType" onchange="renderSearchResults()"><option value="">Tipo</option><option>Hombre</option><option>Mujer</option><option>Pareja</option><option>Mujer trans</option><option>Hombre trans</option><option>No binario</option></select><select id="filterSituation" onchange="renderSearchResults()"><option value="">Situación</option><option>Soltero/a</option><option>En pareja</option><option>Casado/a</option><option>Relación abierta</option><option>Separado/a</option><option>De trampa</option><option>Curioso/a</option></select><select id="filterOrientation" onchange="renderSearchResults()"><option value="">Orientación</option><option>Heterosexual</option><option>Bisexual</option><option>Gay</option><option>Lesbiana</option><option>Pansexual</option><option>Curioso/a</option></select><select id="filterLookingFor" onchange="renderSearchResults()"><option value="">Buscando</option><option>Hombre</option><option>Mujer</option><option>Pareja</option><option>Mujer trans</option><option>Hombre trans</option><option>No binario</option><option>Cualquiera</option></select></div><div id="searchCount" class="result ok">Cargando...</div><div class="grid" id="searchResults" style="margin-top:14px"></div></div></div>
     <div id="favoritesScreen" class="screen"><div class="wrap"><h2>Favoritos</h2><div class="grid" id="favoriteResults"></div></div></div>
 
@@ -183,7 +192,7 @@ function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&l
 function setResult(id,msg,ok=false){const el=document.getElementById(id);if(!el)return;el.className='result '+(ok?'ok':'err');el.textContent=msg}
 function showLogin(){loginBox.classList.remove('hidden');registerBox.classList.add('hidden');loginTab.classList.add('active');regTab.classList.remove('active')}
 function showRegister(){registerBox.classList.remove('hidden');loginBox.classList.add('hidden');regTab.classList.add('active');loginTab.classList.remove('active')}
-function showScreen(name,btn){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('show'));document.getElementById(name+'Screen').classList.add('show');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(name==='chat' && currentChatMode!=='private')openGeneralRoom();if(name==='search')loadAllProfiles();if(name==='favorites')renderFavorites();if(name==='feed')loadFeed();if(name==='moderation')loadModeration();if(name==='matches')renderMatches();if(name==='stories'){loadStories();loadPolishedStories();}if(name==='feed'){loadPolishedStories();}if(name==='publicProfile')renderPublicProfile();if(name==='admin')loadAdminPanel();if(name==='videoCall')appendSignalLog('Módulo de cámaras abierto.')}
+function showScreen(name,btn){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('show'));const screen=document.getElementById(name+'Screen');if(screen)screen.classList.add('show');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(name==='chat' && currentChatMode!=='private')openGeneralRoom();if(name==='messages')loadMessagesPage();if(name==='search')loadAllProfiles();if(name==='favorites')renderFavorites();if(name==='feed')loadFeed();if(name==='moderation')loadModeration();if(name==='matches')renderMatches();if(name==='stories'){loadStories();loadPolishedStories();}if(name==='feed'){loadPolishedStories();}if(name==='publicProfile')renderPublicProfile();if(name==='admin')loadAdminPanel();}
 async function testConnection(){const res=await client.from('profiles').select('id').limit(1);setResult('loginResult',res.error?'Error: '+res.error.message:'Conexión OK ✅',!res.error)}
 async function registerUser(){const email=regEmail.value.trim(),password=regPassword.value.trim(),alias=regAlias.value.trim(),age=parseInt(regAge.value,10),city=regCity.value.trim(),profile_type=regProfileType.value,situation=regSituation.value,orientation=regOrientation.value,looking_for=regLookingFor.value,bio=regBio.value.trim();if(!email||!password||!alias||!age||!city||!profile_type||!situation||!orientation||!looking_for){setResult('regResult','Completá todos los campos.');return}if(age<18){setResult('regResult','Debés ser mayor de 18 años.');return}if(password.length<8){setResult('regResult','Contraseña mínimo 8 caracteres.');return}if(!regTerms.checked){setResult('regResult','Aceptá las reglas.');return}setResult('regResult','Creando...',true);const sign=await client.auth.signUp({email,password,options:{data:{alias}}});if(sign.error){setResult('regResult','Auth: '+sign.error.message);return}const userId=sign.data.user?.id;if(!userId){setResult('regResult','Cuenta creada. Revisá email.',true);return}const profile=await client.from('profiles').upsert({id:userId,email,alias,age,city,profile_type,situation,orientation,looking_for,bio,online:true,webcam_enabled:false,last_seen:new Date().toISOString(),premium:false,verified:false});if(profile.error){setResult('regResult','Perfil: '+profile.error.message);return}await client.from('chat_limits').upsert({user_id:userId,private_chats_started:0});setResult('regResult','Cuenta creada ✅ Iniciá sesión.',true);showLogin()}
 async function loginUser(){const email=loginEmail.value.trim(),password=loginPassword.value.trim();if(!email||!password){setResult('loginResult','Completá email y contraseña.');return}setResult('loginResult','Ingresando...',true);const res=await client.auth.signInWithPassword({email,password});if(res.error){setResult('loginResult','Login: '+res.error.message);return}currentUser=res.data.user;document.body.classList.add('logged');await bootstrap()}
@@ -973,6 +982,108 @@ updateSession();
 })();
 </script>
 <!-- HOTFIX_CHAT_PRIVADO_FOTOS_WEBCAM_END -->
+
+
+<script>
+(function(){
+  if(window.__VELVET_MESSAGES_SECTION__) return;
+  window.__VELVET_MESSAGES_SECTION__=true;
+  let messagesPageConversationId=null;
+  let messagesPageOtherId=null;
+  let messagesPageOtherName='';
+  function ehtml(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  function isPrivateImg(body){body=String(body||'');return body.startsWith('__image__:')||body.startsWith('data:image/');}
+  function privateImgSrc(body){body=String(body||'');return body.startsWith('__image__:')?body.slice(10):body;}
+  function msgHtml(m){const mine=currentUser&&m.sender_id===currentUser.id;const body=m.body||'';if(isPrivateImg(body))return `<div class="messagesMsg ${mine?'me':''}"><img src="${privateImgSrc(body)}" alt="Foto privada"></div>`;return `<div class="messagesMsg ${mine?'me':''}">${ehtml(body)}</div>`;}
+  window.loadMessagesPage=async function(){
+    const list=document.getElementById('messagesPageList');
+    if(!list||!currentUser||!client)return;
+    list.innerHTML='<div class="messagesEmpty">Cargando conversaciones...</div>';
+    const convRes=await client.from('private_conversations').select('id,user_a,user_b,created_at').or(`user_a.eq.${currentUser.id},user_b.eq.${currentUser.id}`).order('created_at',{ascending:false}).limit(80);
+    if(convRes.error){list.innerHTML='<div class="messagesEmpty">Error cargando mensajes: '+ehtml(convRes.error.message)+'</div>';return;}
+    const convs=convRes.data||[];
+    if(!convs.length){list.innerHTML='<div class="messagesEmpty">Todavía no tenés chats privados. Entrá a Buscar y tocá “Privado” en un usuario para empezar.</div>';return;}
+    let html='';
+    for(const c of convs){
+      const other=c.user_a===currentUser.id?c.user_b:c.user_a;
+      const [profRes,msgRes]=await Promise.all([
+        client.from('profiles').select('alias,avatar_url,webcam_enabled').eq('id',other).maybeSingle(),
+        client.from('private_messages').select('body,created_at').eq('conversation_id',c.id).order('created_at',{ascending:false}).limit(1)
+      ]);
+      const p=profRes.data||{};
+      const last=(msgRes.data&&msgRes.data[0])?msgRes.data[0]:null;
+      const preview=last?(isPrivateImg(last.body)?'📷 Foto':last.body):'Sin mensajes todavía';
+      const date=last?new Date(last.created_at).toLocaleDateString():'';
+      const avatar=p.avatar_url?`<img src="${p.avatar_url}">`:ehtml((p.alias||'U').slice(0,1).toUpperCase());
+      const active=messagesPageConversationId===c.id?' active':'';
+      html+=`<button class="messagesListItem${active}" data-cid="${ehtml(c.id)}" data-other="${ehtml(other)}" data-name="${ehtml(p.alias||'Usuario')}" data-avatar="${ehtml(p.avatar_url||'')}" data-webcam="${p.webcam_enabled?'1':'0'}"><div class="messagesAvatar">${avatar}</div><div class="messagesListText"><b>${ehtml(p.alias||'Usuario')} ${p.webcam_enabled?'📹':''}</b><small>${ehtml(preview)}</small></div><div class="messagesDate">${date}</div></button>`;
+    }
+    list.innerHTML=html;
+    list.querySelectorAll('.messagesListItem').forEach(btn=>{
+      btn.onclick=()=>openMessagesPageConversation(btn.dataset.cid,btn.dataset.other,btn.dataset.name,btn.dataset.avatar,btn.dataset.webcam==='1');
+    });
+  };
+  window.openMessagesPageConversation=async function(id,otherId,name,avatarUrl='',webcam=false){
+    messagesPageConversationId=id;messagesPageOtherId=otherId;messagesPageOtherName=name||'Usuario';
+    currentChatMode='private';currentConversationId=id;
+    const title=document.getElementById('messagesPageTitle'), sub=document.getElementById('messagesPageSub'), box=document.getElementById('messagesPageBox'), input=document.getElementById('messagesPageInput'), send=document.getElementById('messagesPageSend'), photo=document.getElementById('messagesPhotoBtn'), cam=document.getElementById('messagesPageCamBtn');
+    if(title)title.textContent='Privado con '+messagesPageOtherName;
+    if(sub)sub.textContent=webcam?'Usuario con webcam activa':'Conversación privada';
+    [input,send,photo,cam].forEach(el=>{if(el)el.disabled=false});
+    if(box)box.innerHTML='<div class="messagesEmpty" style="color:#555">Cargando mensajes...</div>';
+    await loadMessagesPage();
+    const res=await client.from('private_messages').select('body,created_at,sender_id').eq('conversation_id',id).order('created_at',{ascending:true}).limit(200);
+    if(res.error){box.innerHTML='<div class="messagesEmpty" style="color:#555">Error: '+ehtml(res.error.message)+'</div>';return;}
+    const rows=res.data||[];
+    box.innerHTML=rows.map(msgHtml).join('')||'<div class="messagesEmpty" style="color:#555">No hay mensajes todavía.</div>';
+    box.scrollTop=box.scrollHeight;
+  };
+  window.sendMessagesPageMessage=async function(){
+    const input=document.getElementById('messagesPageInput'), box=document.getElementById('messagesPageBox');
+    if(!messagesPageConversationId||!input||!currentUser)return;
+    const body=input.value.trim(); if(!body)return;
+    const ins=await client.from('private_messages').insert({conversation_id:messagesPageConversationId,sender_id:currentUser.id,body});
+    if(ins.error){setResult&&setResult('statusResult','Error enviando privado: '+ins.error.message);return;}
+    input.value=''; if(box){box.innerHTML+=msgHtml({sender_id:currentUser.id,body});box.scrollTop=box.scrollHeight;}
+    loadMessagesPage(); if(typeof loadFloatingPrivateChats==='function') loadFloatingPrivateChats();
+  };
+  window.sendMessagesPagePhoto=function(ev){
+    const file=ev.target.files&&ev.target.files[0]; ev.target.value='';
+    if(!file||!messagesPageConversationId||!currentUser)return;
+    if(!file.type.startsWith('image/')){setResult&&setResult('statusResult','Elegí una imagen válida.');return;}
+    if(file.size>950000){setResult&&setResult('statusResult','La foto es muy grande. Probá con una imagen menor a 1 MB.');return;}
+    const reader=new FileReader();
+    reader.onload=async()=>{
+      const body='__image__:'+reader.result;
+      const ins=await client.from('private_messages').insert({conversation_id:messagesPageConversationId,sender_id:currentUser.id,body});
+      if(ins.error){setResult&&setResult('statusResult','Error enviando foto: '+ins.error.message);return;}
+      const box=document.getElementById('messagesPageBox'); if(box){box.innerHTML+=msgHtml({sender_id:currentUser.id,body});box.scrollTop=box.scrollHeight;}
+      loadMessagesPage(); if(typeof loadFloatingPrivateChats==='function') loadFloatingPrivateChats();
+    };
+    reader.readAsDataURL(file);
+  };
+  window.requestMessagesPageWebcam=async function(){
+    if(!messagesPageOtherId){setResult&&setResult('statusResult','Elegí primero una conversación.');return;}
+    if(typeof sendCameraRequest==='function') return sendCameraRequest(messagesPageOtherId,messagesPageOtherName||'Usuario');
+    const res=await client.from('camera_requests').insert({from_user:currentUser.id,to_user:messagesPageOtherId,status:'pending'});
+    if(res.error){setResult&&setResult('statusResult','Error solicitud cámara: '+res.error.message);return;}
+    setResult&&setResult('statusResult','Solicitud de cámara enviada ✅',true);
+  };
+  const oldSub=window.subscribeChat;
+  window.subscribeChat=function(){
+    if(typeof oldSub==='function') oldSub();
+    if(window.__msgPageChannel) client.removeChannel(window.__msgPageChannel);
+    if(!currentUser||!client)return;
+    window.__msgPageChannel=client.channel('messages-page-'+currentUser.id).on('postgres_changes',{event:'INSERT',schema:'public',table:'private_messages'},async(payload)=>{
+      if(messagesPageConversationId&&payload.new&&payload.new.conversation_id===messagesPageConversationId){
+        const box=document.getElementById('messagesPageBox');
+        if(box){box.innerHTML+=msgHtml(payload.new);box.scrollTop=box.scrollHeight;}
+      }
+      if(document.getElementById('messagesScreen')?.classList.contains('show')) loadMessagesPage();
+    }).subscribe();
+  };
+})();
+</script>
 
 </body>
 </html>

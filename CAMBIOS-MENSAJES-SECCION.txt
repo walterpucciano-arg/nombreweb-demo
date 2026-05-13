@@ -1,0 +1,8 @@
+Cambios aplicados:
+- Nueva sección principal: Mensajes.
+- Lista de conversaciones privadas anteriores.
+- Apertura de conversación completa desde Mensajes.
+- Envío de texto desde Mensajes.
+- Envío de fotos desde Mensajes.
+- Botón Webcam dentro de cada chat privado.
+- Menú simplificado: se quitaron Inicio y Cámaras del menú principal.
