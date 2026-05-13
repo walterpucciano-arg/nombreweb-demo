@@ -1,0 +1,13 @@
+HOTFIX NOTIFICACIONES PRIVADAS
+
+Se corrigió el sistema para que el receptor reciba aviso flotante al recibir mensajes privados.
+
+Cambios técnicos:
+- Listener realtime mejorado para private_messages.
+- Fallback por polling cada 3 segundos, por si Supabase Realtime no está activo en la tabla.
+- Evita notificaciones duplicadas usando localStorage por usuario.
+- El cartel flotante ahora tiene botón Responder que abre el chat privado correcto.
+- Se actualiza la lista de conversaciones al recibir mensaje.
+
+IMPORTANTE:
+Si aun así no apareciera instantáneo, revisar en Supabase que la tabla private_messages esté activada en Realtime. De todos modos, con este hotfix debe aparecer por el polling aunque Realtime falle.

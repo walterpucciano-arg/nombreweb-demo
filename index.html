@@ -188,7 +188,7 @@ async function testConnection(){const res=await client.from('profiles').select('
 async function registerUser(){const email=regEmail.value.trim(),password=regPassword.value.trim(),alias=regAlias.value.trim(),age=parseInt(regAge.value,10),city=regCity.value.trim(),profile_type=regProfileType.value,situation=regSituation.value,orientation=regOrientation.value,looking_for=regLookingFor.value,bio=regBio.value.trim();if(!email||!password||!alias||!age||!city||!profile_type||!situation||!orientation||!looking_for){setResult('regResult','Completá todos los campos.');return}if(age<18){setResult('regResult','Debés ser mayor de 18 años.');return}if(password.length<8){setResult('regResult','Contraseña mínimo 8 caracteres.');return}if(!regTerms.checked){setResult('regResult','Aceptá las reglas.');return}setResult('regResult','Creando...',true);const sign=await client.auth.signUp({email,password,options:{data:{alias}}});if(sign.error){setResult('regResult','Auth: '+sign.error.message);return}const userId=sign.data.user?.id;if(!userId){setResult('regResult','Cuenta creada. Revisá email.',true);return}const profile=await client.from('profiles').upsert({id:userId,email,alias,age,city,profile_type,situation,orientation,looking_for,bio,online:true,webcam_enabled:false,last_seen:new Date().toISOString(),premium:false,verified:false});if(profile.error){setResult('regResult','Perfil: '+profile.error.message);return}await client.from('chat_limits').upsert({user_id:userId,private_chats_started:0});setResult('regResult','Cuenta creada ✅ Iniciá sesión.',true);showLogin()}
 async function loginUser(){const email=loginEmail.value.trim(),password=loginPassword.value.trim();if(!email||!password){setResult('loginResult','Completá email y contraseña.');return}setResult('loginResult','Ingresando...',true);const res=await client.auth.signInWithPassword({email,password});if(res.error){setResult('loginResult','Login: '+res.error.message);return}currentUser=res.data.user;document.body.classList.add('logged');await bootstrap()}
 async function updateSession(){const {data}=await client.auth.getSession();if(data?.session?.user){currentUser=data.session.user;document.body.classList.add('logged');await bootstrap()}}
-async function bootstrap(){await ensureGeneralRoom();await loadProfile();await markOnline();await loadFavorites();await loadOnlineUsers();await loadAllProfiles(false);await loadConversations();await loadRoomMessages();subscribeChat();subscribeProfilesRealtime();subscribeCameraRealtime();await loadCameraRequests();startPresenceHeartbeat();updateDashboard()}
+async function bootstrap(){await ensureGeneralRoom();await loadProfile();await markOnline();await loadFavorites();await loadOnlineUsers();await loadAllProfiles(false);await loadConversations();await loadRoomMessages();subscribeChat();listenPrivateNotifications();subscribeProfilesRealtime();subscribeCameraRealtime();await loadCameraRequests();startPresenceHeartbeat();updateDashboard()}
 async function logoutUser(){await stopCamera();if(currentUser)await client.from('profiles').update({online:false,webcam_enabled:false,last_seen:new Date().toISOString()}).eq('id',currentUser.id);await client.auth.signOut();document.body.classList.remove('logged');currentUser=null}
 async function markOnline(){
   if(!currentUser) return;
@@ -208,12 +208,92 @@ async function markOnline(){
 async function loadProfile(){const res=await client.from('profiles').select('*').eq('id',currentUser.id).maybeSingle();if(res.data){currentProfile=res.data;isPremium=!!res.data.premium;sideAlias.textContent=res.data.alias||'Usuario';sideAvatar.innerHTML=res.data.avatar_url?`<img src="${res.data.avatar_url}">`:(res.data.alias||'V').slice(0,1).toUpperCase();editAlias.value=res.data.alias||'';editAge.value=res.data.age||'';editCity.value=res.data.city||'';editProfileType.value=res.data.profile_type||'';editSituation.value=res.data.situation||'';editOrientation.value=res.data.orientation||'';editLookingFor.value=res.data.looking_for||'';editBio.value=res.data.bio||''}}
 async function saveProfile(){const row={alias:editAlias.value.trim(),age:parseInt(editAge.value,10)||null,city:editCity.value.trim(),profile_type:editProfileType.value,situation:editSituation.value,orientation:editOrientation.value,looking_for:editLookingFor.value,bio:editBio.value.trim(),last_seen:new Date().toISOString()};const res=await client.from('profiles').update(row).eq('id',currentUser.id);if(res.error){setResult('profileResult',res.error.message);return}setResult('profileResult','Perfil guardado ✅',true);await loadProfile();await loadAllProfiles(false)}
 async function ensureGeneralRoom(){currentRoomId=null;let res=await client.from('chat_rooms').select('id').eq('slug','general').limit(1);if(!res.error&&res.data&&res.data[0]){currentRoomId=res.data[0].id;return currentRoomId}let created=await client.from('chat_rooms').insert({name:'Sala general Velvet',slug:'general',room_type:'general'}).select('id').single();if(!created.error){currentRoomId=created.data.id;return currentRoomId}setResult('statusResult','Error sala: '+created.error.message);return null}
-async function openGeneralRoom(){currentChatMode='room';currentConversationId=null;chatTitle.textContent='Sala general';chatSub.textContent='Todos pueden escribir acá';await ensureGeneralRoom();await loadRoomMessages();subscribeChat()}
+async function openGeneralRoom(){currentChatMode='room';currentConversationId=null;chatTitle.textContent='Sala general';chatSub.textContent='Todos pueden escribir acá';await ensureGeneralRoom();await loadRoomMessages();subscribeChat();listenPrivateNotifications()}
 async function loadRoomMessages(){if(!currentRoomId)await ensureGeneralRoom();if(!currentRoomId){chatbox.innerHTML='<div class="msg">No se pudo cargar sala general.</div>';return}const res=await client.from('room_messages').select('body,created_at,sender_id').eq('room_id',currentRoomId).order('created_at',{ascending:true}).limit(120);if(res.error){chatbox.innerHTML='<div class="msg">Error mensajes: '+esc(res.error.message)+'</div>';return}renderMessages(res.data||[]);dashMessages.textContent=(res.data||[]).length}
 async function sendMessage(){const text=messageInput.value.trim();if(!text||!currentUser)return;if(await autoModerateText(text)){setResult('statusResult','Mensaje bloqueado por seguridad/moderación.');return;}messageInput.value='';if(currentChatMode==='room'){if(!currentRoomId)await ensureGeneralRoom();const ins=await client.from('room_messages').insert({room_id:currentRoomId,sender_id:currentUser.id,body:text});if(ins.error){setResult('statusResult','Error enviando: '+ins.error.message);return}await loadRoomMessages()}else{const ins=await client.from('private_messages').insert({conversation_id:currentConversationId,sender_id:currentUser.id,body:text});if(ins.error){setResult('statusResult','Error privado: '+ins.error.message);return}await openPrivateConversation(currentConversationId)}}
-function renderMessages(messages){chatbox.innerHTML=messages.length?messages.map(m=>`<div class="msg ${m.sender_id===currentUser?.id?'me':''}"><b>${m.sender_id===currentUser?.id?'Vos':'Usuario'}</b><br>${esc(m.body)}<small>${new Date(m.created_at).toLocaleString()}</small></div>`).join(''):'<div class="msg">Todavía no hay mensajes.</div>';chatbox.scrollTop=chatbox.scrollHeight}
+async function renderMessages(messages){const ids=[...new Set(messages.map(m=>m.sender_id).filter(Boolean))];let profs={};if(ids.length){const r=await client.from('profiles').select('id,alias,avatar_url,webcam_enabled').in('id',ids);(r.data||[]).forEach(p=>profs[p.id]=p)}chatbox.innerHTML=messages.length?messages.map(m=>{const prof=profs[m.sender_id]||{};const name=m.sender_id===currentUser?.id?'Vos':(prof.alias||'Usuario');const cam=prof.webcam_enabled?' 📹':'';const avatar=prof.avatar_url?`<img src="${prof.avatar_url}" style="width:32px;height:32px;border-radius:50%;object-fit:cover">`:`<div style="width:32px;height:32px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center">${name.charAt(0)}</div>`;return `<div class="msg ${m.sender_id===currentUser?.id?'me':''}"><div style="display:flex;gap:8px;align-items:center">${avatar}<div><b>${name}${cam}</b><br>${esc(m.body)}<small>${new Date(m.created_at).toLocaleString()}</small></div></div></div>`}).join(''):'<div class="msg">Todavía no hay mensajes.</div>';chatbox.scrollTop=chatbox.scrollHeight}
 function subscribeChat(){if(chatChannel)client.removeChannel(chatChannel);chatChannel=client.channel('clean-chat').on('postgres_changes',{event:'INSERT',schema:'public',table:'room_messages'},()=>{if(currentChatMode==='room')loadRoomMessages()}).on('postgres_changes',{event:'INSERT',schema:'public',table:'private_messages'},()=>{if(currentChatMode==='private')openPrivateConversation(currentConversationId)}).subscribe()}
-async function loadConversations(){const res=await client.from('private_conversations').select('*').or(`user_a.eq.${currentUser.id},user_b.eq.${currentUser.id}`).order('created_at',{ascending:false});conversationList.innerHTML=(res.data||[]).map(c=>`<div class="chatItem" onclick="openPrivateConversation('${c.id}')">💬 Privado<br><small>${c.id.slice(0,8)}</small></div>`).join('')||'<div class="chatItem">Sin privados todavía</div>';const lim=await client.from('chat_limits').select('*').eq('user_id',currentUser.id).maybeSingle();startedChats.textContent=lim.data?.private_chats_started||0}
+
+function showPrivateNotification(name,message,conversationId){
+  let n=document.getElementById("privateNotify");
+  if(!n){
+    n=document.createElement("div");
+    n.id="privateNotify";
+    n.style.cssText="position:fixed;top:20px;right:20px;background:#111;color:#fff;padding:15px;border-radius:16px;z-index:99999;max-width:340px;box-shadow:0 10px 30px rgba(0,0,0,.45);font-family:system-ui";
+    document.body.appendChild(n);
+  }
+  const safeName=esc(name||'Usuario');
+  const safeMsg=esc(message||'');
+  n.innerHTML=`
+    <div style="display:flex;gap:10px;align-items:flex-start">
+      <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#ff4fa3,#7c4dff);display:grid;place-items:center;font-weight:800">${safeName.charAt(0).toUpperCase()}</div>
+      <div style="flex:1">
+        <b style="font-size:15px">Nuevo mensaje privado</b>
+        <div style="margin-top:5px;font-size:14px;color:#eee"><b>${safeName}</b>: ${safeMsg}</div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button onclick="openPrivateConversation('${conversationId}','${safeName}');document.getElementById('privateNotify').style.display='none'" style="padding:8px 12px;border:none;border-radius:10px;background:#fff;color:#111;font-weight:700;cursor:pointer">Responder</button>
+          <button onclick="document.getElementById('privateNotify').style.display='none'" style="padding:8px 12px;border:1px solid rgba(255,255,255,.25);border-radius:10px;background:transparent;color:#fff;cursor:pointer">Cerrar</button>
+        </div>
+      </div>
+    </div>`;
+  n.style.display='block';
+  try{ new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQoGAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA').play().catch(()=>{}); }catch(e){}
+}
+
+function rememberPrivateMessageNotified(id){
+  if(!id)return false;
+  const key='velvet_notified_private_'+(currentUser?.id||'anon');
+  let arr=[];
+  try{arr=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){arr=[]}
+  if(arr.includes(id))return true;
+  arr.unshift(id);
+  arr=arr.slice(0,80);
+  localStorage.setItem(key,JSON.stringify(arr));
+  return false;
+}
+
+async function handleIncomingPrivateMessage(msg){
+  if(!currentUser || !msg || !msg.conversation_id)return;
+  if(msg.sender_id===currentUser.id)return;
+  if(currentChatMode==='private'&&msg.conversation_id===currentConversationId)return;
+  if(rememberPrivateMessageNotified(msg.id))return;
+
+  const conv=await client.from('private_conversations').select('*').eq('id',msg.conversation_id).maybeSingle();
+  if(!conv.data)return;
+  const mine=conv.data.user_a===currentUser.id||conv.data.user_b===currentUser.id;
+  if(!mine)return;
+  const prof=await client.from('profiles').select('alias').eq('id',msg.sender_id).maybeSingle();
+  showPrivateNotification(prof.data?.alias||'Usuario',msg.body,msg.conversation_id);
+  loadConversations();
+}
+
+async function pollPrivateNotifications(){
+  if(!currentUser)return;
+  const convRes=await client.from('private_conversations').select('id,user_a,user_b').or(`user_a.eq.${currentUser.id},user_b.eq.${currentUser.id}`).limit(50);
+  const convs=convRes.data||[];
+  if(!convs.length)return;
+  const ids=convs.map(c=>c.id);
+  const msgRes=await client.from('private_messages').select('id,conversation_id,sender_id,body,created_at').in('conversation_id',ids).order('created_at',{ascending:false}).limit(25);
+  const rows=msgRes.data||[];
+  for(const msg of rows.reverse()){
+    await handleIncomingPrivateMessage(msg);
+  }
+}
+
+async function listenPrivateNotifications(){
+  if(!currentUser)return;
+  if(window.privateNotifyChannel)client.removeChannel(window.privateNotifyChannel);
+  window.privateNotifyChannel=client.channel('private-notify-'+currentUser.id)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'private_messages'},async(payload)=>{
+      await handleIncomingPrivateMessage(payload.new);
+    })
+    .subscribe();
+
+  if(window.privateNotifyInterval)clearInterval(window.privateNotifyInterval);
+  await pollPrivateNotifications();
+  window.privateNotifyInterval=setInterval(pollPrivateNotifications,3000);
+}
+async function loadConversations(){const res=await client.from('private_conversations').select('*').or(`user_a.eq.${currentUser.id},user_b.eq.${currentUser.id}`).order('created_at',{ascending:false});const convs=(res.data||[]).slice(0,15);let html='';for(const c of convs){const other=c.user_a===currentUser.id?c.user_b:c.user_a;const p=await client.from('profiles').select('alias,avatar_url,webcam_enabled').eq('id',other).maybeSingle();const prof=p.data||{};html+=`<div class="chatItem" onclick="openPrivateConversation('${c.id}','${prof.alias||'Usuario'}')"><div style="display:flex;align-items:center;gap:10px">${prof.avatar_url?`<img src='${prof.avatar_url}' style='width:40px;height:40px;border-radius:50%;object-fit:cover'>`:`<div style='width:40px;height:40px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center'>${(prof.alias||'U').charAt(0)}</div>`}<div><b>${prof.alias||'Usuario'}${prof.webcam_enabled?' 📹':''}</b><br><small>Chat privado</small></div></div></div>`}conversationList.innerHTML=html||'<div class="chatItem">Sin privados todavía</div>'; const lim=await client.from('chat_limits').select('*').eq('user_id',currentUser.id).maybeSingle();startedChats.textContent=lim.data?.private_chats_started||0}
 async function startPrivateChat(otherId,name){
   if(!currentUser || otherId===currentUser.id) return;
 
@@ -725,3 +805,4 @@ updateSession();
 </div>
 </body>
 </html>
+<script>setTimeout(()=>{document.querySelectorAll('[onclick*=matches],[onclick*=feed],[onclick*=camera]').forEach(e=>e.style.display='none')},1500)</script>
