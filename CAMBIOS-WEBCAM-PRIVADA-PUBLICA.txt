@@ -1,0 +1,6 @@
+Cambios aplicados:
+- Solicitud de webcam privada con cartel flotante Aceptar/Rechazar.
+- Al aceptar, se abre una ventana flotante movible con videos local/remoto.
+- Botón cortar llamada.
+- En chat general, el botón Ver CAM entra directo a la cámara pública sin pedir solicitud.
+- Señalización WebRTC por Supabase usando tabla webrtc_signals y respaldo por polling.

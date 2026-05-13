@@ -1,0 +1,5 @@
+Hotfix webcam real v2 aplicado.
+- Chat general: Ver CAM no envía solicitud; inicia vista pública directa por WebRTC.
+- Chat privado: solicitud con flotante Aceptar/Rechazar.
+- Al aceptar: abre ventana flotante movible con video local/remoto.
+- Usa tablas Supabase camera_requests y webrtc_signals.
