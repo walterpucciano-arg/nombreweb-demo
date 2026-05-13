@@ -1,0 +1,22 @@
+HOTFIX MENSAJERO FLOTANTE FINAL
+
+1) Copiar apply-floating-messenger-final.cjs dentro de la carpeta del proyecto, donde está index.html.
+
+2) En PowerShell, dentro de esa carpeta, ejecutar:
+node .\apply-floating-messenger-final.cjs
+
+3) Subir a GitHub:
+git add .
+git commit -m "Agregar mensajero flotante final"
+git push
+
+4) Esperar Vercel y hacer CTRL + F5.
+
+Qué hace:
+- Agrega un mensajero flotante dentro de la misma web.
+- Intercepta botones que digan Privado o Mensaje privado.
+- Al tocar Privado, abre un panel tipo ContactosSex/Messenger sin cerrar la sala general.
+- Mantiene lista de contactos y conversación a la derecha.
+
+Nota:
+- Este hotfix crea la interfaz flotante y mensajes locales de prueba. La conexión a Supabase para guardar privados reales puede integrarse después, usando las tablas privadas existentes.

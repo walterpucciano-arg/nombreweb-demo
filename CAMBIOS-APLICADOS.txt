@@ -1,0 +1,21 @@
+Cambios aplicados por este hotfix:
+
+- Cámara general pública:
+  Antes: Ver CAM enviaba solicitud.
+  Ahora: Ver CAM / 📷 abre la cámara pública disponible.
+
+- Lista online:
+  Los usuarios con webcam_enabled=true muestran botón de cámara.
+
+- Cámaras del chat general:
+  No se abren automáticamente.
+  El usuario decide a cuál entrar.
+
+- Chat privado:
+  Se conserva la lógica de solicitud/aceptación para cámara privada.
+
+- Nombres:
+  Se agrega profileDisplayName(p) para evitar mostrar “Usuario” genérico.
+
+- Seguridad:
+  Se crea backup automático de index.html.

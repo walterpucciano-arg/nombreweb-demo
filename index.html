@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Velvet Beta 5 Hotfix Chat Camera</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#07070d;color:#fff;overflow:hidden}
+:root{--pink:#ff2d8f;--violet:#8b5cf6;--gold:#f5d37b;--green:#34d399;--red:#ef4444;--line:rgba(255,255,255,.1);--muted:rgba(255,255,255,.62)}
+button{border:0;border-radius:999px;padding:11px 15px;font-weight:800;background:#27273a;color:#fff;cursor:pointer}button:hover{filter:brightness(1.12)}
+.primary{background:linear-gradient(135deg,var(--pink),var(--violet))}.gold{background:var(--gold);color:#14070d}.danger{background:rgba(239,68,68,.35)}
+input,select,textarea{width:100%;padding:13px;border-radius:16px;border:1px solid var(--line);background:#171722;color:#fff;outline:none;margin:6px 0 11px}option{background:#171722;color:#fff}textarea{min-height:80px;resize:none}.hidden{display:none!important}
+.result{padding:12px;border-radius:16px;background:rgba(255,255,255,.075);border:1px solid var(--line);font-size:13px;margin-top:10px;white-space:pre-wrap}.ok{background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.35);color:#bbf7d0}.err{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#fecaca}
+.badge{display:inline-block;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900;background:var(--gold);color:#14070d}.bGreen{background:var(--green);color:#03120b}.bPink{background:var(--pink);color:white}.bGray{background:rgba(255,255,255,.16);color:white}
+.auth{min-height:100vh;display:grid;grid-template-columns:1fr 430px}.authLeft{padding:42px;display:flex;align-items:flex-end;background:radial-gradient(circle at top left,rgba(255,45,143,.22),transparent 32%),radial-gradient(circle at 85% 0%,rgba(139,92,246,.18),transparent 34%),#07070d}.logo{display:flex;align-items:center;gap:12px;font-size:30px;font-weight:950;margin-bottom:22px}.mark{width:54px;height:54px;border-radius:20px;background:linear-gradient(135deg,var(--pink),var(--violet),var(--gold));display:grid;place-items:center}h1{font-size:clamp(42px,6vw,70px);line-height:.95;margin:0 0 15px;letter-spacing:-2px}h2{margin:0 0 14px}p{color:var(--muted);line-height:1.5}.tags{display:flex;gap:8px;flex-wrap:wrap}.tags span{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);font-size:13px;font-weight:800}
+.authPanel{background:rgba(8,8,14,.94);border-left:1px solid var(--line);padding:30px;display:flex;align-items:center}.card{background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:26px;padding:18px}.switch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}.switch button.active{background:#fff;color:#111}
+.app{display:none;height:100vh}body.logged .auth{display:none}body.logged .app{display:grid;grid-template-columns:280px minmax(0,1fr) 330px}
+.left{background:rgba(10,10,16,.96);border-right:1px solid var(--line);padding:18px;display:flex;flex-direction:column;gap:14px;min-height:0}.brand{display:flex;align-items:center;gap:12px;font-size:28px;font-weight:950}.userBox{display:flex;gap:10px;align-items:center;padding:12px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid var(--line)}.avatar{width:48px;height:48px;border-radius:17px;background:linear-gradient(135deg,var(--pink),var(--violet));display:grid;place-items:center;font-weight:950;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
+.nav{display:grid;gap:8px}.nav button{text-align:left;border-radius:16px;background:rgba(255,255,255,.04)}.nav button.active,.nav button:hover{background:rgba(255,255,255,.10)}.sectionTitle{font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.45);margin-top:6px}.chatList{display:grid;gap:10px;overflow:auto;min-height:0}.chatItem{padding:13px;border-radius:18px;background:rgba(255,255,255,.05);cursor:pointer}
+.main{display:flex;flex-direction:column;height:100vh;min-width:0}.top{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:rgba(10,10,16,.78)}
+.screen{display:none;min-height:0;flex:1}.screen.show{display:flex;flex-direction:column}.wrap{padding:20px;overflow:auto}
+.cams{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px;border-bottom:1px solid var(--line);background:#0d0d14}.cam{position:relative;height:170px;border-radius:24px;overflow:hidden;background:#1a1a28;border:1px solid var(--line)}.cam video{width:100%;height:100%;object-fit:cover}.slot{height:100%;display:grid;place-items:center;color:rgba(255,255,255,.45);text-align:center;padding:18px}.overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82),transparent)}.camInfo{position:absolute;left:14px;right:14px;bottom:14px}
+.chatArea{flex:1;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:12px;background:radial-gradient(circle at top left,rgba(255,45,143,.08),transparent 30%),#07070d}.msg{max-width:72%;padding:14px 16px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid var(--line)}.msg.me{align-self:flex-end;background:linear-gradient(135deg,var(--pink),var(--violet))}.msg small{display:block;color:rgba(255,255,255,.55);font-size:11px;margin-top:5px}
+.inputBar{padding:16px;border-top:1px solid var(--line);display:flex;gap:12px;background:#0d0d14}.inputBar input{flex:1;margin:0}.send{padding:0 24px;border-radius:18px}
+.right{background:rgba(10,10,16,.96);border-left:1px solid var(--line);padding:16px;overflow:auto}.user{display:flex;align-items:center;gap:12px;padding:11px;border-radius:18px;background:rgba(255,255,255,.05);margin-bottom:9px;cursor:pointer}.user:hover{background:rgba(255,255,255,.09)}.userAvatar{width:48px;height:48px;border-radius:17px;background:#222;display:grid;place-items:center;font-weight:900;overflow:hidden}.userAvatar img{width:100%;height:100%;object-fit:cover}.dot{width:10px;height:10px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:6px}.dot.off{background:#666}.camBadge{font-size:11px;padding:5px 8px;border-radius:999px;background:rgba(255,45,143,.18);color:#ff8fc8;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.profileCard{border-radius:24px;background:rgba(255,255,255,.06);border:1px solid var(--line);overflow:hidden}.profileImg{height:220px;position:relative;background:#1b1b29}.profileImg img{width:100%;height:100%;object-fit:cover}.profileTop{position:absolute;left:12px;right:12px;top:12px;display:flex;gap:6px;flex-wrap:wrap}.profileBottom{position:absolute;left:14px;right:14px;bottom:14px;z-index:2}.profileBody{padding:14px}.toolRow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.dash{padding:18px;border-radius:24px;background:rgba(255,255,255,.06);border:1px solid var(--line)}.dash b{font-size:30px}.progress{height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(135deg,var(--pink),var(--violet))}
+.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.preview{height:180px;border-radius:22px;background:#1b1b29;border:1px dashed rgba(255,255,255,.18);display:grid;place-items:center;color:rgba(255,255,255,.55);overflow:hidden}.preview img{width:100%;height:100%;object-fit:cover}.feedItem{padding:14px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid var(--line);margin-bottom:12px}.mediaBox{height:250px;border-radius:18px;background:#1b1b29;overflow:hidden;display:grid;place-items:center}.mediaBox img{width:100%;height:100%;object-fit:cover}
+.modalBackdrop{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(12px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}.modalBackdrop.show{display:flex}.modal{width:min(960px,100%);max-height:92vh;overflow:auto;border-radius:34px;background:#0e0e16;border:1px solid var(--line)}.modalHero{height:410px;position:relative;background:#191927;overflow:hidden;background-size:cover;background-position:center}.profileInfo{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}.modalContent{padding:20px}.closeBtn{position:absolute;top:14px;right:14px;z-index:3;background:rgba(0,0,0,.55)}
+@media(max-width:1120px){body.logged .app{grid-template-columns:1fr}.left,.right{display:none}.cams,.filters,.grid,.dashboard{grid-template-columns:1fr 1fr}.auth{grid-template-columns:1fr}.authPanel{border-left:0}.msg{max-width:90%}}
+@media(max-width:760px){body{overflow:auto}.app{height:auto;min-height:100vh}.main{height:auto;min-height:100vh}.top{height:auto;padding:12px}.cams,.filters,.grid,.dashboard,.formGrid{grid-template-columns:1fr}.chatArea{min-height:420px}.screen.show{min-height:100vh}.wrap{padding:14px 14px 70px}}
+
+.legalBox{border:1px solid rgba(245,211,123,.35);background:rgba(245,211,123,.08);border-radius:24px;padding:16px;margin-bottom:14px}.legalBox p{margin:6px 0}
+.notice{padding:12px;border-radius:18px;background:rgba(255,45,143,.10);border:1px solid rgba(255,45,143,.25);margin-bottom:12px}
+.storyBar{display:flex;gap:12px;overflow:auto;padding:14px 0}.storyBubble{min-width:88px;text-align:center;cursor:pointer}.storyCircle{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--violet),var(--gold));padding:3px;margin:auto}.storyCircleInner{width:100%;height:100%;border-radius:50%;background:#191927;display:grid;place-items:center;overflow:hidden}.storyCircleInner img{width:100%;height:100%;object-fit:cover}
+.premiumGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.premiumCard{padding:18px;border-radius:26px;background:linear-gradient(145deg,rgba(245,211,123,.12),rgba(255,45,143,.08));border:1px solid rgba(245,211,123,.28)}.premiumCard h3{font-size:24px;margin:0 0 8px}
+.verifyCard{padding:16px;border-radius:24px;background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.25);margin-bottom:14px}.modFlag{border-left:4px solid var(--red)}
+.privacyCheck{display:flex;gap:10px;align-items:flex-start;margin:8px 0;color:rgba(255,255,255,.78);font-size:13px}.privacyCheck input{width:auto;margin-top:2px}
+.profilePremiumHeader{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.quickActions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.quickActions button{border-radius:18px}
+.messageHeader{padding:10px 16px;background:#0d0d14;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center;justify-content:space-between}
+.typing{font-size:12px;color:rgba(255,255,255,.55);padding:0 18px 8px;background:#0d0d14}
+@media(max-width:900px){.premiumGrid,.quickActions{grid-template-columns:1fr}.storyBubble{min-width:76px}.storyCircle{width:62px;height:62px}}
+
+
+/* Beta 4 */
+.beta4Hero{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-bottom:16px}.heroCard{border-radius:30px;padding:22px;background:radial-gradient(circle at top left,rgba(255,45,143,.22),transparent 45%),rgba(255,255,255,.06);border:1px solid var(--line)}.heroCard h2{font-size:34px;margin-bottom:6px}.livePanel{border-radius:30px;padding:18px;background:rgba(255,255,255,.055);border:1px solid var(--line)}
+.notifToast{position:fixed;right:20px;bottom:20px;z-index:500;display:none;max-width:360px;padding:14px 16px;border-radius:20px;background:#151522;border:1px solid rgba(255,45,143,.35);box-shadow:0 20px 60px rgba(0,0,0,.45)}.notifToast.show{display:block}
+.profileCard{transition:.2s}.profileCard:hover{transform:translateY(-3px);border-color:rgba(255,45,143,.35);box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.premiumRibbon{position:absolute;right:12px;bottom:12px;border-radius:999px;padding:7px 10px;background:linear-gradient(135deg,var(--gold),#fff1a8);color:#150c02;font-size:11px;font-weight:950}
+.adminGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.adminCard{padding:16px;border-radius:24px;background:rgba(255,255,255,.06);border:1px solid var(--line)}.adminTable{width:100%;border-collapse:collapse}.adminTable td,.adminTable th{padding:10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}
+.callLayout{display:grid;grid-template-columns:1fr 1fr;gap:14px}.videoBox{height:280px;border-radius:24px;background:#11111a;border:1px solid var(--line);overflow:hidden;display:grid;place-items:center;position:relative}.videoBox video{width:100%;height:100%;object-fit:cover}.signalLog{max-height:180px;overflow:auto;font-size:12px;background:rgba(0,0,0,.25);border-radius:16px;padding:10px}
+.mobileBottomBar{display:none}.softDivider{height:1px;background:var(--line);margin:14px 0}.matchScore{height:8px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}.matchScore span{display:block;height:100%;background:linear-gradient(135deg,var(--pink),var(--violet))}
+@media(max-width:1120px){.beta4Hero,.callLayout,.adminGrid{grid-template-columns:1fr}}
+@media(max-width:760px){.mobileBottomBar{display:flex;position:fixed;bottom:10px;left:10px;right:10px;z-index:400;background:rgba(10,10,16,.94);border:1px solid var(--line);border-radius:24px;padding:8px;justify-content:space-around}.mobileBottomBar button{padding:10px 11px;font-size:12px}.heroCard h2{font-size:26px}.videoBox{height:220px}}
+
+
+/* Beta 5 polish */
+.onboardingCard{border-radius:30px;padding:22px;background:linear-gradient(145deg,rgba(255,45,143,.16),rgba(139,92,246,.10));border:1px solid rgba(255,255,255,.12);margin-bottom:16px}
+.onboardingSteps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}.step{padding:14px;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid var(--line)}.step b{display:block;margin-bottom:6px}
+.publicProfile{display:grid;grid-template-columns:360px 1fr;gap:18px}.publicPhoto{height:520px;border-radius:30px;overflow:hidden;position:relative;background:#191927}.publicPhoto img{width:100%;height:100%;object-fit:cover}.publicInfo{padding:20px;border-radius:30px;background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.socialComposer{padding:16px;border-radius:24px;background:rgba(255,255,255,.06);border:1px solid var(--line);margin-bottom:14px}.postActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.commentBox{margin-top:10px;padding:10px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid var(--line)}
+.storyViewer{position:fixed;inset:0;background:rgba(0,0,0,.86);z-index:800;display:none;align-items:center;justify-content:center;padding:20px}.storyViewer.show{display:flex}.storyCard{width:min(420px,100%);height:min(720px,90vh);border-radius:34px;background:#11111a;border:1px solid var(--line);overflow:hidden;position:relative}.storyCard img{width:100%;height:100%;object-fit:cover}.storyClose{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.5)}
+.adminTabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.adminTabs button{border-radius:16px}.adminSection{display:none}.adminSection.show{display:block}
+.emptyPremium{padding:28px;text-align:center;border-radius:26px;border:1px dashed rgba(255,255,255,.18);background:rgba(255,255,255,.04)}
+.privacyMini{font-size:12px;color:rgba(255,255,255,.58);padding:10px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid var(--line);margin-top:10px}
+.floatingHelp{position:fixed;right:18px;top:90px;z-index:390;background:rgba(10,10,16,.9);border:1px solid var(--line);border-radius:20px;padding:12px;width:260px;box-shadow:0 20px 70px rgba(0,0,0,.35)}.floatingHelp h4{margin:0 0 6px}.floatingHelp p{margin:0;font-size:12px}
+@media(max-width:1120px){.onboardingSteps,.publicProfile{grid-template-columns:1fr 1fr}.floatingHelp{display:none}}
+@media(max-width:760px){.onboardingSteps,.publicProfile{grid-template-columns:1fr}.publicPhoto{height:380px}.postActions button{flex:1}.adminTabs button{flex:1}}
+
+
+.privateHeader{padding:12px 16px;border-bottom:1px solid var(--line);background:#0d0d14;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cameraRequestCard{padding:12px;border-radius:18px;background:rgba(255,45,143,.09);border:1px solid rgba(255,45,143,.28);margin-bottom:10px}
+.cameraSlotActive{border-color:rgba(255,45,143,.45)!important;box-shadow:0 0 0 1px rgba(255,45,143,.18),0 18px 50px rgba(255,45,143,.10)}
+.webcamStatus{position:absolute;top:12px;left:12px;border-radius:999px;padding:6px 10px;background:#ef4444;color:white;font-size:11px;font-weight:900;z-index:3}
+
+</style>
+</head>
+<body>
+<div class="auth">
+  <div class="authLeft"><div><div class="logo"><div class="mark">◆</div>Velvet Beta 5</div><h1>Producto pulido</h1><p>Pulido de producto: onboarding, feed social, perfil público premium, stories, likes, comentarios, admin y mobile mejorado.</p><div class="tags"><span>🔞 +18</span><span>🛡️ Seguridad</span><span>💕 Matches</span><span>⭐ Premium</span></div></div></div>
+  <div class="authPanel"><div class="card" style="width:100%">
+    <div class="switch"><button id="loginTab" class="active" onclick="showLogin()">Login</button><button id="regTab" onclick="showRegister()">Registro</button></div>
+    <div id="loginBox"><h2>Ingresar</h2><input id="loginEmail" type="email" placeholder="Email"><input id="loginPassword" type="password" placeholder="Contraseña"><button class="primary" style="width:100%;margin-top:8px" onclick="loginUser()">Ingresar</button><button class="gold" style="width:100%;margin-top:10px" onclick="testConnection()">Probar conexión</button><div id="loginResult" class="result">Esperando login...</div></div>
+    <div id="registerBox" class="hidden"><h2>Crear cuenta +18</h2><input id="regEmail" type="email" placeholder="Email"><input id="regPassword" type="password" placeholder="Contraseña mínimo 8 caracteres"><input id="regAlias" placeholder="Alias"><input id="regAge" type="number" min="18" placeholder="Edad"><input id="regCity" placeholder="Ciudad"><select id="regProfileType"><option value="">Tipo de perfil</option><option>Hombre</option><option>Mujer</option><option>Pareja</option><option>Mujer trans</option><option>Hombre trans</option><option>No binario</option></select><select id="regSituation"><option value="">Situación</option><option>Soltero/a</option><option>En pareja</option><option>Casado/a</option><option>Relación abierta</option><option>Separado/a</option><option>De trampa</option><option>Curioso/a</option></select><select id="regOrientation"><option value="">Orientación</option><option>Heterosexual</option><option>Bisexual</option><option>Gay</option><option>Lesbiana</option><option>Pansexual</option><option>Curioso/a</option></select><select id="regLookingFor"><option value="">Buscando</option><option>Hombre</option><option>Mujer</option><option>Pareja</option><option>Mujer trans</option><option>Hombre trans</option><option>No binario</option><option>Cualquiera</option></select><textarea id="regBio" placeholder="Descripción breve"></textarea><div class="legalBox"><b>Uso responsable +18</b><p>Esta plataforma es solo para mayores de 18 años. No compartas datos sensibles públicamente. Respetá límites y consentimiento.</p></div>
+<label class="privacyCheck"><input id="regTerms" type="checkbox"> Confirmo que soy mayor de 18 años y acepto términos, privacidad y reglas de comunidad.</label><button class="primary" style="width:100%" onclick="registerUser()">Crear cuenta</button><div id="regResult" class="result">Esperando registro...</div></div>
+  </div></div>
+</div>
+<div class="app">
+  <aside class="left"><div class="brand"><div class="mark" style="width:48px;height:48px;border-radius:17px">◆</div>Velvet</div><div class="userBox"><div class="avatar" id="sideAvatar">V</div><div><b id="sideAlias">Usuario</b><p style="margin:0;font-size:13px">Online</p></div></div>
+    <div class="nav"><button class="active" onclick="showScreen('dashboard',this)">📊 Inicio</button><button onclick="showScreen('chat',this)">💬 Chat general</button><button onclick="showScreen('search',this)">🔎 Buscar</button><button onclick="showScreen('favorites',this)">❤️ Favoritos</button><button onclick="showScreen('matches',this)">💕 Matches</button><button onclick="showScreen('stories',this)">⭕ Stories</button><button onclick="showScreen('publicProfile',this)">🪪 Vista pública</button><button onclick="showScreen('profile',this)">👤 Perfil</button><button onclick="showScreen('feed',this)">🔥 Feed</button><button onclick="showScreen('videoCall',this)">📹 Cámaras</button><button onclick="showScreen('premium',this)">⭐ Premium</button><button onclick="showScreen('verify',this)">✅ Verificación</button><button onclick="showScreen('legal',this)">🔐 Privacidad</button><button onclick="showScreen('admin',this)">⚙️ Admin</button><button onclick="showScreen('moderation',this)">🛡️ Moderación</button></div>
+    <div class="sectionTitle">Privados</div><div class="chatList" id="conversationList"><div class="chatItem">Sin privados todavía</div></div><div class="result ok">Gratis: <span id="startedChats">0</span>/5 privados</div><button class="danger" onclick="logoutUser()">Cerrar sesión</button>
+  </aside>
+  <main class="main">
+    <div id="dashboardScreen" class="screen show"><div class="wrap"><div class="onboardingCard"><h2>Bienvenido a Velvet Beta 5</h2><p>Antes de probar con usuarios reales, completá estos pasos para que la experiencia se vea profesional.</p><div class="onboardingSteps"><div class="step"><b>1. Perfil</b><span>Foto, bio y filtros completos.</span></div><div class="step"><b>2. Chat</b><span>Probá sala general y privados.</span></div><div class="step"><b>3. Seguridad</b><span>Revisá privacidad y reglas.</span></div><div class="step"><b>4. Moderación</b><span>Probá reportes, premium y verificación.</span></div></div></div>
+<div class="beta4Hero">
+  <div class="heroCard"><h2>Velvet Beta 4</h2><p>Base estable + experiencia social avanzada. Probá chat, perfiles, matches, stories, premium y cámara base.</p><div class="toolRow"><button class="primary" onclick="showScreen('search')">Explorar perfiles</button><button class="gold" onclick="showScreen('videoCall')">Probar cámaras</button></div></div>
+  <div class="livePanel"><h3>Estado del sistema</h3><div id="systemHealth" class="result ok">Sistema operativo.</div><p>Chat estable, storage activo, perfiles disponibles.</p></div>
+</div>
+<h2>Inicio</h2><div class="dashboard"><div class="dash"><b id="dashProfiles">0</b><p>Perfiles</p></div><div class="dash"><b id="dashOnline">0</b><p>Online</p></div><div class="dash"><b id="dashFavorites">0</b><p>Favoritos</p></div><div class="dash"><b id="dashMessages">0</b><p>Mensajes sala</p></div></div><div class="card" style="margin-top:16px"><h3>Progreso de perfil</h3><div class="progress"><span id="profileProgress" style="width:20%"></span></div><div class="toolRow"><button class="gold" onclick="showScreen('profile')">Completar perfil</button><button onclick="showScreen('search')">Buscar perfiles</button></div></div><div class="quickActions">
+  <button class="primary" onclick="showScreen('search')">🔎 Buscar</button>
+  <button class="gold" onclick="showScreen('premium')">⭐ Premium</button>
+  <button onclick="showScreen('stories')">⭕ Stories</button>
+  <button onclick="showScreen('legal')">🔐 Seguridad</button>
+</div>
+<div class="card" style="margin-top:16px"><h3>Recomendados</h3><div id="recommendedList"></div></div></div></div>
+    <div id="chatScreen" class="screen"><div class="top"><div><h2 id="chatTitle" style="margin:0">Sala general</h2><p id="chatSub" style="margin:4px 0 0;color:rgba(255,255,255,.55)">Chat estable</p></div><div class="toolRow"><button class="primary" onclick="startCamera()">📹 Activar cámara</button><button onclick="stopCamera()">Apagar</button></div></div><div class="cams"><div class="cam" id="localCamBox"><div class="slot">📹 Cámara apagada</div></div><div class="cam"><div class="slot">👀 Video remoto futuro</div></div><div class="cam"><div class="slot">📹 Espacio disponible</div></div></div><div class="chatArea" id="chatbox"><div class="msg">Cargando sala...</div></div><div class="inputBar"><input id="messageInput" placeholder="Escribí un mensaje..." onkeydown="if(event.key==='Enter')sendMessage()"><button class="primary send" onclick="sendMessage()">Enviar</button></div></div>
+    <div id="searchScreen" class="screen"><div class="wrap"><h2>Buscar perfiles</h2><div class="filters"><input id="searchText" placeholder="Alias o ciudad" oninput="renderSearchResults()"><select id="filterOnline" onchange="renderSearchResults()"><option value="">Online y offline</option><option value="online">Solo online</option><option value="offline">Solo offline</option></select><select id="filterCamera" onchange="renderSearchResults()"><option value="">Cámara</option><option value="cam">Solo con cámara</option></select><select id="filterProfileType" onchange="renderSearchResults()"><option value="">Tipo</option><option>Hombre</option><option>Mujer</option><option>Pareja</option><option>Mujer trans</option><option>Hombre trans</option><option>No binario</option></select><select id="filterSituation" onchange="renderSearchResults()"><option value="">Situación</option><option>Soltero/a</option><option>En pareja</option><option>Casado/a</option><option>Relación abierta</option><option>Separado/a</option><option>De trampa</option><option>Curioso/a</option></select><select id="filterOrientation" onchange="renderSearchResults()"><option value="">Orientación</option><option>Heterosexual</option><option>Bisexual</option><option>Gay</option><option>Lesbiana</option><option>Pansexual</option><option>Curioso/a</option></select><select id="filterLookingFor" onchange="renderSearchResults()"><option value="">Buscando</option><option>Hombre</option><option>Mujer</option><option>Pareja</option><option>Mujer trans</option><option>Hombre trans</option><option>No binario</option><option>Cualquiera</option></select></div><div id="searchCount" class="result ok">Cargando...</div><div class="grid" id="searchResults" style="margin-top:14px"></div></div></div>
+    <div id="favoritesScreen" class="screen"><div class="wrap"><h2>Favoritos</h2><div class="grid" id="favoriteResults"></div></div></div>
+
+    <div id="matchesScreen" class="screen"><div class="wrap"><h2>Matches sugeridos</h2><p>Coincidencias calculadas por ciudad, búsqueda, actividad online, favoritos y perfil.</p><div id="matchesList"></div></div></div>
+
+    <div id="storiesScreen" class="screen"><div class="wrap"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><h2>Stories</h2><p>Historias temporales de la comunidad.</p></div><button class="primary" onclick="showScreen('profile')">Subir story</button></div><div class="storyBar" id="storiesBar"></div><div class="notice">Las stories quedan sujetas a moderación y reglas de comunidad.</div></div></div>
+
+    <div id="premiumScreen" class="screen"><div class="wrap"><h2>Premium</h2><p>Modelo base para monetización futura.</p><div class="premiumGrid">
+      <div class="premiumCard"><h3>Gratis</h3><p>Perfil, búsqueda, sala general y privados limitados.</p><button>Actual</button></div>
+      <div class="premiumCard"><h3>Premium</h3><p>Más privados, destacar perfil, ver más filtros, prioridad en búsqueda.</p><button class="gold" onclick="requestPremium('premium')">Solicitar Premium</button></div>
+      <div class="premiumCard"><h3>VIP</h3><p>Perfil destacado, insignia, más visibilidad y herramientas avanzadas.</p><button class="primary" onclick="requestPremium('vip')">Solicitar VIP</button></div>
+    </div><div id="premiumResult" class="result">Los pagos se pueden integrar después.</div></div></div>
+
+    <div id="verifyScreen" class="screen"><div class="wrap"><h2>Verificación</h2><div class="verifyCard"><h3>Verificar perfil</h3><p>La verificación ayuda a reducir perfiles falsos y mejorar la confianza.</p><textarea id="verifyText" placeholder="Contanos por qué querés verificar tu perfil..."></textarea><button class="primary" onclick="sendVerification()">Enviar solicitud</button><div id="verifyResult" class="result">Pendiente.</div></div></div></div>
+
+    <div id="legalScreen" class="screen"><div class="wrap"><h2>Privacidad, responsabilidad y reglas</h2>
+      <div class="legalBox"><h3>🔞 Solo mayores de 18 años</h3><p>El uso está permitido únicamente a personas adultas. Cada usuario declara ser mayor de edad al registrarse.</p></div>
+      <div class="legalBox"><h3>🤝 Consentimiento</h3><p>El contacto, el chat, la cámara y cualquier interacción deben ser voluntarios y respetuosos. No se permite insistir, acosar ni presionar.</p></div>
+      <div class="legalBox"><h3>🔐 Privacidad</h3><p>No compartas datos personales sensibles en chats públicos. Podés bloquear o reportar usuarios.</p></div>
+      <div class="legalBox"><h3>📹 Cámara</h3><p>Antes de activar cámara, aceptás mostrar imagen en vivo bajo tu responsabilidad. No grabes ni difundas contenido de terceros sin permiso.</p></div>
+      <div class="legalBox"><h3>🛡️ Moderación</h3><p>La plataforma puede revisar, ocultar, rechazar o eliminar contenido y cuentas que incumplan reglas.</p></div>
+      <button class="primary" onclick="acceptLegal()">Acepto y entiendo</button><div id="legalResult" class="result">Leé y aceptá las reglas.</div>
+    </div></div>
+
+
+    <div id="videoCallScreen" class="screen"><div class="wrap">
+      <h2>Cámaras entre usuarios</h2>
+      <p>Base WebRTC preparada: cámara local, señalización, solicitud y espacio remoto. Para producción real se configura TURN.</p>
+      <div class="notice">Antes de activar cámara: no muestres datos personales, no grabes sin consentimiento y respetá las reglas.</div><div class="privacyMini">Recordatorio: el usuario es responsable por lo que muestra en cámara. La plataforma debe permitir reportar, bloquear y cortar transmisión.</div>
+      <div class="callLayout">
+        <div class="card"><h3>Tu cámara</h3><div class="videoBox" id="beta4LocalVideo"><div>📹 Cámara local apagada</div></div><div class="toolRow"><button class="primary" onclick="startBeta4CallCamera()">Activar cámara</button><button onclick="stopBeta4CallCamera()">Apagar</button></div></div>
+        <div class="card"><h3>Video remoto</h3><div class="videoBox" id="beta4RemoteVideo"><div>👀 Esperando conexión</div></div><div class="toolRow"><button class="gold" onclick="createDemoOffer()">Crear señal de prueba</button><button onclick="clearSignalLog()">Limpiar log</button></div></div>
+      </div>
+      <div class="card" style="margin-top:14px"><h3>Señalización</h3><div class="signalLog" id="signalLog">Esperando señales...</div></div>
+    </div></div>
+
+    <div id="adminScreen" class="screen"><div class="wrap">
+      <h2>Panel admin / moderación</h2><p>Vista más clara para controlar contenido, reportes, verificaciones y premium.</p><div class="adminTabs"><button onclick="showAdminTab('reports')">Reportes</button><button onclick="showAdminTab('verify')">Verificaciones</button><button onclick="showAdminTab('premium')">Premium</button><button onclick="showAdminTab('content')">Contenido</button></div>
+      <div class="adminGrid">
+        <div class="adminCard"><h3>Usuarios</h3><b id="adminUsersCount">0</b><p>Perfiles registrados visibles</p></div>
+        <div class="adminCard"><h3>Reportes</h3><b id="adminReportsCount">0</b><p>Reportes pendientes</p></div>
+        <div class="adminCard"><h3>Premium</h3><b id="adminPremiumCount">0</b><p>Solicitudes premium</p></div>
+      </div>
+      <div class="card" style="margin-top:16px"><h3>Reportes pendientes</h3><div id="adminReportsList"></div></div>
+      <div class="card" style="margin-top:16px"><h3>Verificaciones pendientes</h3><div id="adminVerifyList"></div></div>
+      <div class="card" style="margin-top:16px"><h3>Solicitudes premium</h3><div id="adminPremiumList"></div></div>
+    </div></div>
+
+
+    <div id="publicProfileScreen" class="screen"><div class="wrap"><h2>Vista pública del perfil</h2><div id="publicProfilePreview"></div></div></div>
+
+    <div id="profileScreen" class="screen"><div class="wrap"><div class="card"><h2>Mi perfil</h2><div class="formGrid"><input id="editAlias" placeholder="Alias"><input id="editAge" type="number" placeholder="Edad"><input id="editCity" placeholder="Ciudad"><select id="editProfileType"><option value="">Tipo</option><option>Hombre</option><option>Mujer</option><option>Pareja</option><option>Mujer trans</option><option>Hombre trans</option><option>No binario</option></select><select id="editSituation"><option value="">Situación</option><option>Soltero/a</option><option>En pareja</option><option>Casado/a</option><option>Relación abierta</option><option>Separado/a</option><option>De trampa</option><option>Curioso/a</option></select><select id="editOrientation"><option value="">Orientación</option><option>Heterosexual</option><option>Bisexual</option><option>Gay</option><option>Lesbiana</option><option>Pansexual</option><option>Curioso/a</option></select><select id="editLookingFor"><option value="">Buscando</option><option>Hombre</option><option>Mujer</option><option>Pareja</option><option>Mujer trans</option><option>Hombre trans</option><option>No binario</option><option>Cualquiera</option></select></div><textarea id="editBio" placeholder="Descripción"></textarea><button class="primary" onclick="saveProfile()">Guardar perfil</button><div id="profileResult" class="result">Esperando cambios...</div><h3>Foto / video</h3><input id="fileInput" type="file" accept="image/*,video/*" onchange="previewSelectedFile()"><select id="mediaType"><option value="post">Publicación</option><option value="avatar">Avatar</option><option value="story">Story</option></select><textarea id="mediaCaption" placeholder="Texto..."></textarea><div class="preview" id="filePreview">Vista previa</div><button class="gold" onclick="uploadMedia()">Subir</button><div id="mediaResult" class="result">Pendiente.</div></div></div></div>
+    <div id="feedScreen" class="screen"><div class="wrap"><h2>Feed social</h2><div class="socialComposer"><h3>Crear publicación rápida</h3><p>Para publicar con imagen/video, usá Perfil → Foto/video. Esto deja lista la UX del feed.</p><textarea id="quickPostText" placeholder="¿Qué querés compartir?"></textarea><button class="primary" onclick="createQuickPost()">Publicar texto</button><div id="quickPostResult" class="result">Las publicaciones pueden pasar por moderación.</div></div><div class="storyBar" id="feedStoriesBar"></div><div id="feedList"></div></div></div>
+    <div id="moderationScreen" class="screen"><div class="wrap"><h2>Moderación</h2><div id="moderationList"></div></div></div>
+  </main>
+  <aside class="right"><h3>Online ahora</h3><button class="primary" style="width:100%;margin-bottom:8px" onclick="forceRefreshOnline()">Actualizar online</button><button class="gold" style="width:100%;margin-bottom:12px" onclick="toggleOnlyCams()">Solo cámaras</button><div id="onlineList"></div><h3>Solicitudes de cámara</h3><div id="cameraRequestsPanel"><div class="result">Sin solicitudes.</div></div><div class="result" id="statusResult">Sistema listo.</div></aside>
+</div>
+
+<div class="mobileBottomBar">
+  <button onclick="showScreen('dashboard')">📊</button>
+  <button onclick="showScreen('chat')">💬</button>
+  <button onclick="showScreen('search')">🔎</button>
+  <button onclick="showScreen('videoCall')">📹</button>
+  <button onclick="showScreen('profile')">👤</button>
+</div>
+
+<div class="modalBackdrop" id="profileModal"><div class="modal"><div class="modalHero" id="modalHero"><button class="closeBtn" onclick="closeProfileModal()">Cerrar</button><div class="overlay"></div><div class="profileInfo" id="modalInfo"></div></div><div class="modalContent"><p id="modalBio"></p><div class="toolRow"><button class="primary" id="modalMessageBtn">💬 Mensaje</button><button class="gold" id="modalFavBtn">❤️ Favorito</button><button id="modalCamBtn">📹 Cámara</button><button class="danger" onclick="alert('Reporte registrado.')">🚨 Reportar</button></div></div></div></div>
+<div class="storyViewer" id="storyViewer"><div class="storyCard" id="storyViewerCard"><button class="storyClose" onclick="closeStoryViewer()">Cerrar</button><div class="slot">Story</div></div></div>
+
+<div class="notifToast" id="notifToast"><b id="toastTitle">Notificación</b><p id="toastBody">Nueva actividad</p></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://gewpsmcgguekpvedftoi.supabase.co';
+const SUPABASE_KEY='sb_publishable_Sh5VYXtwb_ZbuKW6ex4R4w_LBMEemZH';
+const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let currentUser=null,currentProfile=null,currentRoomId=null,currentChatMode='room',currentConversationId=null,chatChannel=null,profiles=[],allProfiles=[],favoriteIds=new Set(),localStream=null,showOnlyCams=false,isPremium=false;
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function setResult(id,msg,ok=false){const el=document.getElementById(id);if(!el)return;el.className='result '+(ok?'ok':'err');el.textContent=msg}
+function showLogin(){loginBox.classList.remove('hidden');registerBox.classList.add('hidden');loginTab.classList.add('active');regTab.classList.remove('active')}
+function showRegister(){registerBox.classList.remove('hidden');loginBox.classList.add('hidden');regTab.classList.add('active');loginTab.classList.remove('active')}
+function showScreen(name,btn){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('show'));document.getElementById(name+'Screen').classList.add('show');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(name==='chat' && currentChatMode!=='private')openGeneralRoom();if(name==='search')loadAllProfiles();if(name==='favorites')renderFavorites();if(name==='feed')loadFeed();if(name==='moderation')loadModeration();if(name==='matches')renderMatches();if(name==='stories'){loadStories();loadPolishedStories();}if(name==='feed'){loadPolishedStories();}if(name==='publicProfile')renderPublicProfile();if(name==='admin')loadAdminPanel();if(name==='videoCall')appendSignalLog('Módulo de cámaras abierto.')}
+async function testConnection(){const res=await client.from('profiles').select('id').limit(1);setResult('loginResult',res.error?'Error: '+res.error.message:'Conexión OK ✅',!res.error)}
+async function registerUser(){const email=regEmail.value.trim(),password=regPassword.value.trim(),alias=regAlias.value.trim(),age=parseInt(regAge.value,10),city=regCity.value.trim(),profile_type=regProfileType.value,situation=regSituation.value,orientation=regOrientation.value,looking_for=regLookingFor.value,bio=regBio.value.trim();if(!email||!password||!alias||!age||!city||!profile_type||!situation||!orientation||!looking_for){setResult('regResult','Completá todos los campos.');return}if(age<18){setResult('regResult','Debés ser mayor de 18 años.');return}if(password.length<8){setResult('regResult','Contraseña mínimo 8 caracteres.');return}if(!regTerms.checked){setResult('regResult','Aceptá las reglas.');return}setResult('regResult','Creando...',true);const sign=await client.auth.signUp({email,password,options:{data:{alias}}});if(sign.error){setResult('regResult','Auth: '+sign.error.message);return}const userId=sign.data.user?.id;if(!userId){setResult('regResult','Cuenta creada. Revisá email.',true);return}const profile=await client.from('profiles').upsert({id:userId,email,alias,age,city,profile_type,situation,orientation,looking_for,bio,online:true,webcam_enabled:false,last_seen:new Date().toISOString(),premium:false,verified:false});if(profile.error){setResult('regResult','Perfil: '+profile.error.message);return}await client.from('chat_limits').upsert({user_id:userId,private_chats_started:0});setResult('regResult','Cuenta creada ✅ Iniciá sesión.',true);showLogin()}
+async function loginUser(){const email=loginEmail.value.trim(),password=loginPassword.value.trim();if(!email||!password){setResult('loginResult','Completá email y contraseña.');return}setResult('loginResult','Ingresando...',true);const res=await client.auth.signInWithPassword({email,password});if(res.error){setResult('loginResult','Login: '+res.error.message);return}currentUser=res.data.user;document.body.classList.add('logged');await bootstrap()}
+async function updateSession(){const {data}=await client.auth.getSession();if(data?.session?.user){currentUser=data.session.user;document.body.classList.add('logged');await bootstrap()}}
+async function bootstrap(){await ensureGeneralRoom();await loadProfile();await markOnline();await loadFavorites();await loadOnlineUsers();await loadAllProfiles(false);await loadConversations();await loadRoomMessages();subscribeChat();subscribeProfilesRealtime();subscribeCameraRealtime();await loadCameraRequests();startPresenceHeartbeat();updateDashboard()}
+async function logoutUser(){await stopCamera();if(currentUser)await client.from('profiles').update({online:false,webcam_enabled:false,last_seen:new Date().toISOString()}).eq('id',currentUser.id);await client.auth.signOut();document.body.classList.remove('logged');currentUser=null}
+async function markOnline(){
+  if(!currentUser) return;
+
+  const {data:{user}} = await client.auth.getUser();
+  const meta = user?.user_metadata || {};
+
+  await client.from('profiles').upsert({
+    id: currentUser.id,
+    email: currentUser.email,
+    alias: meta.alias || currentUser.email?.split('@')[0] || 'Usuario',
+    online: true,
+    last_seen: new Date().toISOString(),
+    webcam_enabled: false
+  }, {onConflict:'id'});
+}
+async function loadProfile(){const res=await client.from('profiles').select('*').eq('id',currentUser.id).maybeSingle();if(res.data){currentProfile=res.data;isPremium=!!res.data.premium;sideAlias.textContent=res.data.alias||'Usuario';sideAvatar.innerHTML=res.data.avatar_url?`<img src="${res.data.avatar_url}">`:(res.data.alias||'V').slice(0,1).toUpperCase();editAlias.value=res.data.alias||'';editAge.value=res.data.age||'';editCity.value=res.data.city||'';editProfileType.value=res.data.profile_type||'';editSituation.value=res.data.situation||'';editOrientation.value=res.data.orientation||'';editLookingFor.value=res.data.looking_for||'';editBio.value=res.data.bio||''}}
+async function saveProfile(){const row={alias:editAlias.value.trim(),age:parseInt(editAge.value,10)||null,city:editCity.value.trim(),profile_type:editProfileType.value,situation:editSituation.value,orientation:editOrientation.value,looking_for:editLookingFor.value,bio:editBio.value.trim(),last_seen:new Date().toISOString()};const res=await client.from('profiles').update(row).eq('id',currentUser.id);if(res.error){setResult('profileResult',res.error.message);return}setResult('profileResult','Perfil guardado ✅',true);await loadProfile();await loadAllProfiles(false)}
+async function ensureGeneralRoom(){currentRoomId=null;let res=await client.from('chat_rooms').select('id').eq('slug','general').limit(1);if(!res.error&&res.data&&res.data[0]){currentRoomId=res.data[0].id;return currentRoomId}let created=await client.from('chat_rooms').insert({name:'Sala general Velvet',slug:'general',room_type:'general'}).select('id').single();if(!created.error){currentRoomId=created.data.id;return currentRoomId}setResult('statusResult','Error sala: '+created.error.message);return null}
+async function openGeneralRoom(){currentChatMode='room';currentConversationId=null;chatTitle.textContent='Sala general';chatSub.textContent='Todos pueden escribir acá';await ensureGeneralRoom();await loadRoomMessages();subscribeChat()}
+async function loadRoomMessages(){if(!currentRoomId)await ensureGeneralRoom();if(!currentRoomId){chatbox.innerHTML='<div class="msg">No se pudo cargar sala general.</div>';return}const res=await client.from('room_messages').select('body,created_at,sender_id').eq('room_id',currentRoomId).order('created_at',{ascending:true}).limit(120);if(res.error){chatbox.innerHTML='<div class="msg">Error mensajes: '+esc(res.error.message)+'</div>';return}renderMessages(res.data||[]);dashMessages.textContent=(res.data||[]).length}
+async function sendMessage(){const text=messageInput.value.trim();if(!text||!currentUser)return;if(await autoModerateText(text)){setResult('statusResult','Mensaje bloqueado por seguridad/moderación.');return;}messageInput.value='';if(currentChatMode==='room'){if(!currentRoomId)await ensureGeneralRoom();const ins=await client.from('room_messages').insert({room_id:currentRoomId,sender_id:currentUser.id,body:text});if(ins.error){setResult('statusResult','Error enviando: '+ins.error.message);return}await loadRoomMessages()}else{const ins=await client.from('private_messages').insert({conversation_id:currentConversationId,sender_id:currentUser.id,body:text});if(ins.error){setResult('statusResult','Error privado: '+ins.error.message);return}await openPrivateConversation(currentConversationId)}}
+function renderMessages(messages){chatbox.innerHTML=messages.length?messages.map(m=>`<div class="msg ${m.sender_id===currentUser?.id?'me':''}"><b>${m.sender_id===currentUser?.id?'Vos':'Usuario'}</b><br>${esc(m.body)}<small>${new Date(m.created_at).toLocaleString()}</small></div>`).join(''):'<div class="msg">Todavía no hay mensajes.</div>';chatbox.scrollTop=chatbox.scrollHeight}
+function subscribeChat(){if(chatChannel)client.removeChannel(chatChannel);chatChannel=client.channel('clean-chat').on('postgres_changes',{event:'INSERT',schema:'public',table:'room_messages'},()=>{if(currentChatMode==='room')loadRoomMessages()}).on('postgres_changes',{event:'INSERT',schema:'public',table:'private_messages'},()=>{if(currentChatMode==='private')openPrivateConversation(currentConversationId)}).subscribe()}
+async function loadConversations(){const res=await client.from('private_conversations').select('*').or(`user_a.eq.${currentUser.id},user_b.eq.${currentUser.id}`).order('created_at',{ascending:false});conversationList.innerHTML=(res.data||[]).map(c=>`<div class="chatItem" onclick="openPrivateConversation('${c.id}')">💬 Privado<br><small>${c.id.slice(0,8)}</small></div>`).join('')||'<div class="chatItem">Sin privados todavía</div>';const lim=await client.from('chat_limits').select('*').eq('user_id',currentUser.id).maybeSingle();startedChats.textContent=lim.data?.private_chats_started||0}
+async function startPrivateChat(otherId,name){
+  if(!currentUser || otherId===currentUser.id) return;
+
+  closeProfileModal();
+
+  let userA=currentUser.id<otherId?currentUser.id:otherId;
+  let userB=currentUser.id<otherId?otherId:currentUser.id;
+
+  let existing=await client
+    .from('private_conversations')
+    .select('*')
+    .eq('user_a',userA)
+    .eq('user_b',userB)
+    .maybeSingle();
+
+  let conv=existing.data;
+
+  if(!conv){
+    const created=await client
+      .from('private_conversations')
+      .insert({created_by:currentUser.id,user_a:userA,user_b:userB,status:'active'})
+      .select('*')
+      .single();
+
+    if(created.error){
+      setResult('statusResult','Error creando privado: '+created.error.message);
+      return;
+    }
+
+    conv=created.data;
+  }
+
+  await openPrivateConversation(conv.id,name);
+  await loadConversations();
+}
+async function openPrivateConversation(id,name=''){
+  currentChatMode='private';
+  currentConversationId=id;
+
+  const messenger=document.getElementById('floatingMessenger');
+  const title=document.getElementById('floatingMessengerTitle');
+  const messages=document.getElementById('floatingMessengerMessages');
+  const input=document.getElementById('floatingMessengerInput');
+  const sendBtn=document.getElementById('floatingMessengerSend');
+
+  title.textContent=name?'Privado con '+name:'Chat privado';
+  messenger.classList.add('showMessenger');
+
+  const res=await client
+    .from('private_messages')
+    .select('body,created_at,sender_id')
+    .eq('conversation_id',id)
+    .order('created_at',{ascending:true})
+    .limit(120);
+
+  if(res.error){
+    messages.innerHTML='<div class="floatingMsg other">Error privado: '+esc(res.error.message)+'</div>';
+    return;
+  }
+
+  const rows=res.data||[];
+  messages.innerHTML=rows.map(m=>`<div class="floatingMsg ${m.sender_id===currentUser.id?'me':'other'}">${esc(m.body||'')}</div>`).join('')||'<div class="floatingMsg other">No hay mensajes todavía.</div>';
+  messages.scrollTop=messages.scrollHeight;
+
+  sendBtn.onclick=async()=>{
+    const body=input.value.trim();
+    if(!body)return;
+
+    await client.from('private_messages').insert({conversation_id:id,sender_id:currentUser.id,body});
+
+    messages.innerHTML+=`<div class="floatingMsg me">${esc(body)}</div>`;
+    input.value='';
+    messages.scrollTop=messages.scrollHeight;
+  };
+
+  input.onkeydown=(e)=>{
+    if(e.key==='Enter') sendBtn.click();
+  };
+
+  subscribeChat();
+}
+async function loadOnlineUsers(){
+  const since = new Date(Date.now() - 2 * 60 * 1000).toISOString();
+
+  const res = await client
+    .from('profiles')
+    .select('*')
+    .or(`online.eq.true,last_seen.gte.${since}`)
+    .order('last_seen',{ascending:false})
+    .limit(120);
+
+  if(res.error){
+    setResult('statusResult','Error online: '+res.error.message);
+    return;
+  }
+
+  profiles = (res.data || []).map(p => {
+    const fresh = p.last_seen && new Date(p.last_seen).getTime() > Date.now() - 2 * 60 * 1000;
+    return {...p, online: !!p.online || fresh};
+  });
+
+  renderOnlineUsers();
+  updateDashboard();
+}
+async function loadAllProfiles(){
+  const res = await client.from('profiles').select('*').limit(300);
+
+  if(res.error){
+    setResult('statusResult','Error perfiles: '+res.error.message);
+    return;
+  }
+
+  allProfiles = (res.data || [])
+    .filter(p => p.id !== currentUser?.id)
+    .map(p => {
+      const fresh = p.last_seen && new Date(p.last_seen).getTime() > Date.now() - 2 * 60 * 1000;
+      return {...p, online: !!p.online || fresh};
+    });
+
+  renderSearchResults();
+  renderFavorites();
+  updateDashboard();
+}
+async function loadFavorites(){const res=await client.from('favorites').select('to_user').eq('from_user',currentUser.id);favoriteIds=new Set((res.data||[]).map(x=>x.to_user))}
+async function toggleFavorite(id){if(favoriteIds.has(id)){await client.from('favorites').delete().eq('from_user',currentUser.id).eq('to_user',id);favoriteIds.delete(id)}else{await client.from('favorites').upsert({from_user:currentUser.id,to_user:id});favoriteIds.add(id)}renderSearchResults();renderFavorites();updateDashboard();renderMatches()}
+function renderOnlineUsers(){
+  let list=profiles;
+  if(showOnlyCams) list=list.filter(p=>p.webcam_enabled);
+
+  onlineList.innerHTML=list.map(p=>`
+    <div class="user">
+      <div class="userAvatar" onclick="openProfileModalById('${p.id}')">
+        ${p.avatar_url?`<img src="${p.avatar_url}">`:esc((p.alias||'U').slice(0,1).toUpperCase())}
+      </div>
+      <div style="flex:1" onclick="openProfileModalById('${p.id}')">
+        <b><span class="dot"></span>${esc(p.alias||'Usuario')}</b><br>
+        <small>${esc(p.city||'')}</small>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+        <button class="primary" style="font-size:11px;padding:7px 9px" onclick="startPrivateChat('${p.id}','${esc(p.alias||'Usuario')}')">Privado</button>
+        ${p.webcam_enabled?`<button class="camBadge" onclick="sendCameraRequest('${p.id}','${esc(p.alias||'Usuario')}')">Ver CAM</button>`:''}
+      </div>
+    </div>`).join('')||'<div class="result">No hay usuarios online.</div>';
+
+  renderGeneralCameraSlots();
+}
+function getFiltered(){let list=[...allProfiles];const q=(searchText?.value||'').toLowerCase(),on=filterOnline?.value||'',cam=filterCamera?.value||'',pt=filterProfileType?.value||'',sit=filterSituation?.value||'',ori=filterOrientation?.value||'',look=filterLookingFor?.value||'';return list.filter(p=>{if(q&&!((p.alias||'')+' '+(p.city||'')).toLowerCase().includes(q))return false;if(on==='online'&&!p.online)return false;if(on==='offline'&&p.online)return false;if(cam==='cam'&&!p.webcam_enabled)return false;if(pt&&p.profile_type!==pt)return false;if(sit&&p.situation!==sit)return false;if(ori&&p.orientation!==ori)return false;if(look&&p.looking_for!==look)return false;return true})}
+function renderSearchResults(){const list=getFiltered();searchCount.textContent=`${list.length} perfil(es)`;searchResults.innerHTML=list.map(cardHtml).join('')||'<div class="feedItem"><h3>Sin resultados</h3></div>'}
+function cardHtml(p){const fav=favoriteIds.has(p.id);return `<div class="profileCard"><div class="profileImg" onclick="openProfileModalById('${p.id}')">${p.avatar_url?`<img src="${p.avatar_url}">`:`<div style="height:100%;display:grid;place-items:center;font-size:54px;background:linear-gradient(135deg,var(--pink),var(--violet))">${esc((p.alias||'U').slice(0,1).toUpperCase())}</div>`}<div class="overlay"></div><div class="profileTop"><span class="badge ${p.online?'bGreen':'bGray'}">${p.online?'Online':'Offline'}</span>${p.webcam_enabled?'<span class="badge bPink">CAM</span>':''}${p.verified?'<span class="badge">Verificado</span>':''}${p.premium?'<span class="badge">Premium</span>':''}</div><div class="profileBottom"><h3>${esc(p.alias||'Usuario')}${p.age?', '+p.age:''}</h3><p style="margin:0;color:rgba(255,255,255,.78)">📍 ${esc(p.city||'')}</p></div></div><div class="profileBody"><div class="tags"><span>${esc(p.profile_type||'Perfil')}</span><span>${esc(p.situation||'Situación')}</span><span>${esc(p.orientation||'Orientación')}</span><span>Busca ${esc(p.looking_for||'')}</span></div><p>${esc(p.bio||'Sin descripción.')}</p><div class="toolRow"><button onclick="openProfileModalById('${p.id}')">Ver perfil</button><button class="primary" onclick="startPrivateChat('${p.id}','${esc(p.alias||'Usuario')}')">Privado</button><button class="gold" onclick="toggleFavorite('${p.id}')">${fav?'💔 Quitar':'❤️ Favorito'}</button>${p.webcam_enabled?`<button onclick="sendCameraRequest('${p.id}','${esc(p.alias||'Usuario')}')">Ver CAM</button>`:''}</div></div></div>`}
+function renderFavorites(){const list=allProfiles.filter(p=>favoriteIds.has(p.id));favoriteResults.innerHTML=list.map(cardHtml).join('')||'<div class="feedItem"><h3>Sin favoritos</h3></div>'}
+function openProfileModalById(id){const p=allProfiles.find(x=>x.id===id)||profiles.find(x=>x.id===id);if(!p)return;modalHero.style.background=p.avatar_url?`url("${p.avatar_url}") center/cover`:'linear-gradient(135deg,var(--pink),var(--violet))';modalInfo.innerHTML=`<h2>${esc((p.alias||'Usuario')+(p.age?', '+p.age:''))}</h2><p>📍 ${esc(p.city||'')}</p><div class="tags"><span>${p.online?'Online':'Offline'}</span><span>${esc(p.profile_type||'Perfil')}</span><span>${esc(p.situation||'Situación')}</span><span>${esc(p.orientation||'Orientación')}</span><span>Busca ${esc(p.looking_for||'')}</span></div>`;modalBio.textContent=p.bio||'Sin descripción.';modalMessageBtn.onclick=()=>startPrivateChat(p.id,p.alias||'Usuario');modalFavBtn.onclick=()=>toggleFavorite(p.id);modalCamBtn.onclick=()=>sendCameraRequest(p.id,p.alias||'Usuario');profileModal.classList.add('show')}
+function closeProfileModal(){profileModal.classList.remove('show')}
+function updateDashboard(){if(!dashProfiles)return;dashProfiles.textContent=allProfiles.length;dashOnline.textContent=profiles.length;dashFavorites.textContent=favoriteIds.size;const keys=['alias','age','city','profile_type','situation','orientation','looking_for','bio','avatar_url'];let ok=0;if(currentProfile)keys.forEach(k=>{if(currentProfile[k])ok++});profileProgress.style.width=Math.round((ok/keys.length)*100)+'%';recommendedList.innerHTML=allProfiles.slice(0,3).map(p=>`<div class="feedItem"><b>${esc(p.alias||'Usuario')}</b><p>${esc(p.city||'')}</p><button onclick="openProfileModalById('${p.id}')">Ver</button></div>`).join('')||'<div class="feedItem">Sin recomendados.</div>'}
+function toggleOnlyCams(){showOnlyCams=!showOnlyCams;renderOnlineUsers()}
+async function startCamera(){if(!confirm('Vas a activar tu cámara. Recordá no mostrar datos personales y respetar las reglas de consentimiento. ¿Continuar?'))return;try{localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});localCamBox.innerHTML='<video id="localVideo" autoplay muted playsinline></video><div class="overlay"></div><div class="camInfo"><span class="badge bPink">TU CAM</span></div>';document.getElementById('localVideo').srcObject=localStream;await client.from('profiles').update({webcam_enabled:true,online:true,last_seen:new Date().toISOString()}).eq('id',currentUser.id);await loadOnlineUsers();await renderGeneralCameraSlots();setResult('statusResult','Cámara activada ✅',true)}catch(e){setResult('statusResult','Cámara: '+e.message)}}
+async function stopCamera(){if(localStream){localStream.getTracks().forEach(t=>t.stop());localStream=null}if(document.body.classList.contains('logged'))localCamBox.innerHTML='<div class="slot">📹 Cámara apagada</div>';if(currentUser)await client.from('profiles').update({webcam_enabled:false,last_seen:new Date().toISOString()}).eq('id',currentUser.id);await loadOnlineUsers();await renderGeneralCameraSlots()}
+function previewSelectedFile(){const f=fileInput.files[0];if(!f)return;if(f.type.startsWith('image/'))filePreview.innerHTML=`<img src="${URL.createObjectURL(f)}">`;else filePreview.textContent='🎥 Video seleccionado'}
+async function uploadMedia(){const f=fileInput.files[0];if(!f){setResult('mediaResult','Seleccioná archivo.');return}const kind=mediaType.value,ext=f.name.split('.').pop(),bucket=kind==='avatar'?'avatars':(kind==='story'?'stories':'posts'),path=`${currentUser.id}/${kind}-${Date.now()}.${ext}`;const up=await client.storage.from(bucket).upload(path,f,{upsert:true});if(up.error){setResult('mediaResult','Storage: '+up.error.message);return}const url=client.storage.from(bucket).getPublicUrl(path).data.publicUrl;if(kind==='avatar'){await client.from('profiles').update({avatar_url:url}).eq('id',currentUser.id);setResult('mediaResult','Avatar actualizado ✅',true);await loadProfile();return}if(await autoModerateText(mediaCaption.value)){setResult('mediaResult','Contenido marcado para revisión por palabras sensibles.');}
+if(kind==='story'){
+  await client.from('stories').insert({user_id:currentUser.id,media_type:f.type.startsWith('video')?'video':'image',file_url:url,caption:mediaCaption.value.trim(),status:'pending'});
+}else{
+  await client.from('media_items').insert({user_id:currentUser.id,media_type:f.type.startsWith('video')?'video':'image',file_url:url,caption:mediaCaption.value.trim(),status:'pending',is_public:false});
+}
+setResult('mediaResult','Enviado a moderación ✅',true)}
+async function loadFeed(){
+  const res=await client.from('media_items').select('*').eq('status','approved').order('created_at',{ascending:false}).limit(40);
+  feedList.innerHTML=(res.data||[]).map(m=>`<div class="feedItem"><p>${esc(m.caption||'Publicación')}</p>${m.media_type==='text'?'<div class="mediaBox">📝 Publicación de texto</div>':`<div class="mediaBox">${m.media_type==='image'?`<img src="${m.file_url}">`:'🎥 Video'}</div>`}<div class="postActions"><button onclick="likePost('${m.id}')">❤️ Like</button><button onclick="toggleComments('${m.id}')">💬 Comentar</button><button>↗ Compartir</button></div><div class="commentBox hidden" id="comments_${m.id}"><input id="commentInput_${m.id}" placeholder="Escribí un comentario..."><button onclick="addComment('${m.id}')">Enviar</button><div id="commentList_${m.id}"></div></div></div>`).join('')||'<div class="feedItem">Feed vacío.</div>';
+}
+async function likePost(id){
+  await client.from('post_likes').upsert({post_id:id,user_id:currentUser.id});
+  showToast('Feed','Like enviado.');
+}
+function toggleComments(id){
+  const el=document.getElementById('comments_'+id);
+  if(el)el.classList.toggle('hidden');
+  loadComments(id);
+}
+async function addComment(id){
+  const input=document.getElementById('commentInput_'+id);
+  const text=(input?.value||'').trim();
+  if(!text)return;
+  if(await autoModerateText(text)){showToast('Moderación','Comentario bloqueado.');return;}
+  await client.from('post_comments').insert({post_id:id,user_id:currentUser.id,body:text});
+  input.value='';
+  loadComments(id);
+}
+async function loadComments(id){
+  const res=await client.from('post_comments').select('*').eq('post_id',id).order('created_at',{ascending:true}).limit(20);
+  const list=document.getElementById('commentList_'+id);
+  if(list)list.innerHTML=(res.data||[]).map(c=>`<div class="result">${esc(c.body)}</div>`).join('');
+}
+async function loadModeration(){const res=await client.from('media_items').select('*').eq('status','pending').order('created_at',{ascending:false}).limit(30);moderationList.innerHTML=(res.data||[]).map(m=>`<div class="feedItem"><p>${esc(m.caption||'Sin texto')}</p><div class="mediaBox">${m.media_type==='image'?`<img src="${m.file_url}">`:'🎥 Video'}</div><button class="primary" onclick="moderateMedia('${m.id}','approved')">Aprobar</button> <button class="danger" onclick="moderateMedia('${m.id}','rejected')">Rechazar</button></div>`).join('')||'<div class="feedItem">No hay pendientes.</div>'}
+async function moderateMedia(id,status){await client.from('media_items').update({status,is_public:status==='approved'}).eq('id',id);loadModeration();loadFeed()}
+
+function scoreProfile(p){
+  let score=0;
+  if(currentProfile?.city && p.city===currentProfile.city) score+=25;
+  if(currentProfile?.looking_for && (p.profile_type===currentProfile.looking_for || currentProfile.looking_for==='Cualquiera')) score+=30;
+  if(p.online) score+=20;
+  if(p.webcam_enabled) score+=10;
+  if(favoriteIds.has(p.id)) score+=15;
+  return score;
+}
+function renderMatches(){
+  if(!document.getElementById('matchesList')) return;
+  const list=[...allProfiles].map(p=>({...p,match_score:enhancedMatchScore(p)})).sort((a,b)=>b.match_score-a.match_score).slice(0,20);
+  matchesList.innerHTML=list.length?list.map(p=>`<div class="feedItem"><div class="profilePremiumHeader"><div><h3>${esc(p.alias||'Usuario')}${p.age?', '+p.age:''}</h3><p>${esc(p.city||'')} · ${esc(p.profile_type||'')} · Busca ${esc(p.looking_for||'')}</p><div class="tags"><span>${p.online?'Online':'Offline'}</span>${p.webcam_enabled?'<span>CAM</span>':''}<span>${p.match_score}% compatible</span></div></div><button class="primary" onclick="openProfileModalById('${p.id}')">Ver perfil</button></div></div>`).join(''):'<div class="feedItem">Todavía no hay perfiles para calcular matches.</div>';
+}
+async function loadStories(){
+  if(!document.getElementById('storiesBar')) return;
+  const res=await client.from('stories').select('*').eq('status','approved').order('created_at',{ascending:false}).limit(30);
+  const data=res.data||[];
+  storiesBar.innerHTML=data.length?data.map(s=>`<div class="storyBubble"><div class="storyCircle"><div class="storyCircleInner">${s.file_url?`<img src="${s.file_url}">`:'⭕'}</div></div><small>${esc(s.caption||'Story')}</small></div>`).join(''):'<div class="emptyState">Todavía no hay stories aprobadas.</div>';
+}
+async function requestPremium(plan){
+  const res=await client.from('premium_requests').insert({user_id:currentUser.id,plan,status:'pending'});
+  premiumResult.className='result '+(res.error?'err':'ok');
+  premiumResult.textContent=res.error?res.error.message:'Solicitud enviada ✅';
+}
+async function sendVerification(){
+  const note=verifyText.value.trim();
+  const res=await client.from('verification_requests').insert({user_id:currentUser.id,note,status:'pending'});
+  verifyResult.className='result '+(res.error?'err':'ok');
+  verifyResult.textContent=res.error?res.error.message:'Solicitud de verificación enviada ✅';
+}
+async function acceptLegal(){
+  await client.from('profiles').update({accepted_terms:true,accepted_terms_at:new Date().toISOString()}).eq('id',currentUser.id);
+  legalResult.className='result ok';
+  legalResult.textContent='Reglas aceptadas ✅';
+}
+async function autoModerateText(text){
+  const banned=['menor','menores','ilegal','dni','tarjeta','contraseña'];
+  const lower=(text||'').toLowerCase();
+  return banned.some(w=>lower.includes(w));
+}
+
+
+let beta4Stream=null;
+function showToast(title,body){
+  if(!document.getElementById('notifToast')) return;
+  toastTitle.textContent=title;
+  toastBody.textContent=body;
+  notifToast.classList.add('show');
+  setTimeout(()=>notifToast.classList.remove('show'),3500);
+}
+async function startBeta4CallCamera(){
+  if(!confirm('Vas a activar cámara. Usala con responsabilidad y consentimiento.')) return;
+  try{
+    beta4Stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});
+    beta4LocalVideo.innerHTML='<video id="beta4LocalEl" autoplay muted playsinline></video>';
+    beta4LocalEl.srcObject=beta4Stream;
+    await client.from('profiles').update({webcam_enabled:true,last_seen:new Date().toISOString()}).eq('id',currentUser.id);
+    appendSignalLog('Cámara local activada.');
+  }catch(e){appendSignalLog('Error cámara: '+e.message);}
+}
+async function stopBeta4CallCamera(){
+  if(beta4Stream){beta4Stream.getTracks().forEach(t=>t.stop());beta4Stream=null;}
+  if(document.getElementById('beta4LocalVideo')) beta4LocalVideo.innerHTML='<div>📹 Cámara local apagada</div>';
+  if(currentUser) await client.from('profiles').update({webcam_enabled:false,last_seen:new Date().toISOString()}).eq('id',currentUser.id);
+  appendSignalLog('Cámara apagada.');
+}
+function appendSignalLog(msg){
+  if(!document.getElementById('signalLog')) return;
+  const time=new Date().toLocaleTimeString();
+  signalLog.innerHTML='<div>['+time+'] '+esc(msg)+'</div>'+signalLog.innerHTML;
+}
+async function createDemoOffer(){
+  appendSignalLog('Señal WebRTC demo creada. Próximo paso: conectar offer/answer real con usuario seleccionado.');
+  showToast('Cámaras','Señal de prueba creada.');
+}
+function clearSignalLog(){if(document.getElementById('signalLog')) signalLog.textContent='Log limpio.'}
+async function loadAdminPanel(){
+  if(!document.getElementById('adminUsersCount')) return;
+  const users=await client.from('profiles').select('id').limit(1000);
+  const reports=await client.from('reports').select('*').eq('status','pending').limit(50);
+  const premium=await client.from('premium_requests').select('*').eq('status','pending').limit(50);
+  const verifs=await client.from('verification_requests').select('*').eq('status','pending').limit(50);
+  adminUsersCount.textContent=(users.data||[]).length;
+  adminReportsCount.textContent=(reports.data||[]).length;
+  adminPremiumCount.textContent=(premium.data||[]).length;
+  adminReportsList.innerHTML=(reports.data||[]).map(r=>`<div class="feedItem modFlag"><b>Reporte</b><p>${esc(r.reason||'Sin motivo')}</p><button onclick="resolveReport('${r.id}')">Resolver</button></div>`).join('')||'<div class="feedItem">Sin reportes pendientes.</div>';
+  adminVerifyList.innerHTML=(verifs.data||[]).map(v=>`<div class="feedItem"><b>Verificación</b><p>${esc(v.note||'Sin nota')}</p><button class="primary" onclick="approveVerification('${v.id}','${v.user_id}')">Aprobar</button></div>`).join('')||'<div class="feedItem">Sin verificaciones pendientes.</div>';
+  adminPremiumList.innerHTML=(premium.data||[]).map(p=>`<div class="feedItem"><b>${esc(p.plan||'premium')}</b><p>${p.user_id}</p><button class="gold" onclick="approvePremium('${p.id}','${p.user_id}','${p.plan||'premium'}')">Aprobar</button></div>`).join('')||'<div class="feedItem">Sin solicitudes premium.</div>';
+}
+async function resolveReport(id){await client.from('reports').update({status:'resolved'}).eq('id',id);loadAdminPanel();}
+async function approveVerification(id,userId){await client.from('verification_requests').update({status:'approved'}).eq('id',id);await client.from('profiles').update({verified:true}).eq('id',userId);loadAdminPanel();showToast('Admin','Verificación aprobada.');}
+async function approvePremium(id,userId,plan){await client.from('premium_requests').update({status:'approved'}).eq('id',id);await client.from('profiles').update({premium:true,premium_plan:plan}).eq('id',userId);loadAdminPanel();showToast('Admin','Premium aprobado.');}
+function enhancedMatchScore(p){
+  let s=scoreProfile(p);
+  if(p.verified) s+=10;
+  if(p.premium) s+=8;
+  if(p.bio&&p.bio.length>50) s+=7;
+  return Math.min(100,s);
+}
+
+
+async function createQuickPost(){
+  const text=(quickPostText?.value||'').trim();
+  if(!text){quickPostResult.className='result err';quickPostResult.textContent='Escribí algo.';return;}
+  if(await autoModerateText(text)){quickPostResult.className='result err';quickPostResult.textContent='Publicación bloqueada por moderación automática.';return;}
+  const res=await client.from('media_items').insert({user_id:currentUser.id,media_type:'text',file_url:'text-only',caption:text,status:'approved',is_public:true});
+  quickPostResult.className='result '+(res.error?'err':'ok');
+  quickPostResult.textContent=res.error?res.error.message:'Publicado ✅';
+  quickPostText.value='';
+  loadFeed();
+}
+function renderPublicProfile(){
+  if(!document.getElementById('publicProfilePreview')) return;
+  const p=currentProfile||{};
+  publicProfilePreview.innerHTML=`<div class="publicProfile"><div class="publicPhoto">${p.avatar_url?`<img src="${p.avatar_url}">`:`<div style="height:100%;display:grid;place-items:center;font-size:78px;background:linear-gradient(135deg,var(--pink),var(--violet))">${esc((p.alias||'V').slice(0,1).toUpperCase())}</div>`}<div class="overlay"></div><div class="profileInfo"><h2>${esc((p.alias||'Usuario')+(p.age?', '+p.age:''))}</h2><p>📍 ${esc(p.city||'Argentina')}</p></div></div><div class="publicInfo"><div class="profilePremiumHeader"><h2>${esc(p.alias||'Usuario')}</h2>${p.verified?'<span class="badge">Verificado</span>':''}${p.premium?'<span class="badge">Premium</span>':''}</div><p>${esc(p.bio||'Agregá una descripción para que tu perfil se vea más completo.')}</p><div class="tags"><span>${esc(p.profile_type||'Perfil')}</span><span>${esc(p.situation||'Situación')}</span><span>${esc(p.orientation||'Orientación')}</span><span>Busca ${esc(p.looking_for||'')}</span></div><div class="softDivider"></div><h3>Acciones visibles para otros usuarios</h3><div class="toolRow"><button class="primary">Mensaje</button><button class="gold">Favorito</button><button>Solicitar cámara</button><button class="danger">Reportar</button></div><div class="privacyMini">Tu email, datos de cuenta y configuración privada no se muestran públicamente.</div></div></div>`;
+}
+function showAdminTab(tab){
+  const ids=['reports','verify','premium','content'];
+  ids.forEach(id=>{
+    const el=document.getElementById('adminTab_'+id);
+    if(el)el.classList.remove('show');
+  });
+  const target=document.getElementById('adminTab_'+tab);
+  if(target)target.classList.add('show');
+}
+function openStoryViewer(url,caption){
+  storyViewerCard.innerHTML=`<button class="storyClose" onclick="closeStoryViewer()">Cerrar</button>${url?`<img src="${url}">`:`<div class="slot">Story</div>`}<div class="profileInfo"><h3>${esc(caption||'Story')}</h3></div>`;
+  storyViewer.classList.add('show');
+}
+function closeStoryViewer(){storyViewer.classList.remove('show')}
+async function loadPolishedStories(){
+  const res=await client.from('stories').select('*').eq('status','approved').order('created_at',{ascending:false}).limit(20);
+  const data=res.data||[];
+  const htmlStories=data.length?data.map(s=>`<div class="storyBubble" onclick="openStoryViewer('${s.file_url||''}','${esc(s.caption||'Story')}')"><div class="storyCircle"><div class="storyCircleInner">${s.file_url?`<img src="${s.file_url}">`:'⭕'}</div></div><small>${esc(s.caption||'Story')}</small></div>`).join(''):'<div class="emptyState">Sin stories todavía.</div>';
+  if(document.getElementById('storiesBar')) storiesBar.innerHTML=htmlStories;
+  if(document.getElementById('feedStoriesBar')) feedStoriesBar.innerHTML=htmlStories;
+}
+
+
+let presenceInterval=null;
+function startPresenceHeartbeat(){
+  if(presenceInterval) clearInterval(presenceInterval);
+
+  markOnline();
+  loadOnlineUsers();
+  loadAllProfiles();
+
+  presenceInterval = setInterval(async()=>{
+    if(!currentUser) return;
+    await client.from('profiles').update({
+      online:true,
+      last_seen:new Date().toISOString()
+    }).eq('id',currentUser.id);
+
+    await loadOnlineUsers();
+    await loadAllProfiles();
+  }, 15000);
+
+  window.addEventListener('beforeunload', ()=>{
+    try{
+      client.from('profiles').update({
+        online:false,
+        last_seen:new Date().toISOString()
+      }).eq('id',currentUser.id);
+    }catch(e){}
+  });
+}
+function subscribeProfilesRealtime(){
+  client.channel('velvet-online-presence')
+    .on('postgres_changes',{event:'*',schema:'public',table:'profiles'},async()=>{
+      await loadOnlineUsers();
+      await loadAllProfiles();
+    })
+    .subscribe();
+}
+async function forceRefreshOnline(){
+  await markOnline();
+  await loadOnlineUsers();
+  await loadAllProfiles();
+  setResult('statusResult','Online actualizado ✅',true);
+}
+
+
+async function renderGeneralCameraSlots(){
+  const camUsers = (profiles||[]).filter(p=>p.webcam_enabled).slice(0,3);
+  const camBoxes = document.querySelectorAll('.cams .cam');
+  if(!camBoxes.length) return;
+
+  for(let i=0;i<Math.min(3,camBoxes.length);i++){
+    const p=camUsers[i];
+    if(p){
+      camBoxes[i].classList.add('cameraSlotActive');
+      camBoxes[i].innerHTML=`
+        <div class="slot">
+          <div>
+            <div class="webcamStatus">CAM ACTIVA</div>
+            <div style="font-size:42px;margin-bottom:8px">📹</div>
+            <b>${esc(p.alias||'Usuario')}</b><br>
+            <small>${esc(p.city||'')}</small>
+            <div class="toolRow" style="justify-content:center">
+              <button class="primary" onclick="sendCameraRequest('${p.id}','${esc(p.alias||'Usuario')}')">Ver cámara</button>
+              <button onclick="startPrivateChat('${p.id}','${esc(p.alias||'Usuario')}')">Privado</button>
+            </div>
+          </div>
+        </div>`;
+    }else{
+      camBoxes[i].classList.remove('cameraSlotActive');
+      camBoxes[i].innerHTML='<div class="slot">📹 Espacio disponible<br><small>Usuarios con cámara activa</small></div>';
+    }
+  }
+
+  if(localStream){
+    const first=camBoxes[0];
+    if(first){
+      first.classList.add('cameraSlotActive');
+      first.innerHTML='<video id="localVideo" autoplay muted playsinline></video><div class="overlay"></div><div class="camInfo"><span class="badge bPink">TU CAM</span></div>';
+      setTimeout(()=>{const v=document.getElementById('localVideo');if(v)v.srcObject=localStream;},50);
+    }
+  }
+}
+async function sendCameraRequest(toUserId,alias){
+  if(!currentUser || toUserId===currentUser.id) return;
+
+  const res = await client.from('camera_requests').insert({
+    from_user: currentUser.id,
+    to_user: toUserId,
+    status: 'pending'
+  });
+
+  if(res.error){
+    setResult('statusResult','Error solicitud cámara: '+res.error.message);
+    return;
+  }
+
+  setResult('statusResult','Solicitud de cámara enviada a '+alias+' ✅',true);
+  showToast && showToast('Cámara','Solicitud enviada a '+alias);
+}
+async function loadCameraRequests(){
+  if(!currentUser || !document.getElementById('cameraRequestsPanel')) return;
+
+  const res = await client
+    .from('camera_requests')
+    .select('*')
+    .eq('to_user',currentUser.id)
+    .eq('status','pending')
+    .order('created_at',{ascending:false})
+    .limit(20);
+
+  const rows=res.data||[];
+  cameraRequestsPanel.innerHTML=rows.length?rows.map(r=>`
+    <div class="cameraRequestCard">
+      <b>Solicitud de cámara</b><br>
+      <small>${r.from_user.slice(0,8)}</small>
+      <div class="toolRow">
+        <button class="primary" onclick="acceptCameraRequest('${r.id}','${r.from_user}')">Aceptar</button>
+        <button class="danger" onclick="rejectCameraRequest('${r.id}')">Rechazar</button>
+      </div>
+    </div>`).join(''):'<div class="result">Sin solicitudes.</div>';
+}
+async function acceptCameraRequest(id,fromUser){
+  await client.from('camera_requests').update({status:'accepted',responded_at:new Date().toISOString()}).eq('id',id);
+  await client.from('webrtc_signals').insert({
+    from_user:currentUser.id,
+    to_user:fromUser,
+    signal_type:'camera_accepted',
+    payload:{message:'accepted'}
+  });
+  setResult('statusResult','Solicitud de cámara aceptada ✅',true);
+  loadCameraRequests();
+}
+async function rejectCameraRequest(id){
+  await client.from('camera_requests').update({status:'rejected',responded_at:new Date().toISOString()}).eq('id',id);
+  loadCameraRequests();
+}
+function subscribeCameraRealtime(){
+  client.channel('velvet-camera-requests')
+    .on('postgres_changes',{event:'*',schema:'public',table:'camera_requests'},async()=>{
+      await loadCameraRequests();
+    })
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'webrtc_signals',filter:`to_user=eq.${currentUser.id}`},payload=>{
+      if(payload.new.signal_type==='camera_accepted'){
+        setResult('statusResult','Tu solicitud de cámara fue aceptada. Módulo WebRTC listo para conectar.',true);
+        showToast && showToast('Cámara','Tu solicitud fue aceptada.');
+      }
+    })
+    .subscribe();
+}
+
+updateSession();
+</script>
+
+<style>
+#floatingMessenger{position:fixed;right:20px;bottom:20px;width:380px;height:520px;background:#11131b;border:1px solid rgba(255,255,255,.1);border-radius:18px;z-index:999999;display:none;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+#floatingMessenger.showMessenger{display:flex}
+.floatingMessengerTop{height:64px;background:#181b25;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:#fff;font-weight:800}
+#floatingMessengerMessages{flex:1;padding:14px;overflow:auto;background:#ece9df;display:flex;flex-direction:column;gap:10px}
+.floatingMsg{max-width:78%;padding:10px 12px;border-radius:14px;font-size:14px}
+.floatingMsg.me{align-self:flex-end;background:#d92ea8;color:#fff}
+.floatingMsg.other{align-self:flex-start;background:#fff;color:#222}
+.floatingMessengerBottom{padding:10px;background:#f7f5ef;border-top:1px solid rgba(0,0,0,.08);display:flex;gap:8px}
+#floatingMessengerInput{flex:1;border-radius:10px;border:1px solid #ccc;padding:10px}
+#floatingMessengerSend{border:0;background:#d92ea8;color:#fff;padding:0 16px;border-radius:10px;font-weight:700}
+</style>
+<div id="floatingMessenger">
+<div class="floatingMessengerTop">
+<span id="floatingMessengerTitle">Chat privado</span>
+<button onclick="document.getElementById('floatingMessenger').classList.remove('showMessenger')" style="background:none;border:0;color:#fff;font-size:22px;cursor:pointer">×</button>
+</div>
+<div id="floatingMessengerMessages"></div>
+<div class="floatingMessengerBottom">
+<input id="floatingMessengerInput" placeholder="Escribe un mensaje...">
+<button id="floatingMessengerSend">Enviar</button>
+</div>
+</div>
+</body>
+</html>

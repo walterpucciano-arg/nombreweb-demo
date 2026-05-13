@@ -1,0 +1,30 @@
+HOTFIX: Chat privado en pestaña/ventana nueva
+
+Qué hace:
+- Al tocar Privado / Mensaje privado, abre una pestaña/ventana nueva.
+- El chat general queda abierto y sin modificarse.
+- La nueva pestaña carga la misma app con parámetros privateChat=1&with=ID.
+- Dentro de esa pestaña intenta abrir la conversación privada con ese usuario.
+- Crea backup automático de index.html antes de modificar.
+
+Cómo aplicarlo:
+1. Descomprimí este ZIP.
+2. Copiá apply-private-chat-new-tab-hotfix.js dentro de la carpeta del proyecto, donde está index.html.
+3. Abrí terminal en esa carpeta.
+4. Ejecutá:
+
+   node apply-private-chat-new-tab-hotfix.js
+
+5. Subí a GitHub:
+
+   git add .
+   git commit -m "Chat privado en pestaña nueva"
+   git push
+
+6. Esperá que Vercel redeploye.
+7. Abrí la web y hacé CTRL + F5 / borrar caché.
+
+Importante:
+- El navegador puede bloquear popups si el privado no se abre desde un click real.
+- Este hotfix está hecho para abrir la nueva ventana desde el toque/click del usuario.
+- Si la ventana abre pero no muestra mensajes, falta conectar la ruta/estado privado real con Supabase en esa ventana.

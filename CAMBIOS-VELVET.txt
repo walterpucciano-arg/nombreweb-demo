@@ -1,0 +1,56 @@
+CAMBIOS PRINCIPALES PARA PEGAR EN App.jsx
+
+REEMPLAZAR:
+NombreWeb
+
+POR:
+Velvet
+
+
+REEMPLAZAR:
+Comunidad +18 Argentina
+
+POR:
+Club nocturno digital premium
+
+
+REEMPLAZAR:
+Conocé personas reales y viví nuevas experiencias.
+
+POR:
+Entrá al lado más sensual, libre y misterioso de la noche.
+
+
+REEMPLAZAR:
+Una red social adulta para charlar, conectar y encontrar personas cerca tuyo.
+
+POR:
+Una experiencia social +18 elegante, sensual y nocturna.
+
+
+REEMPLAZAR:
+Panel interno
+
+POR:
+Velvet Experience
+
+
+REEMPLAZAR:
+Explorar perfiles
+
+POR:
+Explorar la noche
+
+
+REEMPLAZAR:
+Webcams en vivo
+
+POR:
+Lives privados en vivo
+
+
+REEMPLAZAR:
+Plan Premium
+
+POR:
+Velvet Premium
