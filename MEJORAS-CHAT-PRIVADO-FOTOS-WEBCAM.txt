@@ -1,0 +1,6 @@
+Cambios aplicados:
+- Chat privado flotante ampliado con columna lateral de últimos 15 chats.
+- Botón para enviar fotos por privado.
+- Las fotos se guardan como mensaje privado y se renderizan al receptor.
+- Botón de webcam dentro del chat privado.
+- El botón de webcam detecta el otro usuario de la conversación y envía solicitud de cámara.

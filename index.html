@@ -803,6 +803,177 @@ updateSession();
 <button id="floatingMessengerSend">Enviar</button>
 </div>
 </div>
+
+
+<!-- HOTFIX_CHAT_PRIVADO_FOTOS_WEBCAM_START -->
+<style>
+  #floatingMessenger{width:min(880px,calc(100vw - 24px))!important;height:min(640px,calc(100vh - 24px))!important;right:12px!important;bottom:12px!important;background:#10131d!important;border-radius:22px!important;overflow:hidden!important;box-shadow:0 24px 80px rgba(0,0,0,.55)!important}
+  .pmLayout{display:grid;grid-template-columns:290px 1fr;height:100%;min-height:0}
+  .pmSidebar{background:#0c0f18;border-right:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;min-height:0}
+  .pmSideHeader{height:64px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;gap:10px;color:#fff}
+  .pmSideHeader b{font-size:15px}.pmSideHeader small{display:block;color:rgba(255,255,255,.55);font-weight:500;margin-top:2px}
+  #pmRecentList{flex:1;overflow:auto;padding:10px;display:grid;align-content:start;gap:8px}
+  .pmRecentItem{display:flex;align-items:center;gap:10px;width:100%;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.045);color:#fff;border-radius:16px;padding:10px;text-align:left;cursor:pointer}
+  .pmRecentItem:hover{background:rgba(255,255,255,.085)}
+  .pmRecentItem.active{border-color:rgba(255,45,143,.45);background:rgba(255,45,143,.12)}
+  .pmAvatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#ff2d8f,#8b5cf6);display:grid;place-items:center;font-weight:950;overflow:hidden;flex:0 0 auto}
+  .pmAvatar img{width:100%;height:100%;object-fit:cover}
+  .pmRecentText{min-width:0;flex:1}.pmRecentText b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}.pmRecentText small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(255,255,255,.52);font-size:12px;margin-top:2px}
+  .pmChatPanel{display:flex;flex-direction:column;min-width:0;min-height:0;background:#11131b}
+  .floatingMessengerTop{height:64px!important;flex:0 0 auto!important;background:#181b25!important}
+  .floatingMessengerTop .pmActions{display:flex;align-items:center;gap:8px}
+  .pmCamBtn{background:#2563eb!important;color:#fff!important;border-radius:12px!important;padding:9px 12px!important;font-size:13px!important}
+  #floatingMessengerMessages{flex:1!important;min-height:0!important;background:#ece9df!important}
+  .floatingMessengerBottom{flex:0 0 auto!important;align-items:center!important}
+  #pmPhotoBtn{width:42px;height:42px;border-radius:12px;border:0;background:#ebe5da;color:#111;font-weight:900;cursor:pointer;padding:0!important}
+  .pmPhotoMsg{display:block;max-width:240px;max-height:260px;border-radius:14px;object-fit:cover;border:1px solid rgba(0,0,0,.08)}
+  .pmEmptySide{padding:14px;color:rgba(255,255,255,.55);font-size:13px;line-height:1.35}
+  @media(max-width:760px){#floatingMessenger{width:calc(100vw - 12px)!important;height:calc(100vh - 12px)!important;right:6px!important;bottom:6px!important}.pmLayout{grid-template-columns:120px 1fr}.pmSideHeader small,.pmRecentText small{display:none}.pmRecentItem{padding:8px;gap:7px}.pmAvatar{width:34px;height:34px}.pmRecentText b{font-size:12px}.pmCamBtn{font-size:0!important}.pmCamBtn::after{content:'📹';font-size:16px}}
+</style>
+<script>
+(function(){
+  if(window.__HOTFIX_CHAT_PRIVADO_FOTOS_WEBCAM__) return;
+  window.__HOTFIX_CHAT_PRIVADO_FOTOS_WEBCAM__ = true;
+
+  function esc2(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  function isImgBody(body){return String(body||'').startsWith('__image__:') || String(body||'').startsWith('data:image/');}
+  function imgSrc(body){body=String(body||'');return body.startsWith('__image__:') ? body.slice(10) : body;}
+  function messageHtml(m){
+    const mine = currentUser && m.sender_id===currentUser.id;
+    const cls = mine ? 'me' : 'other';
+    const body = m.body || '';
+    if(isImgBody(body)) return `<div class="floatingMsg ${cls}"><img class="pmPhotoMsg" src="${imgSrc(body)}" alt="Foto enviada por privado"></div>`;
+    return `<div class="floatingMsg ${cls}">${esc2(body)}</div>`;
+  }
+  function ensureMessengerLayout(){
+    const fm=document.getElementById('floatingMessenger');
+    if(!fm || fm.dataset.pmEnhanced==='1') return;
+    fm.dataset.pmEnhanced='1';
+    fm.innerHTML = `
+      <div class="pmLayout">
+        <aside class="pmSidebar">
+          <div class="pmSideHeader"><div><b>Privados</b><small>Últimos 15 chats</small></div><button onclick="document.getElementById('floatingMessenger').classList.remove('showMessenger')" style="background:rgba(255,255,255,.08);border:0;color:#fff;border-radius:12px;width:34px;height:34px;padding:0;cursor:pointer">×</button></div>
+          <div id="pmRecentList"><div class="pmEmptySide">Todavía no hay chats privados.</div></div>
+        </aside>
+        <main class="pmChatPanel">
+          <div class="floatingMessengerTop">
+            <span id="floatingMessengerTitle">Chat privado</span>
+            <div class="pmActions"><button id="pmWebcamBtn" class="pmCamBtn" type="button">📹 Webcam</button></div>
+          </div>
+          <div id="floatingMessengerMessages"></div>
+          <div class="floatingMessengerBottom">
+            <button id="pmPhotoBtn" title="Enviar foto" type="button">📎</button>
+            <input id="pmPhotoInput" type="file" accept="image/*" style="display:none">
+            <input id="floatingMessengerInput" placeholder="Escribe un mensaje...">
+            <button id="floatingMessengerSend">Enviar</button>
+          </div>
+        </main>
+      </div>`;
+    document.getElementById('pmPhotoBtn').onclick=()=>document.getElementById('pmPhotoInput').click();
+    document.getElementById('pmPhotoInput').onchange=sendPrivatePhoto;
+    document.getElementById('pmWebcamBtn').onclick=requestPrivateWebcam;
+  }
+
+  window.loadFloatingPrivateChats = async function(){
+    ensureMessengerLayout();
+    const list=document.getElementById('pmRecentList');
+    if(!list || !currentUser || !client) return;
+    list.innerHTML='<div class="pmEmptySide">Cargando privados...</div>';
+    const convRes=await client.from('private_conversations').select('id,user_a,user_b,created_at').or(`user_a.eq.${currentUser.id},user_b.eq.${currentUser.id}`).order('created_at',{ascending:false}).limit(15);
+    if(convRes.error){list.innerHTML='<div class="pmEmptySide">Error cargando chats: '+esc2(convRes.error.message)+'</div>';return;}
+    const convs=convRes.data||[];
+    if(!convs.length){list.innerHTML='<div class="pmEmptySide">Todavía no hay chats privados. Tocá “Privado” en un usuario para iniciar.</div>';return;}
+    let html='';
+    for(const c of convs){
+      const other=c.user_a===currentUser.id?c.user_b:c.user_a;
+      const profRes=await client.from('profiles').select('alias,avatar_url,webcam_enabled').eq('id',other).maybeSingle();
+      const msgRes=await client.from('private_messages').select('body,created_at').eq('conversation_id',c.id).order('created_at',{ascending:false}).limit(1);
+      const p=profRes.data||{};
+      const last=(msgRes.data&&msgRes.data[0])?msgRes.data[0].body:'Sin mensajes todavía';
+      const preview=isImgBody(last)?'📷 Foto':last;
+      const active=(window.currentConversationId===c.id)?' active':'';
+      const avatar=p.avatar_url?`<img src="${p.avatar_url}">`:esc2((p.alias||'U').slice(0,1).toUpperCase());
+      html+=`<button class="pmRecentItem${active}" onclick="openPrivateConversation('${c.id}','${esc2(p.alias||'Usuario')}')"><div class="pmAvatar">${avatar}</div><div class="pmRecentText"><b>${esc2(p.alias||'Usuario')} ${p.webcam_enabled?'📹':''}</b><small>${esc2(preview)}</small></div></button>`;
+    }
+    list.innerHTML=html;
+  };
+
+  async function getOtherUserIdFromCurrentConversation(){
+    if(!currentUser || !currentConversationId) return null;
+    const conv=await client.from('private_conversations').select('user_a,user_b').eq('id',currentConversationId).maybeSingle();
+    if(conv.error || !conv.data) return null;
+    return conv.data.user_a===currentUser.id ? conv.data.user_b : conv.data.user_a;
+  }
+
+  window.requestPrivateWebcam = async function(){
+    const otherId=await getOtherUserIdFromCurrentConversation();
+    if(!otherId){ setResult && setResult('statusResult','No pude detectar el otro usuario para pedir webcam.'); return; }
+    const alias=(document.getElementById('floatingMessengerTitle')?.textContent||'Usuario').replace('Privado con ','');
+    if(typeof sendCameraRequest==='function') return sendCameraRequest(otherId,alias);
+    const res=await client.from('camera_requests').insert({from_user:currentUser.id,to_user:otherId,status:'pending'});
+    if(res.error){setResult&&setResult('statusResult','Error solicitud cámara: '+res.error.message);return;}
+    setResult&&setResult('statusResult','Solicitud de cámara enviada ✅',true);
+  };
+
+  async function sendPrivatePhoto(e){
+    const file=e.target.files && e.target.files[0];
+    e.target.value='';
+    if(!file || !currentConversationId || !currentUser) return;
+    if(!file.type.startsWith('image/')){setResult&&setResult('statusResult','Elegí una imagen válida.');return;}
+    if(file.size>950000){setResult&&setResult('statusResult','La foto es muy grande. Probá con una imagen menor a 1 MB.');return;}
+    const reader=new FileReader();
+    reader.onload=async()=>{
+      const body='__image__:'+reader.result;
+      const ins=await client.from('private_messages').insert({conversation_id:currentConversationId,sender_id:currentUser.id,body});
+      if(ins.error){setResult&&setResult('statusResult','Error enviando foto: '+ins.error.message);return;}
+      const messages=document.getElementById('floatingMessengerMessages');
+      if(messages){messages.innerHTML+=messageHtml({sender_id:currentUser.id,body});messages.scrollTop=messages.scrollHeight;}
+      loadFloatingPrivateChats();
+    };
+    reader.readAsDataURL(file);
+  }
+
+  window.openPrivateConversation = async function(id,name=''){
+    ensureMessengerLayout();
+    currentChatMode='private';
+    currentConversationId=id;
+    const messenger=document.getElementById('floatingMessenger');
+    const title=document.getElementById('floatingMessengerTitle');
+    const messages=document.getElementById('floatingMessengerMessages');
+    const input=document.getElementById('floatingMessengerInput');
+    const sendBtn=document.getElementById('floatingMessengerSend');
+    title.textContent=name?'Privado con '+name:'Chat privado';
+    messenger.classList.add('showMessenger');
+    await loadFloatingPrivateChats();
+    const res=await client.from('private_messages').select('body,created_at,sender_id').eq('conversation_id',id).order('created_at',{ascending:true}).limit(120);
+    if(res.error){messages.innerHTML='<div class="floatingMsg other">Error privado: '+esc2(res.error.message)+'</div>';return;}
+    const rows=res.data||[];
+    messages.innerHTML=rows.map(messageHtml).join('')||'<div class="floatingMsg other">No hay mensajes todavía.</div>';
+    messages.scrollTop=messages.scrollHeight;
+    sendBtn.onclick=async()=>{
+      const body=input.value.trim();
+      if(!body)return;
+      const ins=await client.from('private_messages').insert({conversation_id:id,sender_id:currentUser.id,body});
+      if(ins.error){setResult&&setResult('statusResult','Error enviando privado: '+ins.error.message);return;}
+      messages.innerHTML+=messageHtml({sender_id:currentUser.id,body});
+      input.value='';messages.scrollTop=messages.scrollHeight;loadFloatingPrivateChats();
+    };
+    input.onkeydown=(ev)=>{if(ev.key==='Enter') sendBtn.click();};
+    if(typeof subscribeChat==='function') subscribeChat();
+  };
+
+  const oldLoadConversations=window.loadConversations;
+  window.loadConversations=async function(){
+    if(typeof oldLoadConversations==='function') await oldLoadConversations();
+    await loadFloatingPrivateChats();
+  };
+
+  document.addEventListener('DOMContentLoaded',ensureMessengerLayout);
+  setTimeout(ensureMessengerLayout,800);
+})();
+</script>
+<!-- HOTFIX_CHAT_PRIVADO_FOTOS_WEBCAM_END -->
+
 </body>
 </html>
 <script>setTimeout(()=>{document.querySelectorAll('[onclick*=matches],[onclick*=feed],[onclick*=camera]').forEach(e=>e.style.display='none')},1500)</script>
