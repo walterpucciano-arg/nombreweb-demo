@@ -384,6 +384,149 @@ textarea:focus{
   }
 }
 
+
+/* ===== VELVET LUXURY UI ===== */
+
+:root{
+ --glass:rgba(10,10,14,.38);
+ --glass2:rgba(14,14,18,.48);
+ --lineSoft:rgba(255,255,255,.06);
+ --softText:rgba(255,255,255,.74);
+}
+
+body{
+ font-family: Inter, Arial, sans-serif !important;
+ background:
+ linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,.62)),
+ url('bg-couple.jpg') center center/cover no-repeat fixed !important;
+}
+
+body::after{
+ content:'';
+ position:fixed;
+ inset:0;
+ background:
+ radial-gradient(circle at 15% 20%, rgba(160,20,60,.18), transparent 28%),
+ radial-gradient(circle at 85% 70%, rgba(80,0,120,.16), transparent 30%);
+ pointer-events:none;
+}
+
+.left,.right{
+ background:rgba(8,8,12,.42)!important;
+ backdrop-filter:blur(18px);
+ -webkit-backdrop-filter:blur(18px);
+}
+
+.main{
+ background:transparent!important;
+}
+
+.top{
+ background:rgba(8,8,12,.22)!important;
+ backdrop-filter:blur(14px);
+ border-bottom:1px solid rgba(255,255,255,.05)!important;
+}
+
+.brand{
+ font-size:22px!important;
+ letter-spacing:-1px;
+ font-weight:700!important;
+}
+
+.nav button{
+ background:transparent!important;
+ border-radius:14px!important;
+ padding:14px 16px!important;
+ font-size:15px!important;
+ font-weight:600!important;
+ color:rgba(255,255,255,.84)!important;
+ border:1px solid transparent!important;
+}
+
+.nav button:hover,
+.nav button.active{
+ background:rgba(255,255,255,.05)!important;
+ border:1px solid rgba(255,255,255,.06)!important;
+ box-shadow:none!important;
+}
+
+.userBox,.user,.chatItem{
+ background:rgba(255,255,255,.035)!important;
+ border:1px solid rgba(255,255,255,.05)!important;
+}
+
+.messagesPage,
+.chatWrap,
+.chatContainer,
+.chatBox{
+ background:rgba(8,8,12,.30)!important;
+ backdrop-filter:blur(16px);
+ border:1px solid rgba(255,255,255,.06)!important;
+ border-radius:26px!important;
+}
+
+.msg,.message{
+ border-radius:18px!important;
+ font-size:15px!important;
+ line-height:1.45;
+}
+
+.msg.mine,
+.message.me{
+ background:linear-gradient(135deg,#7c3aed,#db2777)!important;
+}
+
+.msg.other,
+.message.other{
+ background:rgba(255,255,255,.06)!important;
+}
+
+input,textarea{
+ background:rgba(255,255,255,.045)!important;
+ border:1px solid rgba(255,255,255,.06)!important;
+ border-radius:14px!important;
+ font-size:14px!important;
+}
+
+button{
+ border-radius:14px!important;
+}
+
+.primary,
+button.primary{
+ background:linear-gradient(135deg,#7928ca,#d6006e)!important;
+}
+
+.online button,
+.right button{
+ border-radius:999px!important;
+ font-size:13px!important;
+ padding:10px 14px!important;
+}
+
+.sectionTitle{
+ color:rgba(255,255,255,.34)!important;
+ letter-spacing:.2em!important;
+}
+
+.wrap{
+ padding:16px!important;
+}
+
+*{
+ scrollbar-width:thin;
+ scrollbar-color:#7c3aed transparent;
+}
+
+::-webkit-scrollbar{
+ width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+ background:linear-gradient(#7c3aed,#d6006e);
+ border-radius:999px;
+}
+
 </style>
 </head>
 <body>
@@ -1104,6 +1247,149 @@ updateSession();
 .floatingMessengerBottom{padding:10px;background:#f7f5ef;border-top:1px solid rgba(0,0,0,.08);display:flex;gap:8px}
 #floatingMessengerInput{flex:1;border-radius:10px;border:1px solid #ccc;padding:10px}
 #floatingMessengerSend{border:0;background:#d92ea8;color:#fff;padding:0 16px;border-radius:10px;font-weight:700}
+
+/* ===== VELVET LUXURY UI ===== */
+
+:root{
+ --glass:rgba(10,10,14,.38);
+ --glass2:rgba(14,14,18,.48);
+ --lineSoft:rgba(255,255,255,.06);
+ --softText:rgba(255,255,255,.74);
+}
+
+body{
+ font-family: Inter, Arial, sans-serif !important;
+ background:
+ linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,.62)),
+ url('bg-couple.jpg') center center/cover no-repeat fixed !important;
+}
+
+body::after{
+ content:'';
+ position:fixed;
+ inset:0;
+ background:
+ radial-gradient(circle at 15% 20%, rgba(160,20,60,.18), transparent 28%),
+ radial-gradient(circle at 85% 70%, rgba(80,0,120,.16), transparent 30%);
+ pointer-events:none;
+}
+
+.left,.right{
+ background:rgba(8,8,12,.42)!important;
+ backdrop-filter:blur(18px);
+ -webkit-backdrop-filter:blur(18px);
+}
+
+.main{
+ background:transparent!important;
+}
+
+.top{
+ background:rgba(8,8,12,.22)!important;
+ backdrop-filter:blur(14px);
+ border-bottom:1px solid rgba(255,255,255,.05)!important;
+}
+
+.brand{
+ font-size:22px!important;
+ letter-spacing:-1px;
+ font-weight:700!important;
+}
+
+.nav button{
+ background:transparent!important;
+ border-radius:14px!important;
+ padding:14px 16px!important;
+ font-size:15px!important;
+ font-weight:600!important;
+ color:rgba(255,255,255,.84)!important;
+ border:1px solid transparent!important;
+}
+
+.nav button:hover,
+.nav button.active{
+ background:rgba(255,255,255,.05)!important;
+ border:1px solid rgba(255,255,255,.06)!important;
+ box-shadow:none!important;
+}
+
+.userBox,.user,.chatItem{
+ background:rgba(255,255,255,.035)!important;
+ border:1px solid rgba(255,255,255,.05)!important;
+}
+
+.messagesPage,
+.chatWrap,
+.chatContainer,
+.chatBox{
+ background:rgba(8,8,12,.30)!important;
+ backdrop-filter:blur(16px);
+ border:1px solid rgba(255,255,255,.06)!important;
+ border-radius:26px!important;
+}
+
+.msg,.message{
+ border-radius:18px!important;
+ font-size:15px!important;
+ line-height:1.45;
+}
+
+.msg.mine,
+.message.me{
+ background:linear-gradient(135deg,#7c3aed,#db2777)!important;
+}
+
+.msg.other,
+.message.other{
+ background:rgba(255,255,255,.06)!important;
+}
+
+input,textarea{
+ background:rgba(255,255,255,.045)!important;
+ border:1px solid rgba(255,255,255,.06)!important;
+ border-radius:14px!important;
+ font-size:14px!important;
+}
+
+button{
+ border-radius:14px!important;
+}
+
+.primary,
+button.primary{
+ background:linear-gradient(135deg,#7928ca,#d6006e)!important;
+}
+
+.online button,
+.right button{
+ border-radius:999px!important;
+ font-size:13px!important;
+ padding:10px 14px!important;
+}
+
+.sectionTitle{
+ color:rgba(255,255,255,.34)!important;
+ letter-spacing:.2em!important;
+}
+
+.wrap{
+ padding:16px!important;
+}
+
+*{
+ scrollbar-width:thin;
+ scrollbar-color:#7c3aed transparent;
+}
+
+::-webkit-scrollbar{
+ width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+ background:linear-gradient(#7c3aed,#d6006e);
+ border-radius:999px;
+}
+
 </style>
 <div id="floatingMessenger">
 <div class="floatingMessengerTop">
@@ -1142,6 +1428,149 @@ updateSession();
   .pmPhotoMsg{display:block;max-width:240px;max-height:260px;border-radius:14px;object-fit:cover;border:1px solid rgba(0,0,0,.08)}
   .pmEmptySide{padding:14px;color:rgba(255,255,255,.55);font-size:13px;line-height:1.35}
   @media(max-width:760px){#floatingMessenger{width:calc(100vw - 12px)!important;height:calc(100vh - 12px)!important;right:6px!important;bottom:6px!important}.pmLayout{grid-template-columns:120px 1fr}.pmSideHeader small,.pmRecentText small{display:none}.pmRecentItem{padding:8px;gap:7px}.pmAvatar{width:34px;height:34px}.pmRecentText b{font-size:12px}.pmCamBtn{font-size:0!important}.pmCamBtn::after{content:'📹';font-size:16px}}
+
+/* ===== VELVET LUXURY UI ===== */
+
+:root{
+ --glass:rgba(10,10,14,.38);
+ --glass2:rgba(14,14,18,.48);
+ --lineSoft:rgba(255,255,255,.06);
+ --softText:rgba(255,255,255,.74);
+}
+
+body{
+ font-family: Inter, Arial, sans-serif !important;
+ background:
+ linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,.62)),
+ url('bg-couple.jpg') center center/cover no-repeat fixed !important;
+}
+
+body::after{
+ content:'';
+ position:fixed;
+ inset:0;
+ background:
+ radial-gradient(circle at 15% 20%, rgba(160,20,60,.18), transparent 28%),
+ radial-gradient(circle at 85% 70%, rgba(80,0,120,.16), transparent 30%);
+ pointer-events:none;
+}
+
+.left,.right{
+ background:rgba(8,8,12,.42)!important;
+ backdrop-filter:blur(18px);
+ -webkit-backdrop-filter:blur(18px);
+}
+
+.main{
+ background:transparent!important;
+}
+
+.top{
+ background:rgba(8,8,12,.22)!important;
+ backdrop-filter:blur(14px);
+ border-bottom:1px solid rgba(255,255,255,.05)!important;
+}
+
+.brand{
+ font-size:22px!important;
+ letter-spacing:-1px;
+ font-weight:700!important;
+}
+
+.nav button{
+ background:transparent!important;
+ border-radius:14px!important;
+ padding:14px 16px!important;
+ font-size:15px!important;
+ font-weight:600!important;
+ color:rgba(255,255,255,.84)!important;
+ border:1px solid transparent!important;
+}
+
+.nav button:hover,
+.nav button.active{
+ background:rgba(255,255,255,.05)!important;
+ border:1px solid rgba(255,255,255,.06)!important;
+ box-shadow:none!important;
+}
+
+.userBox,.user,.chatItem{
+ background:rgba(255,255,255,.035)!important;
+ border:1px solid rgba(255,255,255,.05)!important;
+}
+
+.messagesPage,
+.chatWrap,
+.chatContainer,
+.chatBox{
+ background:rgba(8,8,12,.30)!important;
+ backdrop-filter:blur(16px);
+ border:1px solid rgba(255,255,255,.06)!important;
+ border-radius:26px!important;
+}
+
+.msg,.message{
+ border-radius:18px!important;
+ font-size:15px!important;
+ line-height:1.45;
+}
+
+.msg.mine,
+.message.me{
+ background:linear-gradient(135deg,#7c3aed,#db2777)!important;
+}
+
+.msg.other,
+.message.other{
+ background:rgba(255,255,255,.06)!important;
+}
+
+input,textarea{
+ background:rgba(255,255,255,.045)!important;
+ border:1px solid rgba(255,255,255,.06)!important;
+ border-radius:14px!important;
+ font-size:14px!important;
+}
+
+button{
+ border-radius:14px!important;
+}
+
+.primary,
+button.primary{
+ background:linear-gradient(135deg,#7928ca,#d6006e)!important;
+}
+
+.online button,
+.right button{
+ border-radius:999px!important;
+ font-size:13px!important;
+ padding:10px 14px!important;
+}
+
+.sectionTitle{
+ color:rgba(255,255,255,.34)!important;
+ letter-spacing:.2em!important;
+}
+
+.wrap{
+ padding:16px!important;
+}
+
+*{
+ scrollbar-width:thin;
+ scrollbar-color:#7c3aed transparent;
+}
+
+::-webkit-scrollbar{
+ width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+ background:linear-gradient(#7c3aed,#d6006e);
+ border-radius:999px;
+}
+
 </style>
 <script>
 (function(){
@@ -1395,6 +1824,149 @@ updateSession();
 #velvetCallWindow{position:fixed;right:22px;bottom:22px;width:460px;max-width:calc(100vw - 24px);height:390px;max-height:calc(100vh - 24px);z-index:1000000;background:#080a12;border:1px solid rgba(255,255,255,.16);border-radius:22px;box-shadow:0 24px 80px rgba(0,0,0,.62);display:none;overflow:hidden;color:#fff;font-family:system-ui}
 #velvetCallWindow.show{display:flex;flex-direction:column}.vcTop{height:52px;flex:0 0 auto;background:#151827;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;padding:0 12px;cursor:move;user-select:none}.vcTop b{font-size:14px}.vcTop small{display:block;color:rgba(255,255,255,.55);font-size:11px;margin-top:1px}.vcActions{display:flex;gap:8px;align-items:center}.vcActions button,.vcBtn{border:0;border-radius:12px;padding:8px 10px;font-weight:900;cursor:pointer}.vcCut{background:#ef4444!important;color:#fff!important}.vcMini{background:rgba(255,255,255,.1)!important;color:#fff!important}.vcBody{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;background:#06070d}.vcVideoBox{position:relative;background:#121622;border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;display:grid;place-items:center;min-height:0}.vcVideoBox video{width:100%;height:100%;object-fit:cover;background:#000}.vcLabel{position:absolute;left:9px;bottom:9px;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:5px 8px;font-size:11px;font-weight:900}.vcPlaceholder{color:rgba(255,255,255,.45);font-size:13px;text-align:center;padding:12px}.vcStatus{padding:8px 12px;border-top:1px solid rgba(255,255,255,.1);background:#0d101a;color:rgba(255,255,255,.7);font-size:12px}.vcIncoming{position:fixed;right:22px;top:22px;width:340px;max-width:calc(100vw - 24px);z-index:1000001;background:#11131d;color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:14px;box-shadow:0 22px 70px rgba(0,0,0,.55);display:none}.vcIncoming.show{display:block}.vcIncoming h3{margin:0 0 5px;font-size:16px}.vcIncoming p{margin:0;color:rgba(255,255,255,.68);font-size:13px}.vcIncoming .row{display:flex;gap:8px;margin-top:12px}.vcIncoming button{flex:1;border:0;border-radius:12px;padding:10px;font-weight:900;cursor:pointer}.vcAccept{background:#22c55e;color:#06110a}.vcReject{background:#ef4444;color:#fff}.vcWatchNote{position:absolute;inset:auto 8px 8px 8px;background:rgba(0,0,0,.58);border-radius:12px;padding:8px;font-size:12px;color:rgba(255,255,255,.75)}
 @media(max-width:760px){#velvetCallWindow{width:calc(100vw - 12px);height:360px;right:6px;bottom:6px}.vcBody{grid-template-columns:1fr}.vcVideoBox:first-child{min-height:120px}.vcVideoBox:nth-child(2){min-height:160px}}
+
+/* ===== VELVET LUXURY UI ===== */
+
+:root{
+ --glass:rgba(10,10,14,.38);
+ --glass2:rgba(14,14,18,.48);
+ --lineSoft:rgba(255,255,255,.06);
+ --softText:rgba(255,255,255,.74);
+}
+
+body{
+ font-family: Inter, Arial, sans-serif !important;
+ background:
+ linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,.62)),
+ url('bg-couple.jpg') center center/cover no-repeat fixed !important;
+}
+
+body::after{
+ content:'';
+ position:fixed;
+ inset:0;
+ background:
+ radial-gradient(circle at 15% 20%, rgba(160,20,60,.18), transparent 28%),
+ radial-gradient(circle at 85% 70%, rgba(80,0,120,.16), transparent 30%);
+ pointer-events:none;
+}
+
+.left,.right{
+ background:rgba(8,8,12,.42)!important;
+ backdrop-filter:blur(18px);
+ -webkit-backdrop-filter:blur(18px);
+}
+
+.main{
+ background:transparent!important;
+}
+
+.top{
+ background:rgba(8,8,12,.22)!important;
+ backdrop-filter:blur(14px);
+ border-bottom:1px solid rgba(255,255,255,.05)!important;
+}
+
+.brand{
+ font-size:22px!important;
+ letter-spacing:-1px;
+ font-weight:700!important;
+}
+
+.nav button{
+ background:transparent!important;
+ border-radius:14px!important;
+ padding:14px 16px!important;
+ font-size:15px!important;
+ font-weight:600!important;
+ color:rgba(255,255,255,.84)!important;
+ border:1px solid transparent!important;
+}
+
+.nav button:hover,
+.nav button.active{
+ background:rgba(255,255,255,.05)!important;
+ border:1px solid rgba(255,255,255,.06)!important;
+ box-shadow:none!important;
+}
+
+.userBox,.user,.chatItem{
+ background:rgba(255,255,255,.035)!important;
+ border:1px solid rgba(255,255,255,.05)!important;
+}
+
+.messagesPage,
+.chatWrap,
+.chatContainer,
+.chatBox{
+ background:rgba(8,8,12,.30)!important;
+ backdrop-filter:blur(16px);
+ border:1px solid rgba(255,255,255,.06)!important;
+ border-radius:26px!important;
+}
+
+.msg,.message{
+ border-radius:18px!important;
+ font-size:15px!important;
+ line-height:1.45;
+}
+
+.msg.mine,
+.message.me{
+ background:linear-gradient(135deg,#7c3aed,#db2777)!important;
+}
+
+.msg.other,
+.message.other{
+ background:rgba(255,255,255,.06)!important;
+}
+
+input,textarea{
+ background:rgba(255,255,255,.045)!important;
+ border:1px solid rgba(255,255,255,.06)!important;
+ border-radius:14px!important;
+ font-size:14px!important;
+}
+
+button{
+ border-radius:14px!important;
+}
+
+.primary,
+button.primary{
+ background:linear-gradient(135deg,#7928ca,#d6006e)!important;
+}
+
+.online button,
+.right button{
+ border-radius:999px!important;
+ font-size:13px!important;
+ padding:10px 14px!important;
+}
+
+.sectionTitle{
+ color:rgba(255,255,255,.34)!important;
+ letter-spacing:.2em!important;
+}
+
+.wrap{
+ padding:16px!important;
+}
+
+*{
+ scrollbar-width:thin;
+ scrollbar-color:#7c3aed transparent;
+}
+
+::-webkit-scrollbar{
+ width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+ background:linear-gradient(#7c3aed,#d6006e);
+ border-radius:999px;
+}
+
 </style>
 <div id="velvetCallWindow">
   <div class="vcTop" id="velvetCallDrag"><div><b id="vcTitle">Webcam</b><small id="vcSub">Conectando...</small></div><div class="vcActions"><button class="vcMini" onclick="VelvetCamera.minimize()">—</button><button class="vcCut" onclick="VelvetCamera.hangup()">Cortar</button></div></div>
