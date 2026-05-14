@@ -1086,264 +1086,75 @@ updateSession();
 </script>
 
 
-
-<!-- HOTFIX_WEBRTC_SEPARATE_PUBLIC_PRIVATE_V3_START -->
+<!-- CAMERA_REBUILD_STABLE_MODULE_START -->
 <style>
-  #camRequestToastV3{position:fixed;right:18px;top:18px;z-index:1000002;display:none;max-width:360px;background:#111827;color:white;border:1px solid rgba(255,255,255,.14);box-shadow:0 20px 70px rgba(0,0,0,.45);border-radius:20px;padding:16px}
-  #camRequestToastV3.show{display:block;animation:camPop .18s ease-out}
-  #camRequestToastV3 b{display:block;font-size:15px;margin-bottom:6px}.camReqText{font-size:13px;color:rgba(255,255,255,.72);line-height:1.35}.camReqActions{display:flex;gap:8px;margin-top:12px}.camReqActions button{border:0;border-radius:12px;padding:10px 12px;font-weight:900;cursor:pointer}.camReqAccept{background:#22c55e;color:#052e16}.camReqReject{background:#ef4444;color:white}
-  #privateVideoFloatV3,#publicVideoFloatV3{position:fixed;z-index:1000001;right:22px;bottom:22px;width:min(520px,calc(100vw - 24px));background:#080a12;color:white;border:1px solid rgba(255,255,255,.12);border-radius:22px;box-shadow:0 24px 80px rgba(0,0,0,.55);display:none;overflow:hidden}
-  #privateVideoFloatV3.show,#publicVideoFloatV3.show{display:block}.videoFloatHeaderV3{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:#151827;border-bottom:1px solid rgba(255,255,255,.1);cursor:move;user-select:none}.videoFloatHeaderV3 b{font-size:14px}.videoFloatHeaderV3 button{border:0;border-radius:11px;background:rgba(255,255,255,.1);color:white;font-weight:900;padding:8px 10px;cursor:pointer}.videoGridV3{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}.videoTileV3{height:210px;background:#111827;border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;position:relative;display:grid;place-items:center;color:rgba(255,255,255,.5);font-size:13px}.videoTileV3 video{width:100%;height:100%;object-fit:cover}.videoLabelV3{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.6);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900;color:white}.videoStatusV3{padding:0 12px 12px;color:rgba(255,255,255,.7);font-size:12px}
-  @keyframes camPop{from{transform:translateY(-8px);opacity:.3}to{transform:translateY(0);opacity:1}}
-  @media(max-width:680px){#privateVideoFloatV3,#publicVideoFloatV3{left:8px!important;right:8px!important;bottom:8px!important;width:auto}.videoGridV3{grid-template-columns:1fr}.videoTileV3{height:185px}}
+#velvetCallWindow{position:fixed;right:22px;bottom:22px;width:460px;max-width:calc(100vw - 24px);height:390px;max-height:calc(100vh - 24px);z-index:1000000;background:#080a12;border:1px solid rgba(255,255,255,.16);border-radius:22px;box-shadow:0 24px 80px rgba(0,0,0,.62);display:none;overflow:hidden;color:#fff;font-family:system-ui}
+#velvetCallWindow.show{display:flex;flex-direction:column}.vcTop{height:52px;flex:0 0 auto;background:#151827;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;padding:0 12px;cursor:move;user-select:none}.vcTop b{font-size:14px}.vcTop small{display:block;color:rgba(255,255,255,.55);font-size:11px;margin-top:1px}.vcActions{display:flex;gap:8px;align-items:center}.vcActions button,.vcBtn{border:0;border-radius:12px;padding:8px 10px;font-weight:900;cursor:pointer}.vcCut{background:#ef4444!important;color:#fff!important}.vcMini{background:rgba(255,255,255,.1)!important;color:#fff!important}.vcBody{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;background:#06070d}.vcVideoBox{position:relative;background:#121622;border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;display:grid;place-items:center;min-height:0}.vcVideoBox video{width:100%;height:100%;object-fit:cover;background:#000}.vcLabel{position:absolute;left:9px;bottom:9px;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:5px 8px;font-size:11px;font-weight:900}.vcPlaceholder{color:rgba(255,255,255,.45);font-size:13px;text-align:center;padding:12px}.vcStatus{padding:8px 12px;border-top:1px solid rgba(255,255,255,.1);background:#0d101a;color:rgba(255,255,255,.7);font-size:12px}.vcIncoming{position:fixed;right:22px;top:22px;width:340px;max-width:calc(100vw - 24px);z-index:1000001;background:#11131d;color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:14px;box-shadow:0 22px 70px rgba(0,0,0,.55);display:none}.vcIncoming.show{display:block}.vcIncoming h3{margin:0 0 5px;font-size:16px}.vcIncoming p{margin:0;color:rgba(255,255,255,.68);font-size:13px}.vcIncoming .row{display:flex;gap:8px;margin-top:12px}.vcIncoming button{flex:1;border:0;border-radius:12px;padding:10px;font-weight:900;cursor:pointer}.vcAccept{background:#22c55e;color:#06110a}.vcReject{background:#ef4444;color:#fff}.vcWatchNote{position:absolute;inset:auto 8px 8px 8px;background:rgba(0,0,0,.58);border-radius:12px;padding:8px;font-size:12px;color:rgba(255,255,255,.75)}
+@media(max-width:760px){#velvetCallWindow{width:calc(100vw - 12px);height:360px;right:6px;bottom:6px}.vcBody{grid-template-columns:1fr}.vcVideoBox:first-child{min-height:120px}.vcVideoBox:nth-child(2){min-height:160px}}
 </style>
-<div id="camRequestToastV3"><b>Solicitud de webcam privada</b><div class="camReqText" id="camRequestTextV3">Un usuario quiere iniciar webcam privada.</div><div class="camReqActions"><button class="camReqAccept" id="camReqAcceptV3">Aceptar</button><button class="camReqReject" id="camReqRejectV3">Rechazar</button></div></div>
-<div id="privateVideoFloatV3"><div class="videoFloatHeaderV3" id="privateVideoHeaderV3"><b id="privateVideoTitleV3">Webcam privada</b><button onclick="endPrivateVideoCallV3(true)">Cortar</button></div><div class="videoGridV3"><div class="videoTileV3"><video id="privateLocalVideoV3" autoplay muted playsinline></video><span class="videoLabelV3">Tu cámara</span></div><div class="videoTileV3"><video id="privateRemoteVideoV3" autoplay playsinline></video><span class="videoLabelV3">Otra persona</span></div></div><div class="videoStatusV3" id="privateVideoStatusV3">Preparando conexión...</div></div>
-<div id="publicVideoFloatV3"><div class="videoFloatHeaderV3" id="publicVideoHeaderV3"><b id="publicVideoTitleV3">Cámara pública</b><button onclick="endPublicViewV3(true)">Cerrar</button></div><div class="videoGridV3" style="grid-template-columns:1fr"><div class="videoTileV3"><video id="publicRemoteVideoV3" autoplay playsinline></video><span class="videoLabelV3">Cámara pública</span></div></div><div class="videoStatusV3" id="publicVideoStatusV3">Conectando...</div></div>
+<div id="velvetCallWindow">
+  <div class="vcTop" id="velvetCallDrag"><div><b id="vcTitle">Webcam</b><small id="vcSub">Conectando...</small></div><div class="vcActions"><button class="vcMini" onclick="VelvetCamera.minimize()">—</button><button class="vcCut" onclick="VelvetCamera.hangup()">Cortar</button></div></div>
+  <div class="vcBody"><div class="vcVideoBox"><video id="vcLocalVideo" autoplay muted playsinline></video><div class="vcLabel">Tu cámara</div><div id="vcLocalEmpty" class="vcPlaceholder">Tu cámara apagada</div></div><div class="vcVideoBox"><video id="vcRemoteVideo" autoplay playsinline></video><div class="vcLabel" id="vcRemoteLabel">Otra cámara</div><div id="vcRemoteEmpty" class="vcPlaceholder">Esperando video...</div></div></div>
+  <div id="vcStatus" class="vcStatus">Sistema listo.</div>
+</div>
+<div id="velvetIncomingCall" class="vcIncoming"><h3 id="vciTitle">Solicitud de webcam</h3><p id="vciText">Un usuario quiere iniciar webcam privada.</p><div class="row"><button class="vcAccept" id="vciAccept">Aceptar</button><button class="vcReject" id="vciReject">Rechazar</button></div></div>
 <script>
 (function(){
-  if(window.__WEBRTC_SEPARATE_PUBLIC_PRIVATE_V3__) return;
-  window.__WEBRTC_SEPARATE_PUBLIC_PRIVATE_V3__=true;
-
-  const rtcCfg={iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}]};
-  window.publicLocalStreamV3=null;
-  window.privateLocalStreamV3=null;
-  window.privatePcV3=null;
-  window.publicViewerPcV3=null;
-  window.publicHostPcsV3={};
-  window.activePrivateCallIdV3=null;
-  window.activePublicCallIdV3=null;
-  window.activePrivateOtherIdV3=null;
-  let pendingPrivateRequestV3=null;
-
-  function uid(){return (crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(16).slice(2)}
-  function setTxt(id,txt){const el=document.getElementById(id);if(el)el.textContent=txt}
-  function toast(title,msg){ if(window.showToast) showToast(title,msg); else if(window.setResult) setResult('statusResult',title+': '+msg,true); }
-  async function insertSignal(to,signal_type,payload){ if(!currentUser||!client||!to) return; await client.from('webrtc_signals').insert({from_user:currentUser.id,to_user:to,signal_type,payload:payload||{}}); }
-  async function getAlias(id){ try{const r=await client.from('profiles').select('alias').eq('id',id).maybeSingle();return (r.data&&r.data.alias)||'Usuario';}catch(e){return 'Usuario'} }
-
-  function makeDraggable(boxId,headerId){
-    const box=document.getElementById(boxId), head=document.getElementById(headerId); if(!box||!head||box.dataset.dragReady==='1') return; box.dataset.dragReady='1';
-    let sx=0,sy=0,bx=0,by=0,down=false;
-    const start=e=>{down=true;const p=e.touches?e.touches[0]:e;sx=p.clientX;sy=p.clientY;const r=box.getBoundingClientRect();bx=r.left;by=r.top;box.style.left=bx+'px';box.style.top=by+'px';box.style.right='auto';box.style.bottom='auto';document.addEventListener('mousemove',move);document.addEventListener('mouseup',up);document.addEventListener('touchmove',move,{passive:false});document.addEventListener('touchend',up)};
-    const move=e=>{if(!down)return;if(e.cancelable)e.preventDefault();const p=e.touches?e.touches[0]:e;box.style.left=Math.max(4,Math.min(window.innerWidth-80,bx+p.clientX-sx))+'px';box.style.top=Math.max(4,Math.min(window.innerHeight-60,by+p.clientY-sy))+'px'};
-    const up=()=>{down=false;document.removeEventListener('mousemove',move);document.removeEventListener('mouseup',up);document.removeEventListener('touchmove',move);document.removeEventListener('touchend',up)};
-    head.addEventListener('mousedown',start);head.addEventListener('touchstart',start,{passive:true});
-  }
-  function showPrivateFloat(title){makeDraggable('privateVideoFloatV3','privateVideoHeaderV3');const f=document.getElementById('privateVideoFloatV3');if(f)f.classList.add('show');setTxt('privateVideoTitleV3',title||'Webcam privada')}
-  function showPublicFloat(title){makeDraggable('publicVideoFloatV3','publicVideoHeaderV3');const f=document.getElementById('publicVideoFloatV3');if(f)f.classList.add('show');setTxt('publicVideoTitleV3',title||'Cámara pública')}
-
-  async function ensurePrivateLocalStream(){
-    if(window.privateLocalStreamV3) return window.privateLocalStreamV3;
-    window.privateLocalStreamV3=await navigator.mediaDevices.getUserMedia({video:true,audio:false});
-    const v=document.getElementById('privateLocalVideoV3'); if(v) v.srcObject=window.privateLocalStreamV3;
-    return window.privateLocalStreamV3;
-  }
-  function attachPrivateLocal(){const v=document.getElementById('privateLocalVideoV3'); if(v&&window.privateLocalStreamV3) v.srcObject=window.privateLocalStreamV3;}
-  function attachPrivateRemote(stream){const v=document.getElementById('privateRemoteVideoV3'); if(v) v.srcObject=stream;}
-  function attachPublicRemote(stream){const v=document.getElementById('publicRemoteVideoV3'); if(v) v.srcObject=stream;}
-
-  async function createPrivatePc(otherId,callId,isInitiator){
-    if(window.privatePcV3) try{window.privatePcV3.close()}catch(e){}
-    const pc=new RTCPeerConnection(rtcCfg); window.privatePcV3=pc; window.activePrivateCallIdV3=callId; window.activePrivateOtherIdV3=otherId;
-    pc.onicecandidate=e=>{ if(e.candidate) insertSignal(otherId,'private_ice',{callId,candidate:e.candidate}); };
-    pc.ontrack=e=>{ attachPrivateRemote(e.streams[0]); setTxt('privateVideoStatusV3','Conexión activa ✅'); };
-    const st=await ensurePrivateLocalStream(); st.getTracks().forEach(t=>pc.addTrack(t,st)); attachPrivateLocal();
-    showPrivateFloat('Webcam privada'); setTxt('privateVideoStatusV3',isInitiator?'Llamando...':'Conectando...');
-    return pc;
-  }
-
-  window.requestPrivateWebcamV3=async function(toUserId,alias){
-    if(!currentUser||!toUserId||toUserId===currentUser.id) return;
-    const callId=uid(); window.activePrivateCallIdV3=callId; window.activePrivateOtherIdV3=toUserId;
-    const r=await client.from('camera_requests').insert({from_user:currentUser.id,to_user:toUserId,status:'pending'}).select('id').single();
-    if(r.error){ if(window.setResult)setResult('statusResult','Error solicitud cámara: '+r.error.message); return; }
-    await insertSignal(toUserId,'private_request',{callId,requestId:r.data.id,alias:(currentProfile&&currentProfile.alias)||'Usuario'});
-    toast('Webcam','Solicitud enviada a '+(alias||'usuario'));
-  };
-
-  window.acceptPrivateRequestV3=async function(){
-    const req=pendingPrivateRequestV3; if(!req) return;
-    document.getElementById('camRequestToastV3')?.classList.remove('show'); pendingPrivateRequestV3=null;
-    await client.from('camera_requests').update({status:'accepted',responded_at:new Date().toISOString()}).eq('id',req.requestId);
-    window.activePrivateCallIdV3=req.callId; window.activePrivateOtherIdV3=req.from;
-    showPrivateFloat('Webcam privada'); setTxt('privateVideoStatusV3','Solicitud aceptada. Esperando conexión...');
-    try{ await ensurePrivateLocalStream(); attachPrivateLocal(); await insertSignal(req.from,'private_accepted',{callId:req.callId}); }
-    catch(e){ setTxt('privateVideoStatusV3','No se pudo abrir tu cámara: '+e.message); await insertSignal(req.from,'private_rejected',{callId:req.callId,reason:e.message}); }
-  };
-  window.rejectPrivateRequestV3=async function(){
-    const req=pendingPrivateRequestV3; document.getElementById('camRequestToastV3')?.classList.remove('show'); pendingPrivateRequestV3=null;
-    if(req){ await client.from('camera_requests').update({status:'rejected',responded_at:new Date().toISOString()}).eq('id',req.requestId); await insertSignal(req.from,'private_rejected',{callId:req.callId}); }
-  };
-
-  async function startPrivateOffer(to,callId){
-    const pc=await createPrivatePc(to,callId,true);
-    const offer=await pc.createOffer(); await pc.setLocalDescription(offer);
-    await insertSignal(to,'private_offer',{callId,sdp:offer});
-    setTxt('privateVideoStatusV3','Esperando respuesta...');
-  }
-  async function handlePrivateOffer(from,payload){
-    const callId=payload.callId; const pc=await createPrivatePc(from,callId,false);
-    await pc.setRemoteDescription(new RTCSessionDescription(payload.sdp));
-    const answer=await pc.createAnswer(); await pc.setLocalDescription(answer);
-    await insertSignal(from,'private_answer',{callId,sdp:answer});
-  }
-  async function handlePrivateAnswer(payload){
-    if(!window.privatePcV3||payload.callId!==window.activePrivateCallIdV3) return;
-    await window.privatePcV3.setRemoteDescription(new RTCSessionDescription(payload.sdp));
-    setTxt('privateVideoStatusV3','Conexión activa ✅');
-  }
-  async function handlePrivateIce(payload){
-    if(!window.privatePcV3||payload.callId!==window.activePrivateCallIdV3||!payload.candidate) return;
-    try{ await window.privatePcV3.addIceCandidate(new RTCIceCandidate(payload.candidate)); }catch(e){}
-  }
-
-  window.endPrivateVideoCallV3=async function(send=true){
-    const other=window.activePrivateOtherIdV3, callId=window.activePrivateCallIdV3;
-    if(send&&other&&callId) await insertSignal(other,'private_end',{callId});
-    if(window.privatePcV3){try{window.privatePcV3.ontrack=null;window.privatePcV3.onicecandidate=null;window.privatePcV3.close()}catch(e){} window.privatePcV3=null;}
-    if(window.privateLocalStreamV3){window.privateLocalStreamV3.getTracks().forEach(t=>t.stop()); window.privateLocalStreamV3=null;}
-    const lv=document.getElementById('privateLocalVideoV3'),rv=document.getElementById('privateRemoteVideoV3'); if(lv)lv.srcObject=null;if(rv)rv.srcObject=null;
-    document.getElementById('privateVideoFloatV3')?.classList.remove('show');
-    window.activePrivateCallIdV3=null; window.activePrivateOtherIdV3=null;
-  };
+  if(window.__VELVET_CAMERA_STABLE_MODULE__) return; window.__VELVET_CAMERA_STABLE_MODULE__=true;
+  const RTC={iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:global.stun.twilio.com:3478'}]};
+  const state={publicStream:null,privateStream:null,pc:null,publicWatchPc:null,publicHostPcs:{},mode:null,target:null,session:null,channel:null,incoming:null,processed:new Set()};
+  function uid(){return (crypto&&crypto.randomUUID)?crypto.randomUUID():'s'+Date.now()+Math.random().toString(16).slice(2)}
+  function safe(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+  function setStatus(t,ok){const el=document.getElementById('vcStatus'); if(el)el.textContent=t; if(typeof setResult==='function') setResult('statusResult',t,!!ok)}
+  function getName(id){const p=[...(window.profiles||[]),...(window.allProfiles||[])].find(x=>x.id===id);return p?.alias||'Usuario'}
+  function showWin(title,sub,remoteLabel){const w=document.getElementById('velvetCallWindow'); if(!w)return; document.getElementById('vcTitle').textContent=title||'Webcam'; document.getElementById('vcSub').textContent=sub||''; document.getElementById('vcRemoteLabel').textContent=remoteLabel||'Otra cámara'; w.classList.add('show'); w.style.display='flex'}
+  function setLocal(stream){const v=document.getElementById('vcLocalVideo'), e=document.getElementById('vcLocalEmpty'); if(v){v.srcObject=stream||null; v.style.display=stream?'block':'none'} if(e)e.style.display=stream?'none':'grid'}
+  function setRemote(stream){const v=document.getElementById('vcRemoteVideo'), e=document.getElementById('vcRemoteEmpty'); if(v){v.srcObject=stream||null; v.style.display=stream?'block':'none'; v.play&&v.play().catch(()=>{})} if(e)e.style.display=stream?'none':'grid'}
+  function closePc(pc){try{pc&&pc.getSenders&&pc.getSenders().forEach(s=>{try{s.track&&s.track.stop&&false}catch(e){}})}catch(e){} try{pc&&pc.close&&pc.close()}catch(e){}}
+  function stopStream(st){try{st&&st.getTracks().forEach(t=>t.stop())}catch(e){}}
+  async function sig(to,type,payload){if(!currentUser||!to)return; await client.from('webrtc_signals').insert({from_user:currentUser.id,to_user:to,signal_type:type,payload:payload||{}})}
+  function makePc(to,session,kind){const pc=new RTCPeerConnection(RTC); pc.onicecandidate=e=>{if(e.candidate)sig(to,kind+'_ice',{session,candidate:e.candidate})}; pc.ontrack=e=>{setRemote(e.streams[0]); setStatus('Video remoto conectado ✅',true)}; pc.onconnectionstatechange=()=>{if(['failed','disconnected','closed'].includes(pc.connectionState)) setStatus('Conexión '+pc.connectionState)}; return pc}
+  async function getPrivateStream(){if(state.privateStream) return state.privateStream; state.privateStream=await navigator.mediaDevices.getUserMedia({video:true,audio:false}); return state.privateStream}
+  async function getPublicStream(){if(state.publicStream) return state.publicStream; state.publicStream=await navigator.mediaDevices.getUserMedia({video:true,audio:false}); return state.publicStream}
 
   window.startCamera=async function(){
-    if(!confirm('Vas a activar tu cámara pública en la sala general. Otros usuarios podrán tocar “Ver CAM” y verla sin pedirte autorización. ¿Continuar?')) return;
-    try{
-      if(!window.publicLocalStreamV3) window.publicLocalStreamV3=await navigator.mediaDevices.getUserMedia({video:true,audio:false});
-      const box=document.getElementById('localCamBox');
-      if(box){box.innerHTML='<video id="localVideo" autoplay muted playsinline></video><div class="overlay"></div><div class="camInfo"><span class="badge bPink">TU CAM PÚBLICA</span></div>'; const v=document.getElementById('localVideo'); if(v)v.srcObject=window.publicLocalStreamV3;}
-      if(currentUser) await client.from('profiles').update({webcam_enabled:true,online:true,last_seen:new Date().toISOString()}).eq('id',currentUser.id);
-      if(window.loadOnlineUsers) await loadOnlineUsers(); if(window.renderGeneralCameraSlots) await renderGeneralCameraSlots();
-      if(window.setResult)setResult('statusResult','Cámara pública activada ✅',true);
-    }catch(e){ if(window.setResult)setResult('statusResult','Cámara pública: '+e.message); }
+    if(!currentUser)return; if(!confirm('Vas a activar tu cámara pública. Otros usuarios podrán tocar “Ver CAM” y verla sin enviarte solicitud. ¿Continuar?'))return;
+    try{const stream=await getPublicStream(); window.localStream=stream; const box=document.getElementById('localCamBox'); if(box){box.innerHTML='<video id="localVideo" autoplay muted playsinline></video><div class="overlay"></div><div class="camInfo"><span class="badge bPink">TU CAM PÚBLICA</span></div>'; document.getElementById('localVideo').srcObject=stream}
+      await client.from('profiles').update({webcam_enabled:true,online:true,last_seen:new Date().toISOString()}).eq('id',currentUser.id); await loadOnlineUsers(); await renderGeneralCameraSlots(); setStatus('Cámara pública activada ✅',true);
+    }catch(e){setStatus('No se pudo activar cámara: '+e.message)}
   };
-  window.stopCamera=async function(){
-    if(window.publicLocalStreamV3){window.publicLocalStreamV3.getTracks().forEach(t=>t.stop()); window.publicLocalStreamV3=null;}
-    Object.values(window.publicHostPcsV3||{}).forEach(pc=>{try{pc.close()}catch(e){}}); window.publicHostPcsV3={};
-    const box=document.getElementById('localCamBox'); if(box)box.innerHTML='<div class="slot">📹 Cámara apagada</div>';
-    if(currentUser) await client.from('profiles').update({webcam_enabled:false,last_seen:new Date().toISOString()}).eq('id',currentUser.id);
-    if(window.loadOnlineUsers) await loadOnlineUsers(); if(window.renderGeneralCameraSlots) await renderGeneralCameraSlots();
-  };
+  window.stopCamera=async function(){stopStream(state.publicStream); state.publicStream=null; window.localStream=null; Object.values(state.publicHostPcs).forEach(closePc); state.publicHostPcs={}; const box=document.getElementById('localCamBox'); if(box)box.innerHTML='<div class="slot">📹 Cámara apagada</div>'; if(currentUser)await client.from('profiles').update({webcam_enabled:false,last_seen:new Date().toISOString()}).eq('id',currentUser.id); await loadOnlineUsers(); await renderGeneralCameraSlots(); setStatus('Cámara pública apagada ✅',true)};
 
-  window.openPublicCameraV3=async function(hostId,alias){
-    if(!currentUser||!hostId||hostId===currentUser.id){toast('Cámara','Esa es tu propia cámara.');return;}
-    endPublicViewV3(false);
-    const callId=uid(); window.activePublicCallIdV3=callId;
-    showPublicFloat('Cámara de '+(alias||'usuario')); setTxt('publicVideoStatusV3','Conectando sin solicitud...');
-    const pc=new RTCPeerConnection(rtcCfg); window.publicViewerPcV3=pc;
-    pc.addTransceiver('video',{direction:'recvonly'});
-    pc.ontrack=e=>{attachPublicRemote(e.streams[0]);setTxt('publicVideoStatusV3','Viendo cámara pública ✅');};
-    pc.onicecandidate=e=>{ if(e.candidate) insertSignal(hostId,'public_ice',{callId,candidate:e.candidate,role:'viewer'}); };
-    const offer=await pc.createOffer(); await pc.setLocalDescription(offer);
-    await insertSignal(hostId,'public_offer',{callId,sdp:offer,alias:(currentProfile&&currentProfile.alias)||'Usuario'});
+  window.watchPublicCamera=async function(toUserId,alias){
+    if(!currentUser||toUserId===currentUser.id)return; state.mode='public-watch'; state.target=toUserId; state.session=uid(); showWin('Viendo cámara pública','Conectando con '+(alias||'usuario'),alias||'Cámara pública'); setLocal(null); setRemote(null); setStatus('Conectando a cámara pública...');
+    const pc=makePc(toUserId,state.session,'public'); state.publicWatchPc=pc; pc.addTransceiver('video',{direction:'recvonly'}); const offer=await pc.createOffer(); await pc.setLocalDescription(offer); await sig(toUserId,'public_offer',{session:state.session,offer});
   };
-  async function handlePublicOffer(from,payload){
-    if(!window.publicLocalStreamV3){
-      // Si figura cam activa pero el stream se perdió, no pedimos permiso al visitante; solo avisamos al host.
-      await insertSignal(from,'public_unavailable',{callId:payload.callId,reason:'El usuario todavía no tiene la cámara pública activa en esta pestaña.'}); return;
-    }
-    const callId=payload.callId; const pc=new RTCPeerConnection(rtcCfg); window.publicHostPcsV3[callId]=pc;
-    pc.onicecandidate=e=>{ if(e.candidate) insertSignal(from,'public_ice',{callId,candidate:e.candidate,role:'host'}); };
-    window.publicLocalStreamV3.getTracks().forEach(t=>pc.addTrack(t,window.publicLocalStreamV3));
-    await pc.setRemoteDescription(new RTCSessionDescription(payload.sdp));
-    const answer=await pc.createAnswer(); await pc.setLocalDescription(answer);
-    await insertSignal(from,'public_answer',{callId,sdp:answer});
-  }
-  async function handlePublicAnswer(payload){
-    if(!window.publicViewerPcV3||payload.callId!==window.activePublicCallIdV3) return;
-    await window.publicViewerPcV3.setRemoteDescription(new RTCSessionDescription(payload.sdp));
-  }
-  async function handlePublicIce(payload){
-    if(payload.role==='viewer'){
-      const pc=window.publicHostPcsV3&&window.publicHostPcsV3[payload.callId]; if(pc&&payload.candidate) try{await pc.addIceCandidate(new RTCIceCandidate(payload.candidate))}catch(e){}
-    }else{
-      if(window.publicViewerPcV3&&payload.callId===window.activePublicCallIdV3&&payload.candidate) try{await window.publicViewerPcV3.addIceCandidate(new RTCIceCandidate(payload.candidate))}catch(e){}
-    }
-  }
-  window.endPublicViewV3=async function(send=true){
-    if(window.publicViewerPcV3){try{window.publicViewerPcV3.close()}catch(e){} window.publicViewerPcV3=null;}
-    const rv=document.getElementById('publicRemoteVideoV3'); if(rv)rv.srcObject=null;
-    document.getElementById('publicVideoFloatV3')?.classList.remove('show'); window.activePublicCallIdV3=null;
+  window.sendCameraRequest=async function(toUserId,alias){
+    if(!currentUser||toUserId===currentUser.id)return; const res=await client.from('camera_requests').insert({from_user:currentUser.id,to_user:toUserId,status:'pending'}).select('id').single(); if(res.error){setStatus('Error solicitud webcam: '+res.error.message);return} state.mode='private-caller-wait'; state.target=toUserId; state.session=res.data.id; setStatus('Solicitud privada enviada a '+(alias||'usuario')+' ✅',true); if(window.showToast)showToast('Webcam privada','Solicitud enviada a '+(alias||'usuario'));
   };
+  window.acceptCameraRequest=async function(id,fromUser){await client.from('camera_requests').update({status:'accepted',responded_at:new Date().toISOString()}).eq('id',id); state.mode='private-callee'; state.target=fromUser; state.session=id; const stream=await getPrivateStream(); showWin('Webcam privada','Aceptaste la solicitud',getName(fromUser)); setLocal(stream); setRemote(null); await sig(fromUser,'private_accept',{session:id}); loadCameraRequests&&loadCameraRequests(); setStatus('Aceptada. Esperando conexión privada...',true)};
+  window.rejectCameraRequest=async function(id){const req=state.incoming; await client.from('camera_requests').update({status:'rejected',responded_at:new Date().toISOString()}).eq('id',id); if(req?.from_user) await sig(req.from_user,'private_reject',{session:id}); document.getElementById('velvetIncomingCall')?.classList.remove('show'); loadCameraRequests&&loadCameraRequests();};
 
-  window.renderGeneralCameraSlots=async function(){
-    const camBoxes=document.querySelectorAll('.cams .cam'); if(!camBoxes.length) return;
-    let camUsers=(window.profiles||[]).filter(p=>p.webcam_enabled).slice(0,3);
-    for(let i=0;i<Math.min(3,camBoxes.length);i++){
-      const p=camUsers[i];
-      if(p){
-        camBoxes[i].classList.add('cameraSlotActive');
-        if(currentUser&&p.id===currentUser.id&&window.publicLocalStreamV3){
-          camBoxes[i].innerHTML='<video id="localVideo" autoplay muted playsinline></video><div class="overlay"></div><div class="camInfo"><span class="badge bPink">TU CAM PÚBLICA</span></div>'; setTimeout(()=>{const v=document.getElementById('localVideo');if(v)v.srcObject=window.publicLocalStreamV3;},50);
-        }else{
-          const name=String(p.alias||'Usuario').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
-          camBoxes[i].innerHTML=`<div class="slot"><div><div class="webcamStatus">CAM ACTIVA</div><div style="font-size:42px;margin-bottom:8px">📹</div><b>${name}</b><br><small>${String(p.city||'')}</small><div class="toolRow" style="justify-content:center"><button class="primary" onclick="openPublicCameraV3('${p.id}','${name}')">Ver CAM</button><button onclick="startPrivateChat('${p.id}','${name}')">Privado</button></div></div></div>`;
-        }
-      }else{camBoxes[i].classList.remove('cameraSlotActive');camBoxes[i].innerHTML='<div class="slot">📹 Espacio disponible<br><small>Usuarios con cámara activa</small></div>';}
-    }
-  };
+  async function handlePrivateAccept(from,p){state.mode='private-caller'; state.target=from; state.session=p.session; const stream=await getPrivateStream(); showWin('Webcam privada','Conectando...',getName(from)); setLocal(stream); setRemote(null); const pc=makePc(from,state.session,'private'); state.pc=pc; stream.getTracks().forEach(t=>pc.addTrack(t,stream)); const offer=await pc.createOffer(); await pc.setLocalDescription(offer); await sig(from,'private_offer',{session:state.session,offer}); setStatus('Conectando llamada privada...')}
+  async function handlePrivateOffer(from,p){if(state.session&&p.session!==state.session)return; state.mode='private-callee'; state.target=from; state.session=p.session; const stream=await getPrivateStream(); showWin('Webcam privada','Conectado con '+getName(from),getName(from)); setLocal(stream); const pc=makePc(from,state.session,'private'); state.pc=pc; stream.getTracks().forEach(t=>pc.addTrack(t,stream)); await pc.setRemoteDescription(new RTCSessionDescription(p.offer)); const answer=await pc.createAnswer(); await pc.setLocalDescription(answer); await sig(from,'private_answer',{session:state.session,answer}); setStatus('Llamada privada conectando...',true)}
+  async function handlePrivateAnswer(from,p){if(!state.pc||p.session!==state.session)return; await state.pc.setRemoteDescription(new RTCSessionDescription(p.answer)); setStatus('Llamada privada conectada ✅',true)}
+  async function handleIce(from,p,kind){const sessionOk=p.session===state.session || !!state.publicHostPcs[p.session]; if(!sessionOk)return; const pc=kind==='public'?(state.publicHostPcs[p.session]||state.publicWatchPc):state.pc; if(pc&&p.candidate){try{await pc.addIceCandidate(new RTCIceCandidate(p.candidate))}catch(e){}}}
+  async function handlePublicOffer(from,p){if(!state.publicStream)return; const pc=makePc(from,p.session,'public'); state.publicHostPcs[p.session]=pc; state.publicStream.getTracks().forEach(t=>pc.addTrack(t,state.publicStream)); await pc.setRemoteDescription(new RTCSessionDescription(p.offer)); const answer=await pc.createAnswer(); await pc.setLocalDescription(answer); await sig(from,'public_answer',{session:p.session,answer});}
+  async function handlePublicAnswer(from,p){if(!state.publicWatchPc||p.session!==state.session)return; await state.publicWatchPc.setRemoteDescription(new RTCSessionDescription(p.answer)); setStatus('Cámara pública conectada ✅',true)}
+  function showIncomingRequest(req){state.incoming=req; const box=document.getElementById('velvetIncomingCall'); if(!box)return; document.getElementById('vciTitle').textContent='Solicitud de webcam privada'; document.getElementById('vciText').textContent=(getName(req.from_user)||'Un usuario')+' quiere iniciar webcam privada con vos.'; document.getElementById('vciAccept').onclick=()=>{box.classList.remove('show');acceptCameraRequest(req.id,req.from_user)}; document.getElementById('vciReject').onclick=()=>{box.classList.remove('show');rejectCameraRequest(req.id)}; box.classList.add('show')}
+  async function checkRequests(){if(!currentUser)return; const r=await client.from('camera_requests').select('*').eq('to_user',currentUser.id).eq('status','pending').order('created_at',{ascending:false}).limit(1); const req=(r.data||[])[0]; if(req && !state.processed.has('req'+req.id)){state.processed.add('req'+req.id); showIncomingRequest(req)}}
+  function subscribe(){if(!currentUser||!client)return; if(state.channel)client.removeChannel(state.channel); state.channel=client.channel('velvet-camera-stable-'+currentUser.id).on('postgres_changes',{event:'INSERT',schema:'public',table:'webrtc_signals',filter:`to_user=eq.${currentUser.id}`},async payload=>{const s=payload.new; if(!s||state.processed.has(s.id))return; state.processed.add(s.id); const p=s.payload||{}; try{ if(s.signal_type==='private_accept')await handlePrivateAccept(s.from_user,p); else if(s.signal_type==='private_reject')setStatus('Solicitud de webcam rechazada.'); else if(s.signal_type==='private_offer')await handlePrivateOffer(s.from_user,p); else if(s.signal_type==='private_answer')await handlePrivateAnswer(s.from_user,p); else if(s.signal_type==='private_ice')await handleIce(s.from_user,p,'private'); else if(s.signal_type==='private_hangup')window.VelvetCamera.hangup(false); else if(s.signal_type==='public_offer')await handlePublicOffer(s.from_user,p); else if(s.signal_type==='public_answer')await handlePublicAnswer(s.from_user,p); else if(s.signal_type==='public_ice')await handleIce(s.from_user,p,'public'); }catch(e){setStatus('Error cámara: '+e.message)} }).on('postgres_changes',{event:'INSERT',schema:'public',table:'camera_requests',filter:`to_user=eq.${currentUser.id}`},payload=>showIncomingRequest(payload.new)).subscribe(); if(window.__vcReqPoll)clearInterval(window.__vcReqPoll); window.__vcReqPoll=setInterval(checkRequests,3000); checkRequests()}
+  const oldSub=window.subscribeCameraRealtime; window.subscribeCameraRealtime=function(){try{oldSub&&oldSub()}catch(e){} subscribe()}; setTimeout(()=>{if(window.currentUser)subscribe()},1000);
 
-  // Reemplazamos pedidos genéricos: desde chat privado o mensajes siempre es privado, desde cámara pública se usa openPublicCameraV3.
-  window.sendCameraRequest=async function(toUserId,alias){ return window.requestPrivateWebcamV3(toUserId,alias); };
-  window.requestPrivateWebcam=async function(){
-    let otherId=null, alias='Usuario';
-    if(window.currentConversationId&&client&&currentUser){
-      const r=await client.from('private_conversations').select('user_a,user_b').eq('id',window.currentConversationId).maybeSingle();
-      if(r.data){otherId=r.data.user_a===currentUser.id?r.data.user_b:r.data.user_a; alias=await getAlias(otherId);}
-    }
-    if(!otherId){ if(window.setResult)setResult('statusResult','Abrí primero un chat privado para pedir webcam.'); return; }
-    return requestPrivateWebcamV3(otherId,alias);
-  };
-  window.requestMessagesPageWebcam=async function(){
-    // Las variables de la sección Mensajes viven en otro closure; usamos el botón activo para recuperar data si existe.
-    if(window.messagesPageOtherId) return requestPrivateWebcamV3(window.messagesPageOtherId,window.messagesPageOtherName||'Usuario');
-    if(window.currentConversationId&&client&&currentUser){
-      const r=await client.from('private_conversations').select('user_a,user_b').eq('id',window.currentConversationId).maybeSingle();
-      if(r.data){const other=r.data.user_a===currentUser.id?r.data.user_b:r.data.user_a; return requestPrivateWebcamV3(other,await getAlias(other));}
-    }
-    if(window.setResult)setResult('statusResult','Elegí primero una conversación.');
-  };
+  window.VelvetCamera={minimize(){document.getElementById('velvetCallWindow')?.classList.remove('show')},hangup(send=true){if(send&&state.target&&state.mode&&state.mode.startsWith('private'))sig(state.target,'private_hangup',{session:state.session}); closePc(state.pc); closePc(state.publicWatchPc); Object.values(state.publicHostPcs).forEach(closePc); stopStream(state.privateStream); state.privateStream=null; state.pc=null; state.publicWatchPc=null; state.publicHostPcs={}; state.mode=null; state.target=null; state.session=null; setLocal(null); setRemote(null); document.getElementById('velvetCallWindow')?.classList.remove('show'); setStatus('Llamada/cámara cerrada ✅',true)}};
 
-  function showIncomingPrivateRequest(from,payload){
-    pendingPrivateRequestV3={from,callId:payload.callId,requestId:payload.requestId};
-    setTxt('camRequestTextV3',(payload.alias||'Un usuario')+' quiere iniciar webcam privada con vos.');
-    const box=document.getElementById('camRequestToastV3'); if(box) box.classList.add('show');
-    const a=document.getElementById('camReqAcceptV3'), r=document.getElementById('camReqRejectV3'); if(a)a.onclick=acceptPrivateRequestV3;if(r)r.onclick=rejectPrivateRequestV3;
-  }
-
-  function subscribeV3(){
-    if(!currentUser||!client||window.__WEBRTC_V3_CHANNEL__) return;
-    window.__WEBRTC_V3_CHANNEL__=client.channel('webrtc-v3-'+currentUser.id)
-      .on('postgres_changes',{event:'INSERT',schema:'public',table:'webrtc_signals',filter:`to_user=eq.${currentUser.id}`},async ({new:sig})=>{
-        const p=sig.payload||{};
-        try{
-          if(sig.signal_type==='private_request') showIncomingPrivateRequest(sig.from_user,p);
-          if(sig.signal_type==='private_accepted') await startPrivateOffer(sig.from_user,p.callId);
-          if(sig.signal_type==='private_rejected'){toast('Webcam','Solicitud rechazada.'); await endPrivateVideoCallV3(false);}
-          if(sig.signal_type==='private_offer') await handlePrivateOffer(sig.from_user,p);
-          if(sig.signal_type==='private_answer') await handlePrivateAnswer(p);
-          if(sig.signal_type==='private_ice') await handlePrivateIce(p);
-          if(sig.signal_type==='private_end') await endPrivateVideoCallV3(false);
-          if(sig.signal_type==='public_offer') await handlePublicOffer(sig.from_user,p);
-          if(sig.signal_type==='public_answer') await handlePublicAnswer(p);
-          if(sig.signal_type==='public_ice') await handlePublicIce(p);
-          if(sig.signal_type==='public_unavailable'){setTxt('publicVideoStatusV3',p.reason||'La cámara pública no está disponible.');}
-        }catch(e){ if(window.setResult)setResult('statusResult','Webcam error: '+e.message); }
-      }).subscribe();
-  }
-
-  const oldUpdate=window.updateSession;
-  if(typeof oldUpdate==='function'){
-    window.updateSession=async function(){const r=await oldUpdate.apply(this,arguments); setTimeout(subscribeV3,1200); return r;};
-  }
-  const oldSubCam=window.subscribeCameraRealtime;
-  window.subscribeCameraRealtime=function(){ subscribeV3(); if(typeof oldSubCam==='function') try{oldSubCam()}catch(e){} };
-  document.addEventListener('DOMContentLoaded',()=>setTimeout(subscribeV3,1500)); setTimeout(subscribeV3,2000);
+  window.renderGeneralCameraSlots=async function(){const camUsers=(profiles||[]).filter(p=>p.webcam_enabled).slice(0,3); const camBoxes=document.querySelectorAll('.cams .cam'); if(!camBoxes.length)return; for(let i=0;i<Math.min(3,camBoxes.length);i++){const p=camUsers[i]; if(p){camBoxes[i].classList.add('cameraSlotActive'); camBoxes[i].innerHTML=`<div class="slot"><div><div class="webcamStatus">CAM ACTIVA</div><div style="font-size:42px;margin-bottom:8px">📹</div><b>${safe(p.alias||'Usuario')}</b><br><small>${safe(p.city||'')}</small><div class="toolRow" style="justify-content:center"><button class="primary" onclick="watchPublicCamera('${p.id}','${safe(p.alias||'Usuario')}')">Ver cámara</button><button onclick="startPrivateChat('${p.id}','${safe(p.alias||'Usuario')}')">Privado</button></div><div class="vcWatchNote">Entrás a mirar sin enviar solicitud.</div></div></div>`}else{camBoxes[i].classList.remove('cameraSlotActive');camBoxes[i].innerHTML='<div class="slot">📹 Espacio disponible<br><small>Usuarios con cámara activa</small></div>'}} if(state.publicStream){const first=camBoxes[0]; if(first){first.classList.add('cameraSlotActive'); first.innerHTML='<video id="localVideo" autoplay muted playsinline></video><div class="overlay"></div><div class="camInfo"><span class="badge bPink">TU CAM PÚBLICA</span></div>'; setTimeout(()=>{const v=document.getElementById('localVideo');if(v)v.srcObject=state.publicStream},50)}}};
+  const oldOnline=window.renderOnlineUsers; window.renderOnlineUsers=function(){try{oldOnline&&oldOnline()}catch(e){} document.querySelectorAll('button').forEach(b=>{if((b.textContent||'').trim()==='Ver CAM'&&b.getAttribute('onclick')?.includes('sendCameraRequest')){const onclick=b.getAttribute('onclick')||''; const m=onclick.match(/sendCameraRequest\('([^']+)'\s*,\s*'([^']*)'\)/); if(m)b.setAttribute('onclick',`watchPublicCamera('${m[1]}','${m[2]}')`)}})};
+  // draggable
+  (function(){const w=document.getElementById('velvetCallWindow'), h=document.getElementById('velvetCallDrag'); if(!w||!h)return; let down=false,dx=0,dy=0; h.addEventListener('pointerdown',e=>{down=true;dx=e.clientX-w.offsetLeft;dy=e.clientY-w.offsetTop;h.setPointerCapture(e.pointerId)}); h.addEventListener('pointermove',e=>{if(!down)return; w.style.left=Math.max(4,Math.min(innerWidth-w.offsetWidth-4,e.clientX-dx))+'px'; w.style.top=Math.max(4,Math.min(innerHeight-w.offsetHeight-4,e.clientY-dy))+'px'; w.style.right='auto'; w.style.bottom='auto'}); h.addEventListener('pointerup',()=>down=false)})();
 })();
 </script>
-<!-- HOTFIX_WEBRTC_SEPARATE_PUBLIC_PRIVATE_V3_END -->
+<!-- CAMERA_REBUILD_STABLE_MODULE_END -->
 
 </body>
 </html>
