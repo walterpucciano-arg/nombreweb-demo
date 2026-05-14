@@ -100,11 +100,11 @@ body{
 body::before{
   content:"";
   position:fixed;
-  inset:-18px;
+  inset:0;
   z-index:-3;
-  background:url('velvet-bg.jpg') center/cover no-repeat;
-  filter:blur(0.5px) saturate(1.28) contast(1.08) brightness(1);
-  transform:scale(1.12);
+  background:url('velvet-bg.jpg') center center/cover no-repeat;
+  filter:saturate(1.18) contrast(1.06) brightness(.96);
+  transform:scale(1);
 }
 body::after{
   content:"";
@@ -138,8 +138,9 @@ body.logged .app{grid-template-columns:260px minmax(0,1fr) 310px!important;gap:0
 #chatScreen .toolRow,#chatScreen .cams{display:none!important}.chatArea{background:rgba(6,6,10,.42)!important;padding:22px!important;gap:14px!important}.msg{border:0!important;background:rgba(255,255,255,.075)!important;border-radius:22px 22px 22px 7px!important;box-shadow:0 12px 34px rgba(0,0,0,.20)!important}.msg.me{background:linear-gradient(135deg,#8b3dff,#c85cff)!important;border-radius:22px 22px 7px 22px!important}.inputBar{background:rgba(12,12,18,.78)!important;backdrop-filter:blur(18px)!important;border-top:1px solid rgba(255,255,255,.08)!important;padding:16px!important}.inputBar input,.chat-input{background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:999px!important;color:#fff!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02)!important}.send{background:linear-gradient(135deg,var(--pink),var(--violet))!important}
 .right{background:rgba(5,5,10,.72)!important;backdrop-filter:blur(24px)!important;border-left:1px solid rgba(255,255,255,.08)!important}.right h3{margin-top:8px!important}.user{border-radius:22px!important;background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.06)!important}.user:hover{background:rgba(200,92,255,.13)!important;border-color:rgba(200,92,255,.25)!important;transform:translateX(-2px)}.dot{box-shadow:0 0 12px #22c55e}.camBadge{background:rgba(255,42,161,.22)!important;color:#ff9ed4!important;border:1px solid rgba(255,42,161,.25)}
 .wrap{padding:22px!important}.card,.dash,.profileCard,.feedItem,.socialComposer,.messagesPage,.conversation-card{background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.08)!important;backdrop-filter:blur(18px)!important;box-shadow:0 22px 80px rgba(0,0,0,.28)!important;border-radius:26px!important}.messagesPage{grid-template-columns:360px 1fr!important;min-height:calc(100vh - 170px)!important;overflow:hidden!important}.messagesPageHeader{margin-bottom:14px}.messagesPageHeader h2{font-size:32px;margin-bottom:2px}.messagesList{background:rgba(7,7,12,.55)!important;border-right:1px solid rgba(255,255,255,.08)!important}.messagesListItem{padding:16px!important;border-bottom:1px solid rgba(255,255,255,.055)!important;border-radius:0!important}.messagesListItem:hover,.messagesListItem.active{background:linear-gradient(90deg,rgba(255,42,161,.20),rgba(139,61,255,.16))!important}.messagesChat{background:rgba(8,8,13,.55)!important}.messagesChatTop{height:78px!important;background:rgba(12,12,18,.70)!important;backdrop-filter:blur(18px)!important;border-bottom:1px solid rgba(255,255,255,.08)!important}.messagesPageBox{background:rgba(6,6,10,.35)!important;padding:22px!important}.messagesComposer{background:rgba(12,12,18,.78)!important;border-top:1px solid rgba(255,255,255,.08)!important;padding:14px!important}.messagesComposer input{background:rgba(255,255,255,.06)!important;color:#fff!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:999px!important}.messagesMsg{color:#fff!important;background:rgba(255,255,255,.085)!important;border-radius:20px 20px 20px 7px!important;padding:13px 16px!important;box-shadow:0 12px 34px rgba(0,0,0,.20)!important}.messagesMsg.me{background:linear-gradient(135deg,#8b3dff,#c85cff)!important;border-radius:20px 20px 7px 20px!important}.messagesMsg img{max-width:340px!important;max-height:340px!important;border-radius:18px!important}.messagesDate{color:rgba(255,255,255,.45)!important}.messagesEmpty{color:rgba(255,255,255,.58)!important}
-#dashboardScreen,#favoritesScreen,#storiesScreen,#premiumScreen,#verifyScreen,#legalScreen,#adminScreen,#moderationScreen,#publicProfileScreen,#videoCallScreen{display:none!important}.mobileBottomBar{display:none!important}.authLeft{background:linear-gradient(90deg,rgba(0,0,0,.38),rgba(0,0,0,.12)),url('velvet-bg.jpg') center/cover no-repeat!important}.authPanel{background:rgba(8,8,14,.82)!important;backdrop-filter:blur(20px)!important}.modal{background:rgba(12,12,18,.92)!important;backdrop-filter:blur(22px)!important}.notifToast{background:rgba(15,15,24,.92)!important;backdrop-filter:blur(18px)!important;border:1px solid rgba(200,92,255,.34)!important;box-shadow:0 25px 90px rgba(0,0,0,.55)!important}
-@media(max-width:1120px){body.logged .app{grid-template-columns:1fr!important}.left,.right{display:none!important}.main{padding:10px!important}.messagesPage{grid-template-columns:1fr!important}.messagesList{max-height:260px!important;border-right:0!important;border-bottom:1px solid rgba(255,255,255,.08)!important}}
+#dashboardScreen,#favoritesScreen,#storiesScreen,#premiumScreen,#verifyScreen,#legalScreen,#adminScreen,#moderationScreen,#publicProfileScreen,#videoCallScreen{display:none!important}.mobileBottomBar{display:none!important}.authLeft{
+background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,.04)),url('velvet-bg.jpg') center/cover no-repeat!important
+}
 /* === FIN VELVET UI REDESIGN === */
 
 </style>
