@@ -1,11 +1,10 @@
 Walter:
-Esta versión está armada sobre tu proyecto real, no sobre una plantilla nueva.
+Esta versión cambia la dirección de la app hacia un sitio social adulto real, parecido a las referencias:
+- Inicio ya no es Chat General.
+- Inicio ahora tiene estadísticas, visitantes, siguiendo, online, notificaciones y Premium.
+- Mensajero vuelve a estar en el menú.
+- Chat General queda como sección separada.
+- Se agregan accesos a Búsquedas, Salas Webcams, Siguiendo, Visitas, Suscripción y Configuración.
+- Menos estilo gamer/infantil, más plataforma social sobria y funcional.
 
-Cambios:
-- Mantiene la estructura actual de chat, sidebar, privados y online.
-- Usa la imagen nueva de la pareja como fondo real: bg-couple.jpg.
-- No tiene blur aplicado a la imagen de fondo.
-- Los paneles son más transparentes para que el fondo se vea.
-- Se agregaron sombras/glow violeta-rosa y estética más adulta premium.
-
-Subí TODO el contenido de esta carpeta a GitHub/Vercel reemplazando los archivos actuales.
+Subí todo el contenido del ZIP a GitHub/Vercel reemplazando el proyecto actual.

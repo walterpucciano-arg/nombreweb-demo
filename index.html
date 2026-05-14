@@ -528,138 +528,415 @@ button.primary{
 }
 
 
-/* ===== SOCIAL HOME PREMIUM ===== */
-.homeFeed{
-display:grid;
-grid-template-columns:1.2fr .8fr;
-gap:18px;
-padding:18px;
-height:calc(100vh - 76px);
-overflow:auto;
+/* =====================================================
+   VELVET - SOCIAL ADULT PLATFORM STYLE
+   Estilo sobrio, funcional, tipo sitio social adulto real
+===================================================== */
+
+body{
+  background:
+    linear-gradient(90deg, rgba(6,6,8,.88), rgba(20,8,14,.42) 42%, rgba(6,6,8,.86)),
+    linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.62)),
+    url('bg-couple.jpg') center center / cover no-repeat fixed !important;
 }
 
-.feedColumn,.sideColumn{
-display:flex;
-flex-direction:column;
-gap:18px;
+body::before{
+  background:
+    radial-gradient(circle at 18% 10%, rgba(220,24,86,.15), transparent 26%),
+    radial-gradient(circle at 90% 80%, rgba(126,34,206,.12), transparent 32%) !important;
 }
 
-.feedCard,.premiumCard,.visitorsCard,.onlineCard,.notifCard{
-background:rgba(10,10,14,.42);
-border:1px solid rgba(255,255,255,.06);
-border-radius:24px;
-backdrop-filter:blur(12px);
--webkit-backdrop-filter:blur(12px);
-padding:18px;
-box-shadow:0 10px 40px rgba(0,0,0,.28);
+.left{
+  background:rgba(22,22,24,.88)!important;
+  backdrop-filter:blur(6px)!important;
+  -webkit-backdrop-filter:blur(6px)!important;
 }
 
-.feedHeader{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:14px;
+.right{
+  background:rgba(10,10,13,.74)!important;
+  backdrop-filter:blur(6px)!important;
+  -webkit-backdrop-filter:blur(6px)!important;
 }
 
-.feedTitle{
-font-size:26px;
-font-weight:800;
+.main,.top{
+  background:transparent!important;
 }
 
-.feedSub{
-color:rgba(255,255,255,.58);
-font-size:14px;
+.brand{
+  font-size:28px!important;
+  letter-spacing:-1.2px;
 }
 
-.profileUpdate{
-display:flex;
-gap:14px;
-padding:14px;
-border-radius:18px;
-background:rgba(255,255,255,.04);
-margin-bottom:12px;
+.mark{
+  border-radius:14px!important;
+  background:linear-gradient(135deg,#ff174f,#8b5cf6)!important;
 }
 
-.profileUpdate img{
-width:58px;
-height:58px;
-border-radius:18px;
-object-fit:cover;
+.nav{
+  gap:2px!important;
 }
 
-.updateName{
-font-weight:700;
-margin-bottom:4px;
+.nav button{
+  border-radius:6px!important;
+  padding:12px 12px!important;
+  background:transparent!important;
+  color:rgba(255,255,255,.70)!important;
+  font-weight:500!important;
+  font-size:15px!important;
+  border:1px solid transparent!important;
+  box-shadow:none!important;
 }
 
-.updateText{
-color:rgba(255,255,255,.74);
-font-size:14px;
-line-height:1.4;
+.nav button:hover,
+.nav button.active{
+  background:rgba(255,255,255,.075)!important;
+  color:#fff!important;
+  border-color:rgba(255,255,255,.08)!important;
 }
 
-.onlineGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
+.userBox,.user,.chatItem,.result{
+  background:rgba(255,255,255,.045)!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+  box-shadow:none!important;
 }
 
-.onlineMini{
-background:rgba(255,255,255,.04);
-border-radius:18px;
-padding:12px;
-display:flex;
-align-items:center;
-gap:10px;
+button{
+  border-radius:7px!important;
+  box-shadow:none!important;
 }
 
-.onlineMini img{
-width:44px;
-height:44px;
-border-radius:14px;
-object-fit:cover;
+.primary,
+button.primary{
+  background:linear-gradient(135deg,#ff174f,#9b2cff)!important;
 }
 
-.visitorItem{
-display:flex;
-justify-content:space-between;
-padding:10px 0;
-border-bottom:1px solid rgba(255,255,255,.05);
+.gold{
+  background:#ffd65a!important;
+  color:#17120a!important;
 }
 
-.premiumCard{
-background:
-linear-gradient(135deg, rgba(124,58,237,.34), rgba(219,39,119,.28));
-overflow:hidden;
-position:relative;
+.chatArea,
+.messagesPage,
+.card,
+.onboardingCard{
+  background:rgba(8,8,11,.46)!important;
+  backdrop-filter:blur(5px)!important;
+  -webkit-backdrop-filter:blur(5px)!important;
+  border:1px solid rgba(255,255,255,.08)!important;
 }
 
-.premiumCard::before{
-content:'PREMIUM';
-position:absolute;
-right:-25px;
-top:18px;
-background:#fff;
-color:#111;
-padding:6px 40px;
-transform:rotate(35deg);
-font-size:11px;
-font-weight:900;
+/* HOME */
+.adultHome{
+  height:100%;
+  overflow:auto;
+  padding:18px;
 }
 
-.premiumBtn{
-margin-top:18px;
-width:100%;
-padding:14px;
-border:none;
-border-radius:16px;
-font-weight:800;
-background:#fff;
-color:#111;
+.homeHero{
+  min-height:220px;
+  border-radius:0 0 28px 28px;
+  padding:34px 38px;
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:28px;
+  align-items:center;
+  background:
+    linear-gradient(135deg, rgba(230,0,50,.86), rgba(255,88,88,.55)),
+    radial-gradient(circle at 80% 10%, rgba(255,255,255,.22), transparent 34%);
+  box-shadow:0 22px 70px rgba(0,0,0,.32);
 }
 
-.homeFeed::-webkit-scrollbar{
-width:6px;
+.welcomePill{
+  display:inline-block;
+  background:#fff;
+  color:#ff174f;
+  padding:7px 20px;
+  border-radius:999px;
+  letter-spacing:.12em;
+  font-size:13px;
+  margin-bottom:12px;
+}
+
+.homeHero h1{
+  margin:0;
+  font-size:42px;
+  letter-spacing:-1.4px;
+}
+
+.homeHero p{
+  max-width:620px;
+  font-size:18px;
+  line-height:1.45;
+  color:rgba(255,255,255,.86);
+}
+
+.premiumBanner{
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.18);
+  padding:22px;
+  border-radius:18px;
+}
+
+.premiumBanner small{
+  display:block;
+  color:rgba(255,255,255,.75);
+  margin-bottom:8px;
+}
+
+.premiumBanner b{
+  display:block;
+  font-size:19px;
+  line-height:1.35;
+}
+
+.premiumBanner button{
+  margin-top:18px;
+  width:100%;
+  background:#ffd65a!important;
+  color:#17120a!important;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.statsStrip{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin:-34px 34px 22px;
+  position:relative;
+  z-index:2;
+}
+
+.statBox{
+  min-height:112px;
+  display:grid;
+  grid-template-columns:58px 1fr;
+  align-items:center;
+  column-gap:12px;
+  background:rgba(255,255,255,.92);
+  color:#15151a;
+  border:1px solid rgba(0,0,0,.06);
+  border-radius:10px;
+  padding:18px;
+  box-shadow:0 12px 40px rgba(0,0,0,.18);
+}
+
+.statBox span{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:rgba(255,23,79,.12);
+  color:#ff174f;
+  display:grid;
+  place-items:center;
+  font-size:28px;
+  grid-row:span 2;
+}
+
+.statBox b{
+  font-size:28px;
+  font-weight:400;
+  color:#8b5cf6;
+}
+
+.statBox small{
+  color:#6d6d75;
+  font-size:15px;
+}
+
+.homeGrid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:18px;
+}
+
+.panelBlock{
+  background:rgba(255,255,255,.92);
+  color:#15151a;
+  border-radius:10px;
+  border:1px solid rgba(0,0,0,.06);
+  padding:20px;
+  box-shadow:0 14px 42px rgba(0,0,0,.18);
+}
+
+.blockHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.blockHead h2{
+  margin:0;
+  font-size:21px;
+  letter-spacing:.03em;
+}
+
+.blockHead button{
+  background:#17171c!important;
+  color:#fff!important;
+  padding:9px 13px!important;
+}
+
+.visitorGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.visitorCard{
+  background:#f3f3f5;
+  border-radius:9px;
+  overflow:hidden;
+  text-align:center;
+  border:1px solid rgba(0,0,0,.07);
+}
+
+.profilePhoto{
+  height:142px;
+  background:linear-gradient(135deg,#25252c,#5b102d);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:42px;
+}
+
+.visitorCard b{
+  display:block;
+  margin:10px 8px 4px;
+}
+
+.visitorCard small{
+  display:block;
+  color:#777;
+}
+
+.visitorCard span{
+  display:block;
+  margin-top:9px;
+  padding:9px;
+  background:#ffd65a;
+  color:#191000;
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.08em;
+}
+
+.activityItem{
+  display:flex;
+  gap:13px;
+  align-items:center;
+  padding:13px;
+  border:1px solid rgba(0,0,0,.08);
+  border-left:4px solid #20c997;
+  border-radius:9px;
+  margin-bottom:12px;
+}
+
+.activityItem p{
+  margin:4px 0 0;
+  color:#777;
+}
+
+.miniPhoto{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff174f,#8b5cf6);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+  flex:0 0 auto;
+}
+
+.noticeList{
+  padding-left:0;
+  list-style:none;
+  margin:0;
+}
+
+.noticeList li{
+  padding:13px 0;
+  border-bottom:1px solid rgba(0,0,0,.08);
+}
+
+.onlineMiniGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.onlineTile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#f4f4f6;
+  border-radius:9px;
+  padding:12px;
+}
+
+.onlineTile small{
+  color:#777;
+}
+
+/* Chat separado más sobrio */
+#chatScreen .top{
+  background:rgba(8,8,11,.50)!important;
+  backdrop-filter:blur(5px)!important;
+}
+
+.msg.mine,.message.me{
+  background:#2f80ed!important;
+  border-radius:16px!important;
+}
+
+.msg.other,.message.other{
+  background:rgba(255,255,255,.08)!important;
+  border-radius:16px!important;
+}
+
+/* Mensajero más serio */
+.messagesPage{
+  background:rgba(255,255,255,.94)!important;
+  color:#17171c!important;
+}
+
+.messagesList{
+  background:#262626!important;
+}
+
+.messagesChat{
+  background:#fff!important;
+  color:#17171c!important;
+}
+
+.messagesChatTop{
+  background:#fff!important;
+  border-bottom:1px solid rgba(0,0,0,.08)!important;
+}
+
+.messagesComposer{
+  background:#fff!important;
+}
+
+.messagesComposer input{
+  background:#fff!important;
+  color:#17171c!important;
+  border-color:#b8d7ff!important;
+}
+
+/* Responsive */
+@media(max-width:1100px){
+  .homeHero,.homeGrid{grid-template-columns:1fr;}
+  .statsStrip{grid-template-columns:repeat(2,1fr);margin:14px 0;}
+  .visitorGrid{grid-template-columns:repeat(2,1fr);}
+}
+
+@media(max-width:700px){
+  .statsStrip,.onlineMiniGrid{grid-template-columns:1fr;}
+  .visitorGrid{grid-template-columns:1fr;}
 }
 
 </style>
@@ -676,114 +953,85 @@ width:6px;
 </div>
 <div class="app">
   <aside class="left"><div class="brand"><div class="mark" style="width:48px;height:48px;border-radius:17px">◆</div>Velvet</div><div class="userBox"><div class="avatar" id="sideAvatar">V</div><div><b id="sideAlias">Usuario</b><p style="margin:0;font-size:13px">Online</p></div></div>
-    <div class="nav velvet-main-nav"><button class="active" onclick="showScreen('chat',this)">💬 Chat General</button><button onclick="showScreen('messages',this)">🏠 Inicio</button><button onclick="showScreen('search',this)">🔎 Buscar</button><button onclick="showScreen('profile',this)">👤 Perfil</button></div>
+    <div class="nav velvet-main-nav">
+      <button class="active" onclick="showScreen('dashboard',this)">⌂ Inicio</button>
+      <button onclick="showScreen('messages',this)">☏ Mensajero</button>
+      <button onclick="showScreen('search',this)">⌕ Búsquedas</button>
+      <button onclick="showScreen('videoCall',this)">◉ Salas Webcams</button>
+      <button onclick="showScreen('feed',this)">♢ Siguiendo</button>
+      <button onclick="showScreen('favorites',this)">◌ Visitas</button>
+      <button onclick="showScreen('premium',this)">♕ Suscripción</button>
+      <button onclick="showScreen('matches',this)">♡ Ranking perfiles</button>
+      <button onclick="showScreen('stories',this)">▣ Relatos</button>
+      <button onclick="showScreen('profile',this)">⚙ Configuración</button>
+    </div>
     <div class="sectionTitle">Privados</div><div class="chatList" id="conversationList"><div class="chatItem">Sin privados todavía</div></div><div class="result ok">Gratis: <span id="startedChats">0</span>/5 privados</div><button class="danger" onclick="logoutUser()">Cerrar sesión</button>
   </aside>
   <main class="main">
     
-<div id="homeScreen" class="screen show">
-<div class="homeFeed">
+<div id="dashboardScreen" class="screen show">
+  <div class="adultHome">
+    <section class="homeHero">
+      <div>
+        <span class="welcomePill">Bienvenido</span>
+        <h1>Tu panel social</h1>
+        <p>Actividad reciente, visitantes, perfiles conectados y funciones premium en un solo lugar.</p>
+      </div>
+      <div class="premiumBanner">
+        <small>Usuario gratuito con acceso limitado</small>
+        <b>Activá Premium para desbloquear más mensajes, webcams y visibilidad.</b>
+        <button onclick="showScreen('premium')">Quiero ser Premium</button>
+      </div>
+    </section>
 
-<div class="feedColumn">
+    <section class="statsStrip">
+      <div class="statBox"><span>◉</span><b>5.510</b><small>Conectados ahora</small></div>
+      <div class="statBox"><span>◎</span><b>5.284</b><small>Vieron tu perfil</small></div>
+      <div class="statBox"><span>♢</span><b>47</b><small>Seguidores</small></div>
+      <div class="statBox"><span>◌</span><b>158</b><small>En sala general</small></div>
+    </section>
 
-<div class="feedCard">
-<div class="feedHeader">
-<div>
-<div class="feedTitle">Tu noche en Velvet</div>
-<div class="feedSub">Actividad reciente de perfiles que seguís</div>
-</div>
-</div>
+    <div class="homeGrid">
+      <section class="panelBlock">
+        <div class="blockHead"><h2>Últimos que te visitaron</h2><button onclick="showScreen('favorites')">Ver todos</button></div>
+        <div class="visitorGrid">
+          <article class="visitorCard locked"><div class="profilePhoto">V</div><b>Perfil reservado</b><small>Online hace 2 min</small><span>Solo Premium</span></article>
+          <article class="visitorCard locked"><div class="profilePhoto">M</div><b>Perfil privado</b><small>Vio tu perfil</small><span>Solo Premium</span></article>
+          <article class="visitorCard locked"><div class="profilePhoto">L</div><b>Usuario cercano</b><small>San Nicolás</small><span>Solo Premium</span></article>
+          <article class="visitorCard locked"><div class="profilePhoto">A</div><b>Nuevo visitante</b><small>Hace 12 min</small><span>Solo Premium</span></article>
+        </div>
+      </section>
 
-<div class="profileUpdate">
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop">
-<div>
-<div class="updateName">Sofía</div>
-<div class="updateText">Subió nuevas fotos privadas y está online ahora.</div>
-</div>
-</div>
+      <section class="panelBlock followingBlock">
+        <div class="blockHead"><h2>Siguiendo</h2><button onclick="showScreen('feed')">Actividad</button></div>
+        <div class="activityItem"><div class="miniPhoto">S</div><div><b>Solo para usuarios Premium</b><p>Un perfil que seguís agregó nuevas fotos hace 1 hora.</p></div></div>
+        <div class="activityItem"><div class="miniPhoto">C</div><div><b>Nuevo estado disponible</b><p>Una persona cercana publicó una actualización privada.</p></div></div>
+        <div class="activityItem"><div class="miniPhoto">V</div><div><b>Webcam activa</b><p>Hay usuarios transmitiendo ahora en sala general.</p></div></div>
+      </section>
 
-<div class="profileUpdate">
-<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop">
-<div>
-<div class="updateName">Lucas</div>
-<div class="updateText">Abrió una videollamada pública hace 5 minutos.</div>
-</div>
-</div>
+      <section class="panelBlock">
+        <div class="blockHead"><h2>Notificaciones</h2><button onclick="showScreen('messages')">Mensajero</button></div>
+        <ul class="noticeList">
+          <li>🔥 3 perfiles reaccionaron a tu cuenta.</li>
+          <li>💬 Tenés mensajes privados pendientes.</li>
+          <li>👀 10 personas visitaron tu perfil recientemente.</li>
+          <li>📹 Hay webcams activas ahora.</li>
+        </ul>
+      </section>
 
-<div class="profileUpdate">
-<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop">
-<div>
-<div class="updateName">Camila</div>
-<div class="updateText">Empezó a seguirte y reaccionó a tu perfil.</div>
+      <section class="panelBlock onlineHome">
+        <div class="blockHead"><h2>Online ahora</h2><button onclick="refreshOnline()">Actualizar</button></div>
+        <div class="onlineMiniGrid">
+          <div class="onlineTile"><div class="miniPhoto">A</div><b>Admin</b><small>San Nicolás</small></div>
+          <div class="onlineTile"><div class="miniPhoto">L</div><b>Lu</b><small>Online</small></div>
+          <div class="onlineTile"><div class="miniPhoto">T</div><b>Tomy</b><small>En cámara</small></div>
+          <div class="onlineTile"><div class="miniPhoto">M</div><b>Mica</b><small>Disponible</small></div>
+        </div>
+      </section>
+    </div>
+  </div>
 </div>
-</div>
-
-</div>
-
-<div class="feedCard notifCard">
-<div class="feedTitle" style="font-size:20px">Notificaciones</div>
-<div class="visitorItem"><span>🔥 3 personas reaccionaron a tu perfil</span></div>
-<div class="visitorItem"><span>💬 Tenés 2 mensajes nuevos</span></div>
-<div class="visitorItem"><span>👀 Alguien visitó tu perfil hace 2 min</span></div>
-</div>
-
-</div>
-
-<div class="sideColumn">
-
-<div class="premiumCard">
-<div class="feedTitle">Velvet Premium</div>
-<div class="feedSub">Desbloqueá videollamadas ilimitadas, perfiles destacados y contenido exclusivo.</div>
-<button class="premiumBtn">ACTIVAR PREMIUM</button>
-</div>
-
-<div class="feedCard onlineCard">
-<div class="feedTitle" style="font-size:20px">Online ahora</div>
-
-<div class="onlineGrid">
-
-<div class="onlineMini">
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop">
-<div><strong>Lu</strong><br><small>Online</small></div>
-</div>
-
-<div class="onlineMini">
-<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop">
-<div><strong>Tomy</strong><br><small>En cámara</small></div>
-</div>
-
-</div>
-</div>
-
-<div class="feedCard visitorsCard">
-<div class="feedTitle" style="font-size:20px">Últimos visitantes</div>
-
-<div class="visitorItem"><span>Sofía</span><small>Hace 3 min</small></div>
-<div class="visitorItem"><span>Mica</span><small>Hace 8 min</small></div>
-<div class="visitorItem"><span>Tomy</span><small>Hace 12 min</small></div>
-<div class="visitorItem"><span>Lucas</span><small>Hace 17 min</small></div>
-<div class="visitorItem"><span>Agus</span><small>Hace 29 min</small></div>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-<div id="dashboardScreen" class="screen"><div class="wrap"><div class="onboardingCard"><h2>Bienvenido a Velvet Beta 5</h2><p>Antes de probar con usuarios reales, completá estos pasos para que la experiencia se vea profesional.</p><div class="onboardingSteps"><div class="step"><b>1. Perfil</b><span>Foto, bio y filtros completos.</span></div><div class="step"><b>2. Chat</b><span>Probá sala general y privados.</span></div><div class="step"><b>3. Seguridad</b><span>Revisá privacidad y reglas.</span></div><div class="step"><b>4. Moderación</b><span>Probá reportes, premium y verificación.</span></div></div></div>
-<div class="beta4Hero">
-  <div class="heroCard"><h2>Velvet Beta 4</h2><p>Base estable + experiencia social avanzada. Probá chat, perfiles, matches, stories, premium y cámara base.</p><div class="toolRow"><button class="primary" onclick="showScreen('search')">Explorar perfiles</button><button class="gold" onclick="showScreen('videoCall')">Probar cámaras</button></div></div>
-  <div class="livePanel"><h3>Estado del sistema</h3><div id="systemHealth" class="result ok">Sistema operativo.</div><p>Chat estable, storage activo, perfiles disponibles.</p></div>
-</div>
-<h2>Inicio</h2><div class="dashboard"><div class="dash"><b id="dashProfiles">0</b><p>Perfiles</p></div><div class="dash"><b id="dashOnline">0</b><p>Online</p></div><div class="dash"><b id="dashFavorites">0</b><p>Favoritos</p></div><div class="dash"><b id="dashMessages">0</b><p>Mensajes sala</p></div></div><div class="card" style="margin-top:16px"><h3>Progreso de perfil</h3><div class="progress"><span id="profileProgress" style="width:20%"></span></div><div class="toolRow"><button class="gold" onclick="showScreen('profile')">Completar perfil</button><button onclick="showScreen('search')">Buscar perfiles</button></div></div><div class="quickActions">
-  <button class="primary" onclick="showScreen('search')">🔎 Buscar</button>
-  <button class="gold" onclick="showScreen('premium')">⭐ Premium</button>
-  <button onclick="showScreen('stories')">⭕ Stories</button>
-  <button onclick="showScreen('legal')">🔐 Seguridad</button>
-</div>
-<div class="card" style="margin-top:16px"><h3>Recomendados</h3><div id="recommendedList"></div></div></div></div>
-    <div id="chatScreen" class="screen show"><div class="top"><div><h2 id="chatTitle" style="margin:0">Chat General</h2><p id="chatSub" style="margin:4px 0 0;color:rgba(255,255,255,.55)">Mensajes en vivo</p></div><div class="toolRow"><button class="primary" onclick="startCamera()">📹 Activar cámara</button><button onclick="stopCamera()">Apagar</button></div></div><div class="cams"><div class="cam" id="localCamBox"><div class="slot">📹 Cámara apagada</div></div><div class="cam"><div class="slot">👀 Video remoto futuro</div></div><div class="cam"><div class="slot">📹 Espacio disponible</div></div></div><div class="chatArea" id="chatbox"><div class="msg">Cargando sala...</div></div><div class="inputBar"><input id="messageInput" placeholder="Escribí un mensaje..." onkeydown="if(event.key==='Enter')sendMessage()"><button class="primary send" onclick="sendMessage()">Enviar</button></div></div>
+<div id="chatScreen" class="screen"><div class="top"><div><h2 id="chatTitle" style="margin:0">Chat General</h2><p id="chatSub" style="margin:4px 0 0;color:rgba(255,255,255,.55)">Mensajes en vivo</p></div><div class="toolRow"><button class="primary" onclick="startCamera()">📹 Activar cámara</button><button onclick="stopCamera()">Apagar</button></div></div><div class="cams"><div class="cam" id="localCamBox"><div class="slot">📹 Cámara apagada</div></div><div class="cam"><div class="slot">👀 Video remoto futuro</div></div><div class="cam"><div class="slot">📹 Espacio disponible</div></div></div><div class="chatArea" id="chatbox"><div class="msg">Cargando sala...</div></div><div class="inputBar"><input id="messageInput" placeholder="Escribí un mensaje..." onkeydown="if(event.key==='Enter')sendMessage()"><button class="primary send" onclick="sendMessage()">Enviar</button></div></div>
     <div id="messagesScreen" class="screen"><div class="wrap"><div class="messagesPageHeader"><div><h2>Mensajes</h2><p>Todos tus chats privados en un solo lugar.</p></div><button class="primary" onclick="loadMessagesPage()">Actualizar</button></div><div class="messagesPage"><aside class="messagesList" id="messagesPageList"><div class="messagesEmpty">Cargando conversaciones...</div></aside><section class="messagesChat"><div class="messagesChatTop"><div><b id="messagesPageTitle">Elegí una conversación</b><small id="messagesPageSub">Seleccioná un chat para seguir hablando</small></div><button id="messagesPageCamBtn" onclick="requestMessagesPageWebcam()" disabled>📹 Webcam</button></div><div id="messagesPageBox" class="messagesPageBox"><div class="messagesEmpty">Todavía no seleccionaste ningún chat.</div></div><div class="messagesComposer"><button id="messagesPhotoBtn" onclick="document.getElementById('messagesPhotoInput').click()" disabled>📎 Foto</button><input id="messagesPhotoInput" type="file" accept="image/*" style="display:none" onchange="sendMessagesPagePhoto(event)"><input id="messagesPageInput" placeholder="Escribí un mensaje privado..." onkeydown="if(event.key==='Enter')sendMessagesPageMessage()" disabled><button class="primary" id="messagesPageSend" onclick="sendMessagesPageMessage()" disabled>Enviar</button></div></section></div></div></div>
     <div id="searchScreen" class="screen"><div class="wrap"><h2>Buscar perfiles</h2><div class="filters"><input id="searchText" placeholder="Alias o ciudad" oninput="renderSearchResults()"><select id="filterOnline" onchange="renderSearchResults()"><option value="">Online y offline</option><option value="online">Solo online</option><option value="offline">Solo offline</option></select><select id="filterCamera" onchange="renderSearchResults()"><option value="">Cámara</option><option value="cam">Solo con cámara</option></select><select id="filterProfileType" onchange="renderSearchResults()"><option value="">Tipo</option><option>Hombre</option><option>Mujer</option><option>Pareja</option><option>Mujer trans</option><option>Hombre trans</option><option>No binario</option></select><select id="filterSituation" onchange="renderSearchResults()"><option value="">Situación</option><option>Soltero/a</option><option>En pareja</option><option>Casado/a</option><option>Relación abierta</option><option>Separado/a</option><option>De trampa</option><option>Curioso/a</option></select><select id="filterOrientation" onchange="renderSearchResults()"><option value="">Orientación</option><option>Heterosexual</option><option>Bisexual</option><option>Gay</option><option>Lesbiana</option><option>Pansexual</option><option>Curioso/a</option></select><select id="filterLookingFor" onchange="renderSearchResults()"><option value="">Buscando</option><option>Hombre</option><option>Mujer</option><option>Pareja</option><option>Mujer trans</option><option>Hombre trans</option><option>No binario</option><option>Cualquiera</option></select></div><div id="searchCount" class="result ok">Cargando...</div><div class="grid" id="searchResults" style="margin-top:14px"></div></div></div>
     <div id="favoritesScreen" class="screen"><div class="wrap"><h2>Favoritos</h2><div class="grid" id="favoriteResults"></div></div></div>
@@ -1616,141 +1864,6 @@ button.primary{
  border-radius:999px;
 }
 
-
-/* ===== SOCIAL HOME PREMIUM ===== */
-.homeFeed{
-display:grid;
-grid-template-columns:1.2fr .8fr;
-gap:18px;
-padding:18px;
-height:calc(100vh - 76px);
-overflow:auto;
-}
-
-.feedColumn,.sideColumn{
-display:flex;
-flex-direction:column;
-gap:18px;
-}
-
-.feedCard,.premiumCard,.visitorsCard,.onlineCard,.notifCard{
-background:rgba(10,10,14,.42);
-border:1px solid rgba(255,255,255,.06);
-border-radius:24px;
-backdrop-filter:blur(12px);
--webkit-backdrop-filter:blur(12px);
-padding:18px;
-box-shadow:0 10px 40px rgba(0,0,0,.28);
-}
-
-.feedHeader{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:14px;
-}
-
-.feedTitle{
-font-size:26px;
-font-weight:800;
-}
-
-.feedSub{
-color:rgba(255,255,255,.58);
-font-size:14px;
-}
-
-.profileUpdate{
-display:flex;
-gap:14px;
-padding:14px;
-border-radius:18px;
-background:rgba(255,255,255,.04);
-margin-bottom:12px;
-}
-
-.profileUpdate img{
-width:58px;
-height:58px;
-border-radius:18px;
-object-fit:cover;
-}
-
-.updateName{
-font-weight:700;
-margin-bottom:4px;
-}
-
-.updateText{
-color:rgba(255,255,255,.74);
-font-size:14px;
-line-height:1.4;
-}
-
-.onlineGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.onlineMini{
-background:rgba(255,255,255,.04);
-border-radius:18px;
-padding:12px;
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.onlineMini img{
-width:44px;
-height:44px;
-border-radius:14px;
-object-fit:cover;
-}
-
-.visitorItem{
-display:flex;
-justify-content:space-between;
-padding:10px 0;
-border-bottom:1px solid rgba(255,255,255,.05);
-}
-
-.premiumCard{
-background:
-linear-gradient(135deg, rgba(124,58,237,.34), rgba(219,39,119,.28));
-overflow:hidden;
-position:relative;
-}
-
-.premiumCard::before{
-content:'PREMIUM';
-position:absolute;
-right:-25px;
-top:18px;
-background:#fff;
-color:#111;
-padding:6px 40px;
-transform:rotate(35deg);
-font-size:11px;
-font-weight:900;
-}
-
-.premiumBtn{
-margin-top:18px;
-width:100%;
-padding:14px;
-border:none;
-border-radius:16px;
-font-weight:800;
-background:#fff;
-color:#111;
-}
-
-.homeFeed::-webkit-scrollbar{
-width:6px;
-}
-
 </style>
 <div id="floatingMessenger">
 <div class="floatingMessengerTop">
@@ -1930,141 +2043,6 @@ button.primary{
 ::-webkit-scrollbar-thumb{
  background:linear-gradient(#7c3aed,#d6006e);
  border-radius:999px;
-}
-
-
-/* ===== SOCIAL HOME PREMIUM ===== */
-.homeFeed{
-display:grid;
-grid-template-columns:1.2fr .8fr;
-gap:18px;
-padding:18px;
-height:calc(100vh - 76px);
-overflow:auto;
-}
-
-.feedColumn,.sideColumn{
-display:flex;
-flex-direction:column;
-gap:18px;
-}
-
-.feedCard,.premiumCard,.visitorsCard,.onlineCard,.notifCard{
-background:rgba(10,10,14,.42);
-border:1px solid rgba(255,255,255,.06);
-border-radius:24px;
-backdrop-filter:blur(12px);
--webkit-backdrop-filter:blur(12px);
-padding:18px;
-box-shadow:0 10px 40px rgba(0,0,0,.28);
-}
-
-.feedHeader{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:14px;
-}
-
-.feedTitle{
-font-size:26px;
-font-weight:800;
-}
-
-.feedSub{
-color:rgba(255,255,255,.58);
-font-size:14px;
-}
-
-.profileUpdate{
-display:flex;
-gap:14px;
-padding:14px;
-border-radius:18px;
-background:rgba(255,255,255,.04);
-margin-bottom:12px;
-}
-
-.profileUpdate img{
-width:58px;
-height:58px;
-border-radius:18px;
-object-fit:cover;
-}
-
-.updateName{
-font-weight:700;
-margin-bottom:4px;
-}
-
-.updateText{
-color:rgba(255,255,255,.74);
-font-size:14px;
-line-height:1.4;
-}
-
-.onlineGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.onlineMini{
-background:rgba(255,255,255,.04);
-border-radius:18px;
-padding:12px;
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.onlineMini img{
-width:44px;
-height:44px;
-border-radius:14px;
-object-fit:cover;
-}
-
-.visitorItem{
-display:flex;
-justify-content:space-between;
-padding:10px 0;
-border-bottom:1px solid rgba(255,255,255,.05);
-}
-
-.premiumCard{
-background:
-linear-gradient(135deg, rgba(124,58,237,.34), rgba(219,39,119,.28));
-overflow:hidden;
-position:relative;
-}
-
-.premiumCard::before{
-content:'PREMIUM';
-position:absolute;
-right:-25px;
-top:18px;
-background:#fff;
-color:#111;
-padding:6px 40px;
-transform:rotate(35deg);
-font-size:11px;
-font-weight:900;
-}
-
-.premiumBtn{
-margin-top:18px;
-width:100%;
-padding:14px;
-border:none;
-border-radius:16px;
-font-weight:800;
-background:#fff;
-color:#111;
-}
-
-.homeFeed::-webkit-scrollbar{
-width:6px;
 }
 
 </style>
@@ -2461,141 +2439,6 @@ button.primary{
 ::-webkit-scrollbar-thumb{
  background:linear-gradient(#7c3aed,#d6006e);
  border-radius:999px;
-}
-
-
-/* ===== SOCIAL HOME PREMIUM ===== */
-.homeFeed{
-display:grid;
-grid-template-columns:1.2fr .8fr;
-gap:18px;
-padding:18px;
-height:calc(100vh - 76px);
-overflow:auto;
-}
-
-.feedColumn,.sideColumn{
-display:flex;
-flex-direction:column;
-gap:18px;
-}
-
-.feedCard,.premiumCard,.visitorsCard,.onlineCard,.notifCard{
-background:rgba(10,10,14,.42);
-border:1px solid rgba(255,255,255,.06);
-border-radius:24px;
-backdrop-filter:blur(12px);
--webkit-backdrop-filter:blur(12px);
-padding:18px;
-box-shadow:0 10px 40px rgba(0,0,0,.28);
-}
-
-.feedHeader{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:14px;
-}
-
-.feedTitle{
-font-size:26px;
-font-weight:800;
-}
-
-.feedSub{
-color:rgba(255,255,255,.58);
-font-size:14px;
-}
-
-.profileUpdate{
-display:flex;
-gap:14px;
-padding:14px;
-border-radius:18px;
-background:rgba(255,255,255,.04);
-margin-bottom:12px;
-}
-
-.profileUpdate img{
-width:58px;
-height:58px;
-border-radius:18px;
-object-fit:cover;
-}
-
-.updateName{
-font-weight:700;
-margin-bottom:4px;
-}
-
-.updateText{
-color:rgba(255,255,255,.74);
-font-size:14px;
-line-height:1.4;
-}
-
-.onlineGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.onlineMini{
-background:rgba(255,255,255,.04);
-border-radius:18px;
-padding:12px;
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.onlineMini img{
-width:44px;
-height:44px;
-border-radius:14px;
-object-fit:cover;
-}
-
-.visitorItem{
-display:flex;
-justify-content:space-between;
-padding:10px 0;
-border-bottom:1px solid rgba(255,255,255,.05);
-}
-
-.premiumCard{
-background:
-linear-gradient(135deg, rgba(124,58,237,.34), rgba(219,39,119,.28));
-overflow:hidden;
-position:relative;
-}
-
-.premiumCard::before{
-content:'PREMIUM';
-position:absolute;
-right:-25px;
-top:18px;
-background:#fff;
-color:#111;
-padding:6px 40px;
-transform:rotate(35deg);
-font-size:11px;
-font-weight:900;
-}
-
-.premiumBtn{
-margin-top:18px;
-width:100%;
-padding:14px;
-border:none;
-border-radius:16px;
-font-weight:800;
-background:#fff;
-color:#111;
-}
-
-.homeFeed::-webkit-scrollbar{
-width:6px;
 }
 
 </style>
