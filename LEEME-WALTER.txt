@@ -1,0 +1,11 @@
+Walter:
+Esta versión está armada sobre tu proyecto real, no sobre una plantilla nueva.
+
+Cambios:
+- Mantiene la estructura actual de chat, sidebar, privados y online.
+- Usa la imagen nueva de la pareja como fondo real: bg-couple.jpg.
+- No tiene blur aplicado a la imagen de fondo.
+- Los paneles son más transparentes para que el fondo se vea.
+- Se agregaron sombras/glow violeta-rosa y estética más adulta premium.
+
+Subí TODO el contenido de esta carpeta a GitHub/Vercel reemplazando los archivos actuales.

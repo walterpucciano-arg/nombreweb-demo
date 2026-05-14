@@ -4,24 +4,24 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Velvet Beta 5 Hotfix Chat Camera</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#07070d url('velvet-bg-new.png') center center/cover no-repeat fixed;color:#fff;overflow:hidden}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#07070d;color:#fff;overflow:hidden}
 :root{--pink:#ff2d8f;--violet:#8b5cf6;--gold:#f5d37b;--green:#34d399;--red:#ef4444;--line:rgba(255,255,255,.1);--muted:rgba(255,255,255,.62)}
 button{border:0;border-radius:999px;padding:11px 15px;font-weight:800;background:#27273a;color:#fff;cursor:pointer}button:hover{filter:brightness(1.12)}
 .primary{background:linear-gradient(135deg,var(--pink),var(--violet))}.gold{background:var(--gold);color:#14070d}.danger{background:rgba(239,68,68,.35)}
 input,select,textarea{width:100%;padding:13px;border-radius:16px;border:1px solid var(--line);background:#171722;color:#fff;outline:none;margin:6px 0 11px}option{background:#171722;color:#fff}textarea{min-height:80px;resize:none}.hidden{display:none!important}
 .result{padding:12px;border-radius:16px;background:rgba(255,255,255,.075);border:1px solid var(--line);font-size:13px;margin-top:10px;white-space:pre-wrap}.ok{background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.35);color:#bbf7d0}.err{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#fecaca}
 .badge{display:inline-block;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900;background:var(--gold);color:#14070d}.bGreen{background:var(--green);color:#03120b}.bPink{background:var(--pink);color:white}.bGray{background:rgba(255,255,255,.16);color:white}
-.auth{min-height:100vh;display:grid;grid-template-columns:1fr 430px;position:relative;background:url('velvet-bg-new.png') center center/cover no-repeat fixed}.auth:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(0,0,0,.54));pointer-events:none}.auth>*{position:relative;z-index:1}.authLeft{padding:42px;display:flex;align-items:flex-end;background:transparent;text-shadow:0 8px 34px rgba(0,0,0,.88)}.logo{display:flex;align-items:center;gap:12px;font-size:30px;font-weight:950;margin-bottom:22px}.mark{width:54px;height:54px;border-radius:20px;background:linear-gradient(135deg,var(--pink),var(--violet),var(--gold));display:grid;place-items:center}h1{font-size:clamp(42px,6vw,70px);line-height:.95;margin:0 0 15px;letter-spacing:-2px}h2{margin:0 0 14px}p{color:var(--muted);line-height:1.5}.tags{display:flex;gap:8px;flex-wrap:wrap}.tags span{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);font-size:13px;font-weight:800}
-.authPanel{background:rgba(8,8,14,.58);border-left:1px solid rgba(255,255,255,.16);padding:30px;display:flex;align-items:center;backdrop-filter:blur(8px)}.card{background:linear-gradient(145deg,rgba(10,10,16,.58),rgba(10,10,16,.34));border:1px solid rgba(255,255,255,.14);border-radius:26px;padding:18px;box-shadow:0 24px 70px rgba(0,0,0,.48)}.switch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}.switch button.active{background:#fff;color:#111}
-.app{display:none;height:100vh}body.logged .auth{display:none}body.logged .app{display:grid;grid-template-columns:280px minmax(0,1fr) 330px;background:url('velvet-bg-new.png') center center/cover no-repeat fixed;position:relative}body.logged .app:before{content:'';position:fixed;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.68),rgba(0,0,0,.36),rgba(0,0,0,.7));pointer-events:none;z-index:0}body.logged .app>*{position:relative;z-index:1}
-.left{background:rgba(10,10,16,.72);border-right:1px solid rgba(255,255,255,.12);padding:18px;display:flex;flex-direction:column;gap:14px;min-height:0;backdrop-filter:blur(10px)}.brand{display:flex;align-items:center;gap:12px;font-size:28px;font-weight:950}.userBox{display:flex;gap:10px;align-items:center;padding:12px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid var(--line)}.avatar{width:48px;height:48px;border-radius:17px;background:linear-gradient(135deg,var(--pink),var(--violet));display:grid;place-items:center;font-weight:950;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
+.auth{min-height:100vh;display:grid;grid-template-columns:1fr 430px}.authLeft{padding:42px;display:flex;align-items:flex-end;background:radial-gradient(circle at top left,rgba(255,45,143,.22),transparent 32%),radial-gradient(circle at 85% 0%,rgba(139,92,246,.18),transparent 34%),#07070d}.logo{display:flex;align-items:center;gap:12px;font-size:30px;font-weight:950;margin-bottom:22px}.mark{width:54px;height:54px;border-radius:20px;background:linear-gradient(135deg,var(--pink),var(--violet),var(--gold));display:grid;place-items:center}h1{font-size:clamp(42px,6vw,70px);line-height:.95;margin:0 0 15px;letter-spacing:-2px}h2{margin:0 0 14px}p{color:var(--muted);line-height:1.5}.tags{display:flex;gap:8px;flex-wrap:wrap}.tags span{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);font-size:13px;font-weight:800}
+.authPanel{background:rgba(8,8,14,.94);border-left:1px solid var(--line);padding:30px;display:flex;align-items:center}.card{background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:26px;padding:18px}.switch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}.switch button.active{background:#fff;color:#111}
+.app{display:none;height:100vh}body.logged .auth{display:none}body.logged .app{display:grid;grid-template-columns:280px minmax(0,1fr) 330px}
+.left{background:rgba(10,10,16,.96);border-right:1px solid var(--line);padding:18px;display:flex;flex-direction:column;gap:14px;min-height:0}.brand{display:flex;align-items:center;gap:12px;font-size:28px;font-weight:950}.userBox{display:flex;gap:10px;align-items:center;padding:12px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid var(--line)}.avatar{width:48px;height:48px;border-radius:17px;background:linear-gradient(135deg,var(--pink),var(--violet));display:grid;place-items:center;font-weight:950;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
 .nav{display:grid;gap:8px}.nav button{text-align:left;border-radius:16px;background:rgba(255,255,255,.04)}.nav button.active,.nav button:hover{background:rgba(255,255,255,.10)}.sectionTitle{font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.45);margin-top:6px}.chatList{display:grid;gap:10px;overflow:auto;min-height:0}.chatItem{padding:13px;border-radius:18px;background:rgba(255,255,255,.05);cursor:pointer}
-.main{display:flex;flex-direction:column;height:100vh;min-width:0}.top{height:76px;border-bottom:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:rgba(10,10,16,.56);backdrop-filter:blur(10px)}
+.main{display:flex;flex-direction:column;height:100vh;min-width:0}.top{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:rgba(10,10,16,.78)}
 .screen{display:none;min-height:0;flex:1}.screen.show{display:flex;flex-direction:column}.wrap{padding:20px;overflow:auto}
-.cams{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(13,13,20,.54);backdrop-filter:blur(8px)}.cam{position:relative;height:170px;border-radius:24px;overflow:hidden;background:#1a1a28;border:1px solid var(--line)}.cam video{width:100%;height:100%;object-fit:cover}.slot{height:100%;display:grid;place-items:center;color:rgba(255,255,255,.45);text-align:center;padding:18px}.overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82),transparent)}.camInfo{position:absolute;left:14px;right:14px;bottom:14px}
-.chatArea{flex:1;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:12px;background:radial-gradient(circle at top left,rgba(255,45,143,.16),transparent 32%),rgba(7,7,13,.42);backdrop-filter:blur(3px)}.msg{max-width:72%;padding:14px 16px;border-radius:22px;background:rgba(18,18,28,.68);border:1px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.22)}.msg.me{align-self:flex-end;background:linear-gradient(135deg,var(--pink),var(--violet));box-shadow:0 0 24px rgba(255,45,143,.28)}.msg small{display:block;color:rgba(255,255,255,.55);font-size:11px;margin-top:5px}
-.inputBar{padding:16px;border-top:1px solid rgba(255,255,255,.1);display:flex;gap:12px;background:rgba(13,13,20,.66);backdrop-filter:blur(10px)}.inputBar input{flex:1;margin:0}.send{padding:0 24px;border-radius:18px}
-.right{background:rgba(10,10,16,.72);border-left:1px solid rgba(255,255,255,.12);padding:16px;overflow:auto;backdrop-filter:blur(10px)}.user{display:flex;align-items:center;gap:12px;padding:11px;border-radius:18px;background:rgba(255,255,255,.05);margin-bottom:9px;cursor:pointer}.user:hover{background:rgba(255,255,255,.09)}.userAvatar{width:48px;height:48px;border-radius:17px;background:#222;display:grid;place-items:center;font-weight:900;overflow:hidden}.userAvatar img{width:100%;height:100%;object-fit:cover}.dot{width:10px;height:10px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:6px}.dot.off{background:#666}.camBadge{font-size:11px;padding:5px 8px;border-radius:999px;background:rgba(255,45,143,.18);color:#ff8fc8;font-weight:800}
+.cams{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px;border-bottom:1px solid var(--line);background:#0d0d14}.cam{position:relative;height:170px;border-radius:24px;overflow:hidden;background:#1a1a28;border:1px solid var(--line)}.cam video{width:100%;height:100%;object-fit:cover}.slot{height:100%;display:grid;place-items:center;color:rgba(255,255,255,.45);text-align:center;padding:18px}.overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82),transparent)}.camInfo{position:absolute;left:14px;right:14px;bottom:14px}
+.chatArea{flex:1;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:12px;background:radial-gradient(circle at top left,rgba(255,45,143,.08),transparent 30%),#07070d}.msg{max-width:72%;padding:14px 16px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid var(--line)}.msg.me{align-self:flex-end;background:linear-gradient(135deg,var(--pink),var(--violet))}.msg small{display:block;color:rgba(255,255,255,.55);font-size:11px;margin-top:5px}
+.inputBar{padding:16px;border-top:1px solid var(--line);display:flex;gap:12px;background:#0d0d14}.inputBar input{flex:1;margin:0}.send{padding:0 24px;border-radius:18px}
+.right{background:rgba(10,10,16,.96);border-left:1px solid var(--line);padding:16px;overflow:auto}.user{display:flex;align-items:center;gap:12px;padding:11px;border-radius:18px;background:rgba(255,255,255,.05);margin-bottom:9px;cursor:pointer}.user:hover{background:rgba(255,255,255,.09)}.userAvatar{width:48px;height:48px;border-radius:17px;background:#222;display:grid;place-items:center;font-weight:900;overflow:hidden}.userAvatar img{width:100%;height:100%;object-fit:cover}.dot{width:10px;height:10px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:6px}.dot.off{background:#666}.camBadge{font-size:11px;padding:5px 8px;border-radius:999px;background:rgba(255,45,143,.18);color:#ff8fc8;font-weight:800}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.profileCard{border-radius:24px;background:rgba(255,255,255,.06);border:1px solid var(--line);overflow:hidden}.profileImg{height:220px;position:relative;background:#1b1b29}.profileImg img{width:100%;height:100%;object-fit:cover}.profileTop{position:absolute;left:12px;right:12px;top:12px;display:flex;gap:6px;flex-wrap:wrap}.profileBottom{position:absolute;left:14px;right:14px;bottom:14px;z-index:2}.profileBody{padding:14px}.toolRow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
 .dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.dash{padding:18px;border-radius:24px;background:rgba(255,255,255,.06);border:1px solid var(--line)}.dash b{font-size:30px}.progress{height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(135deg,var(--pink),var(--violet))}
 .formGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.preview{height:180px;border-radius:22px;background:#1b1b29;border:1px dashed rgba(255,255,255,.18);display:grid;place-items:center;color:rgba(255,255,255,.55);overflow:hidden}.preview img{width:100%;height:100%;object-fit:cover}.feedItem{padding:14px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid var(--line);margin-bottom:12px}.mediaBox{height:250px;border-radius:18px;background:#1b1b29;overflow:hidden;display:grid;place-items:center}.mediaBox img{width:100%;height:100%;object-fit:cover}
@@ -144,13 +144,246 @@ background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,.04)),url('velvet-bg
 /* === FIN VELVET UI REDESIGN === */
 
 
-/* FIX VISUAL: mantiene la app original, solo mejora estética y fondo */
-.logo,.brand{color:#fff;text-shadow:0 0 18px rgba(255,45,143,.45)}
-.mark{box-shadow:0 0 34px rgba(255,45,143,.45)}
-.primary{box-shadow:0 0 22px rgba(255,45,143,.24)}
-.profileCard,.userBox,.chatItem,.feedItem,.dash,.premiumCard,.verifyCard,.adminCard{background:rgba(12,12,20,.58)!important;border-color:rgba(255,255,255,.13)!important;backdrop-filter:blur(8px)}
-input,select,textarea{background:rgba(12,12,20,.62);border-color:rgba(255,255,255,.14)}
-body:has(.auth:not([style*='display: none'])) .authLeft h1{max-width:780px}
+/* =========================================================
+   VELVET - VISUAL UPGRADE REAL SOBRE LA APP EXISTENTE
+   Fondo protagonista + estética adulta premium sin romper JS
+========================================================= */
+
+html, body{
+  min-height:100%;
+}
+
+body{
+  background:
+    linear-gradient(90deg, rgba(4,3,8,.72) 0%, rgba(4,3,8,.30) 42%, rgba(4,3,8,.70) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.62)),
+    url('bg-couple.jpg') center center / cover no-repeat fixed !important;
+  color:#fff;
+}
+
+/* atmósfera, sin difuminar la foto */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255,45,143,.20), transparent 30%),
+    radial-gradient(circle at 83% 78%, rgba(139,92,246,.20), transparent 34%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.04), transparent 42%);
+}
+
+.auth,
+.app{
+  position:relative;
+  z-index:1;
+  background:transparent !important;
+}
+
+body.logged .app{
+  background:transparent !important;
+}
+
+/* Login: usar la misma imagen nueva, bien protagonista */
+.auth{
+  background:
+    linear-gradient(90deg, rgba(3,3,8,.64), rgba(3,3,8,.18) 48%, rgba(3,3,8,.72)),
+    url('bg-couple.jpg') center center / cover no-repeat fixed !important;
+}
+
+.authLeft{
+  background:transparent !important;
+}
+
+.authCard,
+.auth form,
+.loginCard{
+  background:rgba(8,8,14,.48) !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+  box-shadow:0 24px 90px rgba(0,0,0,.55), 0 0 38px rgba(255,45,143,.16) !important;
+  backdrop-filter:blur(13px);
+  -webkit-backdrop-filter:blur(13px);
+}
+
+/* Paneles principales: transparentes para que el fondo se vea */
+.left,
+.right,
+.main,
+.top,
+.wrap,
+.screen,
+.cams,
+.messagesPage,
+.messagesList,
+.messagesChat,
+.profileGrid,
+.card,
+.onboardingCard{
+  background-color:transparent !important;
+}
+
+.left{
+  background:rgba(5,5,10,.62) !important;
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+  border-right:1px solid rgba(255,255,255,.08) !important;
+  box-shadow:18px 0 70px rgba(0,0,0,.34);
+}
+
+.right{
+  background:rgba(5,5,10,.54) !important;
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+  border-left:1px solid rgba(255,255,255,.08) !important;
+  box-shadow:-18px 0 70px rgba(0,0,0,.34);
+}
+
+.main{
+  background:rgba(0,0,0,.10) !important;
+}
+
+.top{
+  background:rgba(8,8,14,.40) !important;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+/* Caja de chat general */
+#chatScreen,
+#messagesScreen{
+  background:transparent !important;
+}
+
+.chatBox,
+.chatPanel,
+#chatScreen .screen,
+#chatScreen > div,
+.messagesPage{
+  background:rgba(4,4,9,.44) !important;
+  border:1px solid rgba(255,255,255,.09) !important;
+  box-shadow:0 24px 90px rgba(0,0,0,.48), 0 0 40px rgba(139,92,246,.12) !important;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+/* Mensajes: más premium */
+.msg,
+.message,
+.bubble,
+.chatMessage{
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.mine,
+.me,
+.own,
+.msg.me,
+.msg.mine{
+  background:linear-gradient(135deg, #8b5cf6, #ff2d8f) !important;
+  box-shadow:0 0 24px rgba(255,45,143,.24) !important;
+}
+
+.theirs,
+.other,
+.msg.other{
+  background:rgba(255,255,255,.09) !important;
+  border:1px solid rgba(255,255,255,.06) !important;
+}
+
+/* Online y usuarios */
+.user,
+.userBox,
+.chatItem,
+.result,
+.card,
+.onboardingCard,
+.messagesPage,
+.messagesList,
+.messagesChat{
+  background:rgba(12,12,18,.50) !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.user:hover,
+.chatItem:hover,
+.nav button:hover,
+.nav button.active{
+  background:linear-gradient(135deg, rgba(255,45,143,.28), rgba(139,92,246,.30)) !important;
+  box-shadow:0 0 26px rgba(255,45,143,.18);
+}
+
+.brand,
+.logo{
+  text-shadow:0 0 22px rgba(255,45,143,.38);
+}
+
+.mark,
+.avatar{
+  box-shadow:0 0 24px rgba(255,45,143,.26);
+}
+
+/* Botones más adultos/premium */
+.primary,
+button.primary,
+.nav button.active,
+.btnPrivate,
+.privateBtn,
+button[onclick*="private"],
+button[onclick*="Privado"]{
+  background:linear-gradient(135deg, #ff2d8f, #8b5cf6) !important;
+  box-shadow:0 0 22px rgba(255,45,143,.22);
+}
+
+button{
+  transition:transform .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+
+button:hover{
+  transform:translateY(-1px);
+}
+
+/* Inputs */
+input,
+select,
+textarea{
+  background:rgba(255,255,255,.075) !important;
+  border:1px solid rgba(255,255,255,.09) !important;
+  color:#fff !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:rgba(255,45,143,.45) !important;
+  box-shadow:0 0 22px rgba(255,45,143,.16);
+}
+
+/* Scroll premium */
+::-webkit-scrollbar{
+  width:9px;
+  height:9px;
+}
+::-webkit-scrollbar-track{
+  background:rgba(255,255,255,.04);
+}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#ff2d8f,#8b5cf6);
+  border-radius:999px;
+}
+
+/* En pantallas chicas, mantener legibilidad */
+@media (max-width: 900px){
+  body, .auth{
+    background-position:center center !important;
+  }
+  .left,.right{
+    background:rgba(5,5,10,.78) !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -871,14 +1104,6 @@ updateSession();
 .floatingMessengerBottom{padding:10px;background:#f7f5ef;border-top:1px solid rgba(0,0,0,.08);display:flex;gap:8px}
 #floatingMessengerInput{flex:1;border-radius:10px;border:1px solid #ccc;padding:10px}
 #floatingMessengerSend{border:0;background:#d92ea8;color:#fff;padding:0 16px;border-radius:10px;font-weight:700}
-
-/* FIX VISUAL: mantiene la app original, solo mejora estética y fondo */
-.logo,.brand{color:#fff;text-shadow:0 0 18px rgba(255,45,143,.45)}
-.mark{box-shadow:0 0 34px rgba(255,45,143,.45)}
-.primary{box-shadow:0 0 22px rgba(255,45,143,.24)}
-.profileCard,.userBox,.chatItem,.feedItem,.dash,.premiumCard,.verifyCard,.adminCard{background:rgba(12,12,20,.58)!important;border-color:rgba(255,255,255,.13)!important;backdrop-filter:blur(8px)}
-input,select,textarea{background:rgba(12,12,20,.62);border-color:rgba(255,255,255,.14)}
-body:has(.auth:not([style*='display: none'])) .authLeft h1{max-width:780px}
 </style>
 <div id="floatingMessenger">
 <div class="floatingMessengerTop">
@@ -917,14 +1142,6 @@ body:has(.auth:not([style*='display: none'])) .authLeft h1{max-width:780px}
   .pmPhotoMsg{display:block;max-width:240px;max-height:260px;border-radius:14px;object-fit:cover;border:1px solid rgba(0,0,0,.08)}
   .pmEmptySide{padding:14px;color:rgba(255,255,255,.55);font-size:13px;line-height:1.35}
   @media(max-width:760px){#floatingMessenger{width:calc(100vw - 12px)!important;height:calc(100vh - 12px)!important;right:6px!important;bottom:6px!important}.pmLayout{grid-template-columns:120px 1fr}.pmSideHeader small,.pmRecentText small{display:none}.pmRecentItem{padding:8px;gap:7px}.pmAvatar{width:34px;height:34px}.pmRecentText b{font-size:12px}.pmCamBtn{font-size:0!important}.pmCamBtn::after{content:'📹';font-size:16px}}
-
-/* FIX VISUAL: mantiene la app original, solo mejora estética y fondo */
-.logo,.brand{color:#fff;text-shadow:0 0 18px rgba(255,45,143,.45)}
-.mark{box-shadow:0 0 34px rgba(255,45,143,.45)}
-.primary{box-shadow:0 0 22px rgba(255,45,143,.24)}
-.profileCard,.userBox,.chatItem,.feedItem,.dash,.premiumCard,.verifyCard,.adminCard{background:rgba(12,12,20,.58)!important;border-color:rgba(255,255,255,.13)!important;backdrop-filter:blur(8px)}
-input,select,textarea{background:rgba(12,12,20,.62);border-color:rgba(255,255,255,.14)}
-body:has(.auth:not([style*='display: none'])) .authLeft h1{max-width:780px}
 </style>
 <script>
 (function(){
@@ -1178,14 +1395,6 @@ body:has(.auth:not([style*='display: none'])) .authLeft h1{max-width:780px}
 #velvetCallWindow{position:fixed;right:22px;bottom:22px;width:460px;max-width:calc(100vw - 24px);height:390px;max-height:calc(100vh - 24px);z-index:1000000;background:#080a12;border:1px solid rgba(255,255,255,.16);border-radius:22px;box-shadow:0 24px 80px rgba(0,0,0,.62);display:none;overflow:hidden;color:#fff;font-family:system-ui}
 #velvetCallWindow.show{display:flex;flex-direction:column}.vcTop{height:52px;flex:0 0 auto;background:#151827;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;padding:0 12px;cursor:move;user-select:none}.vcTop b{font-size:14px}.vcTop small{display:block;color:rgba(255,255,255,.55);font-size:11px;margin-top:1px}.vcActions{display:flex;gap:8px;align-items:center}.vcActions button,.vcBtn{border:0;border-radius:12px;padding:8px 10px;font-weight:900;cursor:pointer}.vcCut{background:#ef4444!important;color:#fff!important}.vcMini{background:rgba(255,255,255,.1)!important;color:#fff!important}.vcBody{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;background:#06070d}.vcVideoBox{position:relative;background:#121622;border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;display:grid;place-items:center;min-height:0}.vcVideoBox video{width:100%;height:100%;object-fit:cover;background:#000}.vcLabel{position:absolute;left:9px;bottom:9px;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:5px 8px;font-size:11px;font-weight:900}.vcPlaceholder{color:rgba(255,255,255,.45);font-size:13px;text-align:center;padding:12px}.vcStatus{padding:8px 12px;border-top:1px solid rgba(255,255,255,.1);background:#0d101a;color:rgba(255,255,255,.7);font-size:12px}.vcIncoming{position:fixed;right:22px;top:22px;width:340px;max-width:calc(100vw - 24px);z-index:1000001;background:#11131d;color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:14px;box-shadow:0 22px 70px rgba(0,0,0,.55);display:none}.vcIncoming.show{display:block}.vcIncoming h3{margin:0 0 5px;font-size:16px}.vcIncoming p{margin:0;color:rgba(255,255,255,.68);font-size:13px}.vcIncoming .row{display:flex;gap:8px;margin-top:12px}.vcIncoming button{flex:1;border:0;border-radius:12px;padding:10px;font-weight:900;cursor:pointer}.vcAccept{background:#22c55e;color:#06110a}.vcReject{background:#ef4444;color:#fff}.vcWatchNote{position:absolute;inset:auto 8px 8px 8px;background:rgba(0,0,0,.58);border-radius:12px;padding:8px;font-size:12px;color:rgba(255,255,255,.75)}
 @media(max-width:760px){#velvetCallWindow{width:calc(100vw - 12px);height:360px;right:6px;bottom:6px}.vcBody{grid-template-columns:1fr}.vcVideoBox:first-child{min-height:120px}.vcVideoBox:nth-child(2){min-height:160px}}
-
-/* FIX VISUAL: mantiene la app original, solo mejora estética y fondo */
-.logo,.brand{color:#fff;text-shadow:0 0 18px rgba(255,45,143,.45)}
-.mark{box-shadow:0 0 34px rgba(255,45,143,.45)}
-.primary{box-shadow:0 0 22px rgba(255,45,143,.24)}
-.profileCard,.userBox,.chatItem,.feedItem,.dash,.premiumCard,.verifyCard,.adminCard{background:rgba(12,12,20,.58)!important;border-color:rgba(255,255,255,.13)!important;backdrop-filter:blur(8px)}
-input,select,textarea{background:rgba(12,12,20,.62);border-color:rgba(255,255,255,.14)}
-body:has(.auth:not([style*='display: none'])) .authLeft h1{max-width:780px}
 </style>
 <div id="velvetCallWindow">
   <div class="vcTop" id="velvetCallDrag"><div><b id="vcTitle">Webcam</b><small id="vcSub">Conectando...</small></div><div class="vcActions"><button class="vcMini" onclick="VelvetCamera.minimize()">—</button><button class="vcCut" onclick="VelvetCamera.hangup()">Cortar</button></div></div>
