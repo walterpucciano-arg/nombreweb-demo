@@ -527,6 +527,141 @@ button.primary{
  border-radius:999px;
 }
 
+
+/* ===== SOCIAL HOME PREMIUM ===== */
+.homeFeed{
+display:grid;
+grid-template-columns:1.2fr .8fr;
+gap:18px;
+padding:18px;
+height:calc(100vh - 76px);
+overflow:auto;
+}
+
+.feedColumn,.sideColumn{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.feedCard,.premiumCard,.visitorsCard,.onlineCard,.notifCard{
+background:rgba(10,10,14,.42);
+border:1px solid rgba(255,255,255,.06);
+border-radius:24px;
+backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+padding:18px;
+box-shadow:0 10px 40px rgba(0,0,0,.28);
+}
+
+.feedHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:14px;
+}
+
+.feedTitle{
+font-size:26px;
+font-weight:800;
+}
+
+.feedSub{
+color:rgba(255,255,255,.58);
+font-size:14px;
+}
+
+.profileUpdate{
+display:flex;
+gap:14px;
+padding:14px;
+border-radius:18px;
+background:rgba(255,255,255,.04);
+margin-bottom:12px;
+}
+
+.profileUpdate img{
+width:58px;
+height:58px;
+border-radius:18px;
+object-fit:cover;
+}
+
+.updateName{
+font-weight:700;
+margin-bottom:4px;
+}
+
+.updateText{
+color:rgba(255,255,255,.74);
+font-size:14px;
+line-height:1.4;
+}
+
+.onlineGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.onlineMini{
+background:rgba(255,255,255,.04);
+border-radius:18px;
+padding:12px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.onlineMini img{
+width:44px;
+height:44px;
+border-radius:14px;
+object-fit:cover;
+}
+
+.visitorItem{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.premiumCard{
+background:
+linear-gradient(135deg, rgba(124,58,237,.34), rgba(219,39,119,.28));
+overflow:hidden;
+position:relative;
+}
+
+.premiumCard::before{
+content:'PREMIUM';
+position:absolute;
+right:-25px;
+top:18px;
+background:#fff;
+color:#111;
+padding:6px 40px;
+transform:rotate(35deg);
+font-size:11px;
+font-weight:900;
+}
+
+.premiumBtn{
+margin-top:18px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:16px;
+font-weight:800;
+background:#fff;
+color:#111;
+}
+
+.homeFeed::-webkit-scrollbar{
+width:6px;
+}
+
 </style>
 </head>
 <body>
@@ -541,11 +676,102 @@ button.primary{
 </div>
 <div class="app">
   <aside class="left"><div class="brand"><div class="mark" style="width:48px;height:48px;border-radius:17px">◆</div>Velvet</div><div class="userBox"><div class="avatar" id="sideAvatar">V</div><div><b id="sideAlias">Usuario</b><p style="margin:0;font-size:13px">Online</p></div></div>
-    <div class="nav velvet-main-nav"><button class="active" onclick="showScreen('chat',this)">💬 Chat General</button><button onclick="showScreen('messages',this)">✉️ Mensajes</button><button onclick="showScreen('search',this)">🔎 Buscar</button><button onclick="showScreen('profile',this)">👤 Perfil</button></div>
+    <div class="nav velvet-main-nav"><button class="active" onclick="showScreen('chat',this)">💬 Chat General</button><button onclick="showScreen('messages',this)">🏠 Inicio</button><button onclick="showScreen('search',this)">🔎 Buscar</button><button onclick="showScreen('profile',this)">👤 Perfil</button></div>
     <div class="sectionTitle">Privados</div><div class="chatList" id="conversationList"><div class="chatItem">Sin privados todavía</div></div><div class="result ok">Gratis: <span id="startedChats">0</span>/5 privados</div><button class="danger" onclick="logoutUser()">Cerrar sesión</button>
   </aside>
   <main class="main">
-    <div id="dashboardScreen" class="screen"><div class="wrap"><div class="onboardingCard"><h2>Bienvenido a Velvet Beta 5</h2><p>Antes de probar con usuarios reales, completá estos pasos para que la experiencia se vea profesional.</p><div class="onboardingSteps"><div class="step"><b>1. Perfil</b><span>Foto, bio y filtros completos.</span></div><div class="step"><b>2. Chat</b><span>Probá sala general y privados.</span></div><div class="step"><b>3. Seguridad</b><span>Revisá privacidad y reglas.</span></div><div class="step"><b>4. Moderación</b><span>Probá reportes, premium y verificación.</span></div></div></div>
+    
+<div id="homeScreen" class="screen show">
+<div class="homeFeed">
+
+<div class="feedColumn">
+
+<div class="feedCard">
+<div class="feedHeader">
+<div>
+<div class="feedTitle">Tu noche en Velvet</div>
+<div class="feedSub">Actividad reciente de perfiles que seguís</div>
+</div>
+</div>
+
+<div class="profileUpdate">
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop">
+<div>
+<div class="updateName">Sofía</div>
+<div class="updateText">Subió nuevas fotos privadas y está online ahora.</div>
+</div>
+</div>
+
+<div class="profileUpdate">
+<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop">
+<div>
+<div class="updateName">Lucas</div>
+<div class="updateText">Abrió una videollamada pública hace 5 minutos.</div>
+</div>
+</div>
+
+<div class="profileUpdate">
+<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop">
+<div>
+<div class="updateName">Camila</div>
+<div class="updateText">Empezó a seguirte y reaccionó a tu perfil.</div>
+</div>
+</div>
+
+</div>
+
+<div class="feedCard notifCard">
+<div class="feedTitle" style="font-size:20px">Notificaciones</div>
+<div class="visitorItem"><span>🔥 3 personas reaccionaron a tu perfil</span></div>
+<div class="visitorItem"><span>💬 Tenés 2 mensajes nuevos</span></div>
+<div class="visitorItem"><span>👀 Alguien visitó tu perfil hace 2 min</span></div>
+</div>
+
+</div>
+
+<div class="sideColumn">
+
+<div class="premiumCard">
+<div class="feedTitle">Velvet Premium</div>
+<div class="feedSub">Desbloqueá videollamadas ilimitadas, perfiles destacados y contenido exclusivo.</div>
+<button class="premiumBtn">ACTIVAR PREMIUM</button>
+</div>
+
+<div class="feedCard onlineCard">
+<div class="feedTitle" style="font-size:20px">Online ahora</div>
+
+<div class="onlineGrid">
+
+<div class="onlineMini">
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop">
+<div><strong>Lu</strong><br><small>Online</small></div>
+</div>
+
+<div class="onlineMini">
+<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop">
+<div><strong>Tomy</strong><br><small>En cámara</small></div>
+</div>
+
+</div>
+</div>
+
+<div class="feedCard visitorsCard">
+<div class="feedTitle" style="font-size:20px">Últimos visitantes</div>
+
+<div class="visitorItem"><span>Sofía</span><small>Hace 3 min</small></div>
+<div class="visitorItem"><span>Mica</span><small>Hace 8 min</small></div>
+<div class="visitorItem"><span>Tomy</span><small>Hace 12 min</small></div>
+<div class="visitorItem"><span>Lucas</span><small>Hace 17 min</small></div>
+<div class="visitorItem"><span>Agus</span><small>Hace 29 min</small></div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<div id="dashboardScreen" class="screen"><div class="wrap"><div class="onboardingCard"><h2>Bienvenido a Velvet Beta 5</h2><p>Antes de probar con usuarios reales, completá estos pasos para que la experiencia se vea profesional.</p><div class="onboardingSteps"><div class="step"><b>1. Perfil</b><span>Foto, bio y filtros completos.</span></div><div class="step"><b>2. Chat</b><span>Probá sala general y privados.</span></div><div class="step"><b>3. Seguridad</b><span>Revisá privacidad y reglas.</span></div><div class="step"><b>4. Moderación</b><span>Probá reportes, premium y verificación.</span></div></div></div>
 <div class="beta4Hero">
   <div class="heroCard"><h2>Velvet Beta 4</h2><p>Base estable + experiencia social avanzada. Probá chat, perfiles, matches, stories, premium y cámara base.</p><div class="toolRow"><button class="primary" onclick="showScreen('search')">Explorar perfiles</button><button class="gold" onclick="showScreen('videoCall')">Probar cámaras</button></div></div>
   <div class="livePanel"><h3>Estado del sistema</h3><div id="systemHealth" class="result ok">Sistema operativo.</div><p>Chat estable, storage activo, perfiles disponibles.</p></div>
@@ -1390,6 +1616,141 @@ button.primary{
  border-radius:999px;
 }
 
+
+/* ===== SOCIAL HOME PREMIUM ===== */
+.homeFeed{
+display:grid;
+grid-template-columns:1.2fr .8fr;
+gap:18px;
+padding:18px;
+height:calc(100vh - 76px);
+overflow:auto;
+}
+
+.feedColumn,.sideColumn{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.feedCard,.premiumCard,.visitorsCard,.onlineCard,.notifCard{
+background:rgba(10,10,14,.42);
+border:1px solid rgba(255,255,255,.06);
+border-radius:24px;
+backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+padding:18px;
+box-shadow:0 10px 40px rgba(0,0,0,.28);
+}
+
+.feedHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:14px;
+}
+
+.feedTitle{
+font-size:26px;
+font-weight:800;
+}
+
+.feedSub{
+color:rgba(255,255,255,.58);
+font-size:14px;
+}
+
+.profileUpdate{
+display:flex;
+gap:14px;
+padding:14px;
+border-radius:18px;
+background:rgba(255,255,255,.04);
+margin-bottom:12px;
+}
+
+.profileUpdate img{
+width:58px;
+height:58px;
+border-radius:18px;
+object-fit:cover;
+}
+
+.updateName{
+font-weight:700;
+margin-bottom:4px;
+}
+
+.updateText{
+color:rgba(255,255,255,.74);
+font-size:14px;
+line-height:1.4;
+}
+
+.onlineGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.onlineMini{
+background:rgba(255,255,255,.04);
+border-radius:18px;
+padding:12px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.onlineMini img{
+width:44px;
+height:44px;
+border-radius:14px;
+object-fit:cover;
+}
+
+.visitorItem{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.premiumCard{
+background:
+linear-gradient(135deg, rgba(124,58,237,.34), rgba(219,39,119,.28));
+overflow:hidden;
+position:relative;
+}
+
+.premiumCard::before{
+content:'PREMIUM';
+position:absolute;
+right:-25px;
+top:18px;
+background:#fff;
+color:#111;
+padding:6px 40px;
+transform:rotate(35deg);
+font-size:11px;
+font-weight:900;
+}
+
+.premiumBtn{
+margin-top:18px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:16px;
+font-weight:800;
+background:#fff;
+color:#111;
+}
+
+.homeFeed::-webkit-scrollbar{
+width:6px;
+}
+
 </style>
 <div id="floatingMessenger">
 <div class="floatingMessengerTop">
@@ -1569,6 +1930,141 @@ button.primary{
 ::-webkit-scrollbar-thumb{
  background:linear-gradient(#7c3aed,#d6006e);
  border-radius:999px;
+}
+
+
+/* ===== SOCIAL HOME PREMIUM ===== */
+.homeFeed{
+display:grid;
+grid-template-columns:1.2fr .8fr;
+gap:18px;
+padding:18px;
+height:calc(100vh - 76px);
+overflow:auto;
+}
+
+.feedColumn,.sideColumn{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.feedCard,.premiumCard,.visitorsCard,.onlineCard,.notifCard{
+background:rgba(10,10,14,.42);
+border:1px solid rgba(255,255,255,.06);
+border-radius:24px;
+backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+padding:18px;
+box-shadow:0 10px 40px rgba(0,0,0,.28);
+}
+
+.feedHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:14px;
+}
+
+.feedTitle{
+font-size:26px;
+font-weight:800;
+}
+
+.feedSub{
+color:rgba(255,255,255,.58);
+font-size:14px;
+}
+
+.profileUpdate{
+display:flex;
+gap:14px;
+padding:14px;
+border-radius:18px;
+background:rgba(255,255,255,.04);
+margin-bottom:12px;
+}
+
+.profileUpdate img{
+width:58px;
+height:58px;
+border-radius:18px;
+object-fit:cover;
+}
+
+.updateName{
+font-weight:700;
+margin-bottom:4px;
+}
+
+.updateText{
+color:rgba(255,255,255,.74);
+font-size:14px;
+line-height:1.4;
+}
+
+.onlineGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.onlineMini{
+background:rgba(255,255,255,.04);
+border-radius:18px;
+padding:12px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.onlineMini img{
+width:44px;
+height:44px;
+border-radius:14px;
+object-fit:cover;
+}
+
+.visitorItem{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.premiumCard{
+background:
+linear-gradient(135deg, rgba(124,58,237,.34), rgba(219,39,119,.28));
+overflow:hidden;
+position:relative;
+}
+
+.premiumCard::before{
+content:'PREMIUM';
+position:absolute;
+right:-25px;
+top:18px;
+background:#fff;
+color:#111;
+padding:6px 40px;
+transform:rotate(35deg);
+font-size:11px;
+font-weight:900;
+}
+
+.premiumBtn{
+margin-top:18px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:16px;
+font-weight:800;
+background:#fff;
+color:#111;
+}
+
+.homeFeed::-webkit-scrollbar{
+width:6px;
 }
 
 </style>
@@ -1965,6 +2461,141 @@ button.primary{
 ::-webkit-scrollbar-thumb{
  background:linear-gradient(#7c3aed,#d6006e);
  border-radius:999px;
+}
+
+
+/* ===== SOCIAL HOME PREMIUM ===== */
+.homeFeed{
+display:grid;
+grid-template-columns:1.2fr .8fr;
+gap:18px;
+padding:18px;
+height:calc(100vh - 76px);
+overflow:auto;
+}
+
+.feedColumn,.sideColumn{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.feedCard,.premiumCard,.visitorsCard,.onlineCard,.notifCard{
+background:rgba(10,10,14,.42);
+border:1px solid rgba(255,255,255,.06);
+border-radius:24px;
+backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+padding:18px;
+box-shadow:0 10px 40px rgba(0,0,0,.28);
+}
+
+.feedHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:14px;
+}
+
+.feedTitle{
+font-size:26px;
+font-weight:800;
+}
+
+.feedSub{
+color:rgba(255,255,255,.58);
+font-size:14px;
+}
+
+.profileUpdate{
+display:flex;
+gap:14px;
+padding:14px;
+border-radius:18px;
+background:rgba(255,255,255,.04);
+margin-bottom:12px;
+}
+
+.profileUpdate img{
+width:58px;
+height:58px;
+border-radius:18px;
+object-fit:cover;
+}
+
+.updateName{
+font-weight:700;
+margin-bottom:4px;
+}
+
+.updateText{
+color:rgba(255,255,255,.74);
+font-size:14px;
+line-height:1.4;
+}
+
+.onlineGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.onlineMini{
+background:rgba(255,255,255,.04);
+border-radius:18px;
+padding:12px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.onlineMini img{
+width:44px;
+height:44px;
+border-radius:14px;
+object-fit:cover;
+}
+
+.visitorItem{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.premiumCard{
+background:
+linear-gradient(135deg, rgba(124,58,237,.34), rgba(219,39,119,.28));
+overflow:hidden;
+position:relative;
+}
+
+.premiumCard::before{
+content:'PREMIUM';
+position:absolute;
+right:-25px;
+top:18px;
+background:#fff;
+color:#111;
+padding:6px 40px;
+transform:rotate(35deg);
+font-size:11px;
+font-weight:900;
+}
+
+.premiumBtn{
+margin-top:18px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:16px;
+font-weight:800;
+background:#fff;
+color:#111;
+}
+
+.homeFeed::-webkit-scrollbar{
+width:6px;
 }
 
 </style>
