@@ -1,0 +1,22 @@
+INSTRUCCIONES
+
+1. Descargá el archivo index.html.
+2. En GitHub, entrá al repositorio nombreweb-demo.
+3. Abrí el archivo index.html actual.
+4. Tocá el lápiz para editar.
+5. Borrá todo el contenido.
+6. Pegá TODO el contenido del nuevo index.html.
+7. Tocá Commit changes.
+8. Esperá el deploy de Vercel.
+
+Qué corrige este archivo:
+- La cámara pública queda separada de la cámara privada.
+- En el chat general, Ver cámara intenta entrar directo sin pedir solicitud al otro usuario.
+- En privado, el botón Webcam envía solicitud con cartel Aceptar/Rechazar.
+- Al aceptar, se abre ventana flotante movible.
+- Botón Cortar cierra la llamada privada y apaga el stream privado.
+
+Importante:
+- Quien activa su cámara pública sí tiene que aceptar permiso del navegador una vez.
+- Quien solo mira una cámara pública no debería tener que activar su propia cámara.
+- Para llamada privada, ambos navegadores pueden pedir permiso de cámara porque ambos participan con video.
