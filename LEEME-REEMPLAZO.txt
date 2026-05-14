@@ -1,0 +1,24 @@
+PARCHE LIMPIO - MENÚ + MENSAJES
+
+Qué cambia:
+- Menú lateral simplificado: Chat general, Mensajes, Buscar, Perfil.
+- Menú móvil simplificado.
+- Chat general sin bloque de cámaras.
+- Panel derecho sin botón Solo cámaras ni solicitudes de cámara visibles.
+- Mensajes rediseñado con lista de conversaciones y chat en panel derecho.
+- Mensajes muestra último mensaje, fotos privadas y aviso simple de mensaje entrante no leído.
+- Diseño de Mensajes más oscuro y coherente con la app.
+
+Cómo usarlo:
+1. Entrá a GitHub en el repositorio del proyecto.
+2. Abrí el archivo index.html actual.
+3. Tocá editar.
+4. Borrá todo el contenido actual.
+5. Pegá el contenido del index.html de este parche.
+6. Commit changes.
+7. Esperá el redeploy de Vercel.
+
+Importante:
+- No toca la base de datos.
+- No modifica package.json.
+- No intenta arreglar cámaras; esta versión prioriza dejar la app estable y limpia.
